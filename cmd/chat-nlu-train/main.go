@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -16,41 +17,56 @@ import (
 
 func main() {
 	var (
-		corpusRoot      string
-		fileMapPath     string
-		categoryMapPath string
-		defaultIntent   string
-		skipUnmapped    bool
-		includeReplies  bool
-		extraCSV        string
-		dumpSamplesCSV  string
-		outDir          string
-		version         string
-		unknownIntent   string
-		defaultTh       float64
-		thresholdsStr   string
-		language        string
-		searchMode      bool
-		hmmMode         bool
-		lowercase       bool
-		stripPunct      bool
-		stopwordsStr    string
-		minTokenLen     int
+		corpusRoot        string
+		fileMapPath       string
+		categoryMapPath   string
+		defaultIntent     string
+		skipUnmapped      bool
+		includeReplies    bool
+		extraCSV          string
+		dumpSamplesCSV    string
+		evalReportPath    string
+		outDir            string
+		version           string
+		unknownIntent     string
+		defaultTh         float64
+		thresholdsStr     string
+		language          string
+		searchMode        bool
+		hmmMode           bool
+		lowercase         bool
+		stripPunct        bool
+		stopwordsStr      string
+		minTokenLen       int
+		splitEnabled      bool
+		trainRatio        float64
+		valRatio          float64
+		testRatio         float64
+		seed              int64
+		autoCalibrate     bool
+		disableTaxonomy   bool
+		taxonomyAliasPath string
+		sourceName        string
+		sourceVersion     string
+		sourceRevision    string
+		sourceRepoURL     string
+		sourceCommit      string
 	)
 
-	flag.StringVar(&corpusRoot, "corpus-root", "", "chatterbot chinese corpus root directory")
+	flag.StringVar(&corpusRoot, "corpus-root", "", "chatterbot language corpus root directory")
 	flag.StringVar(&fileMapPath, "file-map", "", "yaml file: filename.yml -> intent")
 	flag.StringVar(&categoryMapPath, "category-map", "", "yaml file: category -> intent")
 	flag.StringVar(&defaultIntent, "default-intent", "", "default intent for unmapped files")
 	flag.BoolVar(&skipUnmapped, "skip-unmapped", true, "skip files without resolved intent")
 	flag.BoolVar(&includeReplies, "include-replies", true, "include all utterances in conversations")
 	flag.StringVar(&extraCSV, "extra-csv", "", "optional extra csv samples (text,intent)")
-	flag.StringVar(&dumpSamplesCSV, "dump-samples", "", "optional path to dump the effective training samples (csv)")
+	flag.StringVar(&dumpSamplesCSV, "dump-samples", "", "optional path to dump effective training samples (csv)")
+	flag.StringVar(&evalReportPath, "eval-report", "", "optional path to dump evaluation metadata (json)")
 	flag.StringVar(&outDir, "out", "./model", "output model directory")
 	flag.StringVar(&version, "version", "", "model version")
 	flag.StringVar(&unknownIntent, "unknown-intent", chatnlu.DefaultUnknownIntent, "unknown intent label")
 	flag.Float64Var(&defaultTh, "threshold", 0.55, "default intent confidence threshold")
-	flag.StringVar(&thresholdsStr, "thresholds", "", "per intent thresholds: intent=0.6,intent2=0.7")
+	flag.StringVar(&thresholdsStr, "thresholds", "", "per-intent thresholds: intent=0.6,intent2=0.7")
 	flag.StringVar(&language, "lang", "zh", "training language (zh/en/ja/ko)")
 	flag.BoolVar(&searchMode, "search-mode", true, "use gse search mode")
 	flag.BoolVar(&hmmMode, "hmm", true, "use gse hmm mode")
@@ -58,6 +74,19 @@ func main() {
 	flag.BoolVar(&stripPunct, "strip-punct", true, "strip punctuation before tokenization")
 	flag.StringVar(&stopwordsStr, "stopwords", "", "comma-separated stopwords")
 	flag.IntVar(&minTokenLen, "min-token-len", 1, "minimum token rune length")
+	flag.BoolVar(&splitEnabled, "split-enabled", true, "enable deterministic train/val/test split")
+	flag.Float64Var(&trainRatio, "train-ratio", 0.8, "train split ratio")
+	flag.Float64Var(&valRatio, "val-ratio", 0.1, "validation split ratio")
+	flag.Float64Var(&testRatio, "test-ratio", 0.1, "test split ratio")
+	flag.Int64Var(&seed, "seed", 42, "random seed for deterministic split")
+	flag.BoolVar(&autoCalibrate, "auto-calibrate-thresholds", true, "auto calibrate per-intent thresholds using validation split")
+	flag.BoolVar(&disableTaxonomy, "disable-taxonomy", true, "disable default intent taxonomy normalization")
+	flag.StringVar(&taxonomyAliasPath, "taxonomy-aliases", "", "yaml file: alias_intent -> canonical_intent")
+	flag.StringVar(&sourceName, "source-name", "", "training source name for metadata")
+	flag.StringVar(&sourceVersion, "source-version", "", "training source version for metadata")
+	flag.StringVar(&sourceRevision, "source-revision", "", "training source revision for metadata")
+	flag.StringVar(&sourceRepoURL, "source-repo-url", "", "training source repository URL for metadata")
+	flag.StringVar(&sourceCommit, "source-commit", "", "training source commit hash for metadata")
 	flag.Parse()
 
 	if strings.TrimSpace(corpusRoot) == "" && strings.TrimSpace(extraCSV) == "" {
@@ -110,6 +139,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("parse thresholds failed: %v", err)
 	}
+	aliases, err := loadMapFile(taxonomyAliasPath)
+	if err != nil {
+		log.Fatalf("load taxonomy aliases failed: %v", err)
+	}
+
 	cfg := chatnlu.DefaultTrainConfig()
 	if strings.TrimSpace(version) != "" {
 		cfg.Version = strings.TrimSpace(version)
@@ -124,6 +158,25 @@ func main() {
 	cfg.Tokenizer.StripPunct = stripPunct
 	cfg.Tokenizer.MinTokenLen = minTokenLen
 	cfg.Tokenizer.Stopwords = splitCSV(stopwordsStr)
+	cfg.Split = chatnlu.DatasetSplitConfig{
+		Enabled:    splitEnabled,
+		TrainRatio: trainRatio,
+		ValRatio:   valRatio,
+		TestRatio:  testRatio,
+		Seed:       seed,
+	}
+	cfg.AutoCalibrateThresholds = autoCalibrate
+	cfg.Taxonomy = chatnlu.TaxonomyConfig{
+		Enabled: !disableTaxonomy,
+		Aliases: aliases,
+	}
+	cfg.Source = chatnlu.SourceMetadata{
+		Name:     strings.TrimSpace(sourceName),
+		Version:  strings.TrimSpace(sourceVersion),
+		Revision: strings.TrimSpace(sourceRevision),
+		RepoURL:  strings.TrimSpace(sourceRepoURL),
+		Commit:   strings.TrimSpace(sourceCommit),
+	}
 
 	model, err := chatnlu.Train(samples, cfg)
 	if err != nil {
@@ -137,9 +190,37 @@ func main() {
 	fmt.Printf("train succeeded\n")
 	fmt.Printf("output=%s\n", outDir)
 	fmt.Printf("version=%s\n", meta.Version)
-	fmt.Printf("samples=%d\n", meta.TrainingSampleCount)
+	fmt.Printf("language=%s\n", meta.Language)
+	fmt.Printf("samples_total=%d\n", meta.Training.TotalSampleCount)
+	fmt.Printf("samples_train=%d\n", meta.Training.TrainSampleCount)
+	fmt.Printf("samples_val=%d\n", meta.Training.ValSampleCount)
+	fmt.Printf("samples_test=%d\n", meta.Training.TestSampleCount)
 	fmt.Printf("classes=%d\n", len(meta.Classes))
 	fmt.Printf("class_list=%s\n", strings.Join(sortedCopy(meta.Classes), ","))
+	if report, ok := meta.Evaluation["val"]; ok {
+		fmt.Printf("val_accuracy=%.4f\n", report.Accuracy)
+		fmt.Printf("val_macro_f1=%.4f\n", report.MacroF1)
+	}
+	if report, ok := meta.Evaluation["test"]; ok {
+		fmt.Printf("test_accuracy=%.4f\n", report.Accuracy)
+		fmt.Printf("test_macro_f1=%.4f\n", report.MacroF1)
+	}
+
+	if strings.TrimSpace(evalReportPath) != "" {
+		dir := filepath.Dir(evalReportPath)
+		if dir != "." && dir != "" {
+			if err := os.MkdirAll(dir, 0o755); err != nil {
+				log.Fatalf("create eval report dir failed: %v", err)
+			}
+		}
+		bytes, err := json.MarshalIndent(meta, "", "  ")
+		if err != nil {
+			log.Fatalf("marshal eval report failed: %v", err)
+		}
+		if err := os.WriteFile(evalReportPath, bytes, 0o644); err != nil {
+			log.Fatalf("write eval report failed: %v", err)
+		}
+	}
 }
 
 func loadMapFile(path string) (map[string]string, error) {

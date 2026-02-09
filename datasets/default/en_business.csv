@@ -1,13 +1,387 @@
 text,intent
 what day is tomorrow,calendar_info
 what is the date today,calendar_info
-when is the lantern festival,calendar_info
 what date is next monday,calendar_info
 is tomorrow a holiday,calendar_info
+is tomorrow a public holiday,calendar_info
+is next monday a holiday,calendar_info
+is this weekend a holiday,calendar_info
+do we work tomorrow,calendar_info
+is today a workday,calendar_info
+is saturday a make up workday,calendar_info
+is there any holiday this week,calendar_info
+is there any public holiday next month,calendar_info
+what is the lunar date today,calendar_info
+what is the lunar date tomorrow,calendar_info
+is tomorrow an off day,calendar_info
+are we off tomorrow,calendar_info
+is next monday off,calendar_info
+is this weekend off,calendar_info
+is tomorrow a legal holiday,calendar_info
+is there any legal holiday this week,calendar_info
+when is the next holiday,calendar_info
+when do we get the next day off,calendar_info
+when is spring festival,calendar_info
+what weekday is spring festival,calendar_info
+is spring festival a public holiday,calendar_info
+how many days off for spring festival,calendar_info
+is there make up work around spring festival,calendar_info
+is spring festival off,calendar_info
+do we have days off for spring festival,calendar_info
+is spring festival a day off,calendar_info
+do we work during spring festival,calendar_info
+what is the holiday arrangement for spring festival,calendar_info
+when is new year,calendar_info
+what weekday is new year,calendar_info
+is new year a public holiday,calendar_info
+how many days off for new year,calendar_info
+is there make up work around new year,calendar_info
+is new year off,calendar_info
+do we have days off for new year,calendar_info
+is new year a day off,calendar_info
+do we work during new year,calendar_info
+what is the holiday arrangement for new year,calendar_info
+when is labor day,calendar_info
+what weekday is labor day,calendar_info
+is labor day a public holiday,calendar_info
+how many days off for labor day,calendar_info
+is there make up work around labor day,calendar_info
+is labor day off,calendar_info
+do we have days off for labor day,calendar_info
+is labor day a day off,calendar_info
+do we work during labor day,calendar_info
+what is the holiday arrangement for labor day,calendar_info
+when is dragon boat festival,calendar_info
+what weekday is dragon boat festival,calendar_info
+is dragon boat festival a public holiday,calendar_info
+how many days off for dragon boat festival,calendar_info
+is there make up work around dragon boat festival,calendar_info
+is dragon boat festival off,calendar_info
+do we have days off for dragon boat festival,calendar_info
+is dragon boat festival a day off,calendar_info
+do we work during dragon boat festival,calendar_info
+what is the holiday arrangement for dragon boat festival,calendar_info
+when is mid autumn festival,calendar_info
+what weekday is mid autumn festival,calendar_info
+is mid autumn festival a public holiday,calendar_info
+how many days off for mid autumn festival,calendar_info
+is there make up work around mid autumn festival,calendar_info
+is mid autumn festival off,calendar_info
+do we have days off for mid autumn festival,calendar_info
+is mid autumn festival a day off,calendar_info
+do we work during mid autumn festival,calendar_info
+what is the holiday arrangement for mid autumn festival,calendar_info
+when is national day,calendar_info
+what weekday is national day,calendar_info
+is national day a public holiday,calendar_info
+how many days off for national day,calendar_info
+is there make up work around national day,calendar_info
+is national day off,calendar_info
+do we have days off for national day,calendar_info
+is national day a day off,calendar_info
+do we work during national day,calendar_info
+what is the holiday arrangement for national day,calendar_info
+when is qingming festival,calendar_info
+what weekday is qingming festival,calendar_info
+is qingming festival a public holiday,calendar_info
+how many days off for qingming festival,calendar_info
+is there make up work around qingming festival,calendar_info
+is qingming festival off,calendar_info
+do we have days off for qingming festival,calendar_info
+is qingming festival a day off,calendar_info
+do we work during qingming festival,calendar_info
+what is the holiday arrangement for qingming festival,calendar_info
+when is lantern festival,calendar_info
+what weekday is lantern festival,calendar_info
+is lantern festival a public holiday,calendar_info
+how many days off for lantern festival,calendar_info
+is there make up work around lantern festival,calendar_info
+is lantern festival off,calendar_info
+do we have days off for lantern festival,calendar_info
+is lantern festival a day off,calendar_info
+do we work during lantern festival,calendar_info
+what is the holiday arrangement for lantern festival,calendar_info
+what date is today,calendar_info
+what weekday is today,calendar_info
+is today a holiday,calendar_info
+do we work on today,calendar_info
+is today off,calendar_info
+do we have a day off today,calendar_info
+is today a rest day,calendar_info
+is today a public holiday,calendar_info
+what date is tomorrow,calendar_info
+what weekday is tomorrow,calendar_info
+do we work on tomorrow,calendar_info
+is tomorrow off,calendar_info
+do we have a day off tomorrow,calendar_info
+is tomorrow a rest day,calendar_info
+what date is the day after tomorrow,calendar_info
+what weekday is the day after tomorrow,calendar_info
+is the day after tomorrow a holiday,calendar_info
+do we work on the day after tomorrow,calendar_info
+is the day after tomorrow off,calendar_info
+do we have a day off the day after tomorrow,calendar_info
+is the day after tomorrow a rest day,calendar_info
+is the day after tomorrow a public holiday,calendar_info
+what date is this week,calendar_info
+what weekday is this week,calendar_info
+is this week a holiday,calendar_info
+do we work on this week,calendar_info
+is this week off,calendar_info
+do we have a day off this week,calendar_info
+is this week a rest day,calendar_info
+is this week a public holiday,calendar_info
+what date is next week,calendar_info
+what weekday is next week,calendar_info
+is next week a holiday,calendar_info
+do we work on next week,calendar_info
+is next week off,calendar_info
+do we have a day off next week,calendar_info
+is next week a rest day,calendar_info
+is next week a public holiday,calendar_info
+what date is next weekend,calendar_info
+what weekday is next weekend,calendar_info
+is next weekend a holiday,calendar_info
+do we work on next weekend,calendar_info
+is next weekend off,calendar_info
+do we have a day off next weekend,calendar_info
+is next weekend a rest day,calendar_info
+is next weekend a public holiday,calendar_info
+what date is monday,calendar_info
+what weekday is monday,calendar_info
+is monday a holiday,calendar_info
+do we work on monday,calendar_info
+is monday off,calendar_info
+do we have a day off monday,calendar_info
+is monday a rest day,calendar_info
+is monday a public holiday,calendar_info
+what date is tuesday,calendar_info
+what weekday is tuesday,calendar_info
+is tuesday a holiday,calendar_info
+do we work on tuesday,calendar_info
+is tuesday off,calendar_info
+do we have a day off tuesday,calendar_info
+is tuesday a rest day,calendar_info
+is tuesday a public holiday,calendar_info
+what date is wednesday,calendar_info
+what weekday is wednesday,calendar_info
+is wednesday a holiday,calendar_info
+do we work on wednesday,calendar_info
+is wednesday off,calendar_info
+do we have a day off wednesday,calendar_info
+is wednesday a rest day,calendar_info
+is wednesday a public holiday,calendar_info
+what date is thursday,calendar_info
+what weekday is thursday,calendar_info
+is thursday a holiday,calendar_info
+do we work on thursday,calendar_info
+is thursday off,calendar_info
+do we have a day off thursday,calendar_info
+is thursday a rest day,calendar_info
+is thursday a public holiday,calendar_info
+what date is friday,calendar_info
+what weekday is friday,calendar_info
+is friday a holiday,calendar_info
+do we work on friday,calendar_info
+is friday off,calendar_info
+do we have a day off friday,calendar_info
+is friday a rest day,calendar_info
+is friday a public holiday,calendar_info
+what date is saturday,calendar_info
+what weekday is saturday,calendar_info
+is saturday a holiday,calendar_info
+do we work on saturday,calendar_info
+is saturday off,calendar_info
+do we have a day off saturday,calendar_info
+is saturday a rest day,calendar_info
+is saturday a public holiday,calendar_info
+what date is sunday,calendar_info
+what weekday is sunday,calendar_info
+is sunday a holiday,calendar_info
+do we work on sunday,calendar_info
+is sunday off,calendar_info
+do we have a day off sunday,calendar_info
+is sunday a rest day,calendar_info
+is sunday a public holiday,calendar_info
 weather in shanghai tomorrow,weather_info
 will it rain in beijing today,weather_info
 what is the forecast this week,weather_info
 what is the temperature in guangzhou,weather_info
+will it rain tomorrow,weather_info
+what is the temperature today,weather_info
+will it get colder the day after tomorrow,weather_info
+is there a typhoon this week,weather_info
+what is the air quality today,weather_info
+is uv high tomorrow,weather_info
+what is the weather in beijing tomorrow,weather_info
+what is the weather in beijing the day after tomorrow,weather_info
+weekly forecast for beijing,weather_info
+what is the current temperature in beijing,weather_info
+will it rain in shanghai today,weather_info
+what is the weather in shanghai tomorrow,weather_info
+what is the weather in shanghai the day after tomorrow,weather_info
+weekly forecast for shanghai,weather_info
+what is the current temperature in shanghai,weather_info
+will it rain in guangzhou today,weather_info
+what is the weather in guangzhou tomorrow,weather_info
+what is the weather in guangzhou the day after tomorrow,weather_info
+weekly forecast for guangzhou,weather_info
+what is the current temperature in guangzhou,weather_info
+will it rain in shenzhen today,weather_info
+what is the weather in shenzhen tomorrow,weather_info
+what is the weather in shenzhen the day after tomorrow,weather_info
+weekly forecast for shenzhen,weather_info
+what is the current temperature in shenzhen,weather_info
+will it rain in hangzhou today,weather_info
+what is the weather in hangzhou tomorrow,weather_info
+what is the weather in hangzhou the day after tomorrow,weather_info
+weekly forecast for hangzhou,weather_info
+what is the current temperature in hangzhou,weather_info
+will it rain in nanjing today,weather_info
+what is the weather in nanjing tomorrow,weather_info
+what is the weather in nanjing the day after tomorrow,weather_info
+weekly forecast for nanjing,weather_info
+what is the current temperature in nanjing,weather_info
+will it rain in suzhou today,weather_info
+what is the weather in suzhou tomorrow,weather_info
+what is the weather in suzhou the day after tomorrow,weather_info
+weekly forecast for suzhou,weather_info
+what is the current temperature in suzhou,weather_info
+will it rain in chengdu today,weather_info
+what is the weather in chengdu tomorrow,weather_info
+what is the weather in chengdu the day after tomorrow,weather_info
+weekly forecast for chengdu,weather_info
+what is the current temperature in chengdu,weather_info
+will it rain in wuhan today,weather_info
+what is the weather in wuhan tomorrow,weather_info
+what is the weather in wuhan the day after tomorrow,weather_info
+weekly forecast for wuhan,weather_info
+what is the current temperature in wuhan,weather_info
+will it rain in tianjin today,weather_info
+what is the weather in tianjin tomorrow,weather_info
+what is the weather in tianjin the day after tomorrow,weather_info
+weekly forecast for tianjin,weather_info
+what is the current temperature in tianjin,weather_info
+will it rain in chongqing today,weather_info
+what is the weather in chongqing tomorrow,weather_info
+what is the weather in chongqing the day after tomorrow,weather_info
+weekly forecast for chongqing,weather_info
+what is the current temperature in chongqing,weather_info
+will it rain in xian today,weather_info
+what is the weather in xian tomorrow,weather_info
+what is the weather in xian the day after tomorrow,weather_info
+weekly forecast for xian,weather_info
+what is the current temperature in xian,weather_info
+will it rain in zhengzhou today,weather_info
+what is the weather in zhengzhou tomorrow,weather_info
+what is the weather in zhengzhou the day after tomorrow,weather_info
+weekly forecast for zhengzhou,weather_info
+what is the current temperature in zhengzhou,weather_info
+will it rain in changsha today,weather_info
+what is the weather in changsha tomorrow,weather_info
+what is the weather in changsha the day after tomorrow,weather_info
+weekly forecast for changsha,weather_info
+what is the current temperature in changsha,weather_info
+will it rain in qingdao today,weather_info
+what is the weather in qingdao tomorrow,weather_info
+what is the weather in qingdao the day after tomorrow,weather_info
+weekly forecast for qingdao,weather_info
+what is the current temperature in qingdao,weather_info
+will it rain in xiamen today,weather_info
+what is the weather in xiamen tomorrow,weather_info
+what is the weather in xiamen the day after tomorrow,weather_info
+weekly forecast for xiamen,weather_info
+what is the current temperature in xiamen,weather_info
+will it rain in fuzhou today,weather_info
+what is the weather in fuzhou tomorrow,weather_info
+what is the weather in fuzhou the day after tomorrow,weather_info
+weekly forecast for fuzhou,weather_info
+what is the current temperature in fuzhou,weather_info
+will it rain in hefei today,weather_info
+what is the weather in hefei tomorrow,weather_info
+what is the weather in hefei the day after tomorrow,weather_info
+weekly forecast for hefei,weather_info
+what is the current temperature in hefei,weather_info
+will it rain in kunming today,weather_info
+what is the weather in kunming tomorrow,weather_info
+what is the weather in kunming the day after tomorrow,weather_info
+weekly forecast for kunming,weather_info
+what is the current temperature in kunming,weather_info
+will it rain in nanning today,weather_info
+what is the weather in nanning tomorrow,weather_info
+what is the weather in nanning the day after tomorrow,weather_info
+weekly forecast for nanning,weather_info
+what is the current temperature in nanning,weather_info
+will it rain in harbin today,weather_info
+what is the weather in harbin tomorrow,weather_info
+what is the weather in harbin the day after tomorrow,weather_info
+weekly forecast for harbin,weather_info
+what is the current temperature in harbin,weather_info
+will it rain in changchun today,weather_info
+what is the weather in changchun tomorrow,weather_info
+what is the weather in changchun the day after tomorrow,weather_info
+weekly forecast for changchun,weather_info
+what is the current temperature in changchun,weather_info
+will it rain in shenyang today,weather_info
+what is the weather in shenyang tomorrow,weather_info
+what is the weather in shenyang the day after tomorrow,weather_info
+weekly forecast for shenyang,weather_info
+what is the current temperature in shenyang,weather_info
+will it rain in jinan today,weather_info
+what is the weather in jinan tomorrow,weather_info
+what is the weather in jinan the day after tomorrow,weather_info
+weekly forecast for jinan,weather_info
+what is the current temperature in jinan,weather_info
+will it rain in ningbo today,weather_info
+what is the weather in ningbo tomorrow,weather_info
+what is the weather in ningbo the day after tomorrow,weather_info
+weekly forecast for ningbo,weather_info
+what is the current temperature in ningbo,weather_info
+will it rain in wuxi today,weather_info
+what is the weather in wuxi tomorrow,weather_info
+what is the weather in wuxi the day after tomorrow,weather_info
+weekly forecast for wuxi,weather_info
+what is the current temperature in wuxi,weather_info
+will it rain in dongguan today,weather_info
+what is the weather in dongguan tomorrow,weather_info
+what is the weather in dongguan the day after tomorrow,weather_info
+weekly forecast for dongguan,weather_info
+what is the current temperature in dongguan,weather_info
+will it rain in foshan today,weather_info
+what is the weather in foshan tomorrow,weather_info
+what is the weather in foshan the day after tomorrow,weather_info
+weekly forecast for foshan,weather_info
+what is the current temperature in foshan,weather_info
+will there be rain tomorrow,weather_info
+will there be rain the day after tomorrow,weather_info
+will there be rain this week,weather_info
+will there be snow tomorrow,weather_info
+will there be snow the day after tomorrow,weather_info
+will there be snow this week,weather_info
+will there be strong wind tomorrow,weather_info
+will there be strong wind the day after tomorrow,weather_info
+will there be strong wind this week,weather_info
+will there be thunderstorm tomorrow,weather_info
+will there be thunderstorm the day after tomorrow,weather_info
+will there be thunderstorm this week,weather_info
+will there be haze tomorrow,weather_info
+will there be haze the day after tomorrow,weather_info
+will there be haze this week,weather_info
+will there be temperature drop tomorrow,weather_info
+will there be temperature drop the day after tomorrow,weather_info
+will there be temperature drop this week,weather_info
+will there be temperature rise tomorrow,weather_info
+will there be temperature rise the day after tomorrow,weather_info
+will there be temperature rise this week,weather_info
+will there be sunny weather tomorrow,weather_info
+will there be sunny weather the day after tomorrow,weather_info
+will there be sunny weather this week,weather_info
+will there be cloudy weather tomorrow,weather_info
+will there be cloudy weather the day after tomorrow,weather_info
+will there be cloudy weather this week,weather_info
 hello,chitchat_greeting
 good morning,chitchat_greeting
 good evening,chitchat_greeting
+hi,chitchat_greeting
+hey,chitchat_greeting
+are you there,chitchat_greeting

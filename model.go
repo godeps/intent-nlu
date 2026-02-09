@@ -78,6 +78,14 @@ func loadModelFromDir(dir string) (*loadedModel, error) {
 	if strings.TrimSpace(meta.Language) == "" {
 		meta.Language = meta.Tokenizer.Language
 	}
+	taxonomyEnabled := meta.Training.Config.TaxonomyEnabled || len(meta.IntentAliases) > 0
+	if taxonomyEnabled {
+		meta.IntentAliases = mergeIntentAliases(DefaultIntentAliases(), meta.IntentAliases)
+		meta.Thresholds = NormalizeThresholds(meta.Thresholds, meta.IntentAliases)
+	} else {
+		meta.IntentAliases = nil
+		meta.Thresholds = copyThresholds(meta.Thresholds)
+	}
 	if err := ensureClasses(meta, classifier); err != nil {
 		return nil, err
 	}
@@ -88,5 +96,13 @@ func loadModelFromDir(dir string) (*loadedModel, error) {
 			meta.Classes = append(meta.Classes, string(c))
 		}
 	}
+	for i := range meta.Classes {
+		if taxonomyEnabled {
+			meta.Classes[i] = NormalizeIntent(meta.Classes[i], meta.IntentAliases)
+			continue
+		}
+		meta.Classes[i] = strings.TrimSpace(meta.Classes[i])
+	}
+	meta.CanonicalIntents = canonicalIntentsFromClasses(meta.Classes)
 	return &loadedModel{classifier: classifier, meta: meta}, nil
 }

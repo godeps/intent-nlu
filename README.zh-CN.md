@@ -1,171 +1,201 @@
 # chat-nlu（中文文档）
 
-一个可复用的 Go 轻量意图识别工具包。
+一个可复用、低延迟的 Go 意图识别工具包。
 
-- 分词：
-中文使用 `github.com/go-ego/gse`，其他语言使用轻量分词器。
-- 分类：
-`github.com/jbrukh/bayesian`
-- 模块名：
-`github.com/godeps/chat-nlu`
+- 模块名：`github.com/godeps/chat-nlu`
+- 英文文档：`README.md`
+- 核心技术：
+  - 分词：`github.com/go-ego/gse`（中文）+ 非 CJK 轻量分词
+  - 分类：`github.com/jbrukh/bayesian`
 
-English documentation:
-`README.md`
+## 能力概览
 
-## 解决的问题
+1. LLM 前的轻量意图识别。
+2. 可复现的 train/val/test 评估流程。
+3. 按意图阈值自动校准（可选）。
+4. 意图别名归一（taxonomy）。
+5. 多语言路由（`zh`、`en`，可扩展）。
+6. 混合策略（`rule -> NLU -> fallback/LLM`）。
+7. 反馈数据回流（active learning）。
+8. 模型和 bundle 级可追溯元数据。
 
-1. 在 LLM 前做低延迟意图识别。
-2. 支持多语言模型路由（当前已验证 `zh`、`en`）。
-3. 支持从 `chatterbot-corpus` 一键下载并训练。
-4. 支持多语言 bundle 打包与加载。
-
-## 仓库目录结构
+## 目录结构
 
 ```text
 chat-nlu/
   cmd/
-    chat-nlu-train/            # 训练 CLI（单语言模型）
-    chat-nlu-predict/          # 预测 CLI（单模型/多模型/bundle）
-  dataset/
-    chatterbot/                # chatterbot 语料加载器
+    chat-nlu-train/            # 单语言训练
+    chat-nlu-predict/          # 单模型/多模型/bundle 预测
+    chat-nlu-bundle/           # 多语言 bundle 打包
+    chat-nlu-feedback/         # 反馈数据回流
+  dataset/chatterbot/          # chatterbot 语料加载器
   datasets/
-    default/                   # 默认业务训练数据（已提交）
+    default/
       zh_business.csv
       en_business.csv
-    generated/                 # 训练生成数据（有效训练集与映射）
-      *.csv
+    generated/
+      *_train.csv
       *_file_map.yaml
+      eval/*.json
+    feedback/
+      review/
+      archive/
   docs/
     architecture.md
   examples/
     file_intent_map.yaml
   models/
-    model-zh/                  # 中文模型
-      model.gob
-      meta.json
-    model-en/                  # 英文模型
-      model.gob
-      meta.json
-    multilingual/              # 多语言 bundle
-      manifest.json
-      models/
-        zh/
-          model.gob
-          meta.json
-        en/
-          model.gob
-          meta.json
+    model-zh/
+    model-en/
+    multilingual/
   scripts/
-    train_chatterbot_models.sh # 一键下载语料+训练+打包
+    train_chatterbot_models.sh
+    feedback_loop.sh
 
-  # 核心包文件
+  # 核心包
   types.go
-  language.go
   tokenizer.go
+  language.go
+  taxonomy.go
+  evaluation.go
   trainer.go
   model.go
   engine.go
   router.go
   router_bundle.go
-```
-
-## 核心概念
-
-1. 单模型：
-一个语言一个模型目录（`model.gob` + `meta.json`）。
-2. 多模型路由：
-按语言路由到不同模型目录。
-3. Bundle：
-把多个语言模型按标准目录合并，统一通过 `manifest.json` 加载。
-
-## 安装
-
-```bash
-go get github.com/godeps/chat-nlu
+  hybrid_policy.go
 ```
 
 ## 快速开始
 
-### 1) 一键训练（默认 `zh,en`）
+### 1) 运行测试
+
+```bash
+cd ../godeps/chat-nlu
+make test
+```
+
+### 2) 可复现评估（`make eval`）
+
+```bash
+cd ../godeps/chat-nlu
+make eval
+```
+
+输出：
+
+- `datasets/generated/eval/zh_eval.json`
+- `datasets/generated/eval/en_eval.json`
+
+报告包含：accuracy、macro-F1、micro-F1、混淆矩阵、按意图指标、训练元数据。
+
+### 3) 一键训练（默认 `zh,en`）
 
 ```bash
 cd ../godeps/chat-nlu
 ./scripts/train_chatterbot_models.sh
 ```
 
-默认输出：
+输出：
 
-1. 模型：
-`./models/model-zh`、`./models/model-en`
-2. 多语言 bundle：
-`./models/multilingual`
-3. 有效训练集：
-`./datasets/generated/zh_train.csv`、`./datasets/generated/en_train.csv`
+1. `models/model-zh`、`models/model-en`
+2. `models/multilingual`
+3. `datasets/generated/{zh,en}_train.csv`
+4. `datasets/generated/eval/{zh,en}_meta.json`
 
-### 2) 使用 bundle 预测
+## 默认能力矩阵（表格）
 
-```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
-  -bundle ./models/multilingual \
-  -text "明天星期几" \
-  -lang auto
-```
+当前默认内嵌模型为“关闭归一（taxonomy disabled）”的细分类方案：
 
-### 3) 使用单模型预测
+- `zh`：20 类
+- `en`：24 类
+- 兜底：`unknown`
 
-```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
-  -model ./models/model-zh \
-  -text "你好" \
-  -lang auto
-```
+### 当前意图分类
 
-## 训练方法
+| 意图 | 说明 | zh | en |
+| --- | --- | --- | --- |
+| `calendar_info` | 日期、星期、节假日、农历/公历相关查询 | 是 | 是 |
+| `weather_info` | 天气预报、降雨、温度、气候类问题 | 是 | 是 |
+| `chitchat_greeting` | 直接问候（你好/早上好/hello） | 是 | 是 |
+| `chitchat_greetings` | 问候变体（来自语料细分） | 是 | 是 |
+| `chitchat_ai` | AI/助手相关闲聊 | 是 | 是 |
+| `chitchat_botprofile` | 机器人身份/能力/偏好 | 是 | 是 |
+| `chitchat_conversations` | 开放域泛化闲聊 | 是 | 是 |
+| `chitchat_emotion` | 情绪、安慰、心情类闲聊 | 是 | 是 |
+| `chitchat_food` | 美食饮品相关闲聊 | 是 | 是 |
+| `chitchat_gossip` | 八卦/轻社交话题 | 是 | 是 |
+| `chitchat_history` | 历史类闲聊 | 是 | 是 |
+| `chitchat_humor` | 笑话、幽默内容 | 是 | 是 |
+| `chitchat_literature` | 文学、写作、书籍闲聊 | 是 | 是 |
+| `chitchat_money` | 金钱/理财轻话题 | 是 | 是 |
+| `chitchat_movies` | 电影娱乐闲聊 | 是 | 是 |
+| `chitchat_politics` | 政治社会闲聊 | 是 | 是 |
+| `chitchat_psychology` | 心理、人格、认知类闲聊 | 是 | 是 |
+| `chitchat_science` | 科学知识闲聊 | 是 | 是 |
+| `chitchat_sports` | 体育闲聊 | 是 | 是 |
+| `chitchat_trivia` | 泛知识问答/冷知识闲聊 | 是 | 是 |
+| `chitchat_coding` | 编程开发类闲聊 | 否 | 是 |
+| `chitchat_computers` | 计算机/设备/软件闲聊 | 否 | 是 |
+| `chitchat_health` | 健康与生活方式闲聊 | 否 | 是 |
+| `chitchat_tech_support` | 轻技术支持类闲聊 | 否 | 是 |
 
-## 方法 A：一键脚本（推荐）
+### 支持语言
 
-脚本：
-`./scripts/train_chatterbot_models.sh`
+| 语言 | 代码 | 默认内嵌模型 | 自动识别 | 说明 |
+| --- | --- | --- | --- | --- |
+| 中文 | `zh` | 是 | 是 | `gse` 分词，默认 20 类 |
+| 英文 | `en` | 是 | 是 | 轻量分词，默认 24 类 |
+| 日文 | `ja` | 否（需自行训练） | 是 | 支持语言识别，默认不内置模型 |
+| 韩文 | `ko` | 否（需自行训练） | 是 | 支持语言识别，默认不内置模型 |
 
-脚本流程：
+### 推荐可信值（置信度阈值）
 
-1. 拉取或更新 `https://github.com/gunthercox/chatterbot-corpus`。
-2. 按语言目录加载语料。
-3. 自动生成文件名到意图映射（`chitchat_<filename>`）。
-4. 自动追加 `datasets/default/<lang>_business.csv`（如果存在）。
-5. 训练每个语言模型。
-6. 导出有效训练集到 `datasets/generated`。
-7. 生成 `models/multilingual` bundle。
+| 使用场景 | 推荐阈值 | 说明 |
+| --- | --- | --- |
+| 严格工具路由（高精度） | `0.75 - 0.85` | 只接受高置信度意图，兜底比例会增加 |
+| 业务路由（精度/召回平衡） | `0.60 - 0.70` | 生产环境常用区间 |
+| 默认基线 | `0.55` | 当前训练默认阈值 |
+| 召回优先探索 | `0.40 - 0.55` | 召回更高，但误判上升 |
+| 不确定输入 | `< 阈值 -> unknown` | 建议进入 fallback 或 LLM |
 
-常用参数示例：
+### 运行注意事项（表）
+
+| 主题 | 风险 | 建议 |
+| --- | --- | --- |
+| 细分类较多 | 相近闲聊类可能互相混淆 | 保证每类样本量，并结合 confusion matrix 调整 |
+| 语料偏置 | chatterbot 以闲聊为主 | 生产必须叠加业务标注数据 |
+| 多语言路由 | 超短文本/混合文本易误路由 | 关键链路建议传入 language hint |
+| 阈值漂移 | 重训后置信度分布会变化 | 每次发布对比 `eval/*.json` 并重校准 |
+| 内嵌模型更新 | 更新模型需升级依赖并重编译 | 固定版本并在发布说明中标注模型版本 |
+
+## 训练方式
+
+### A）一键脚本（推荐）
 
 ```bash
 ./scripts/train_chatterbot_models.sh \
-  --langs zh,en,ja \
-  --threshold 0.5 \
-  --output-dir ./models \
-  --generated-dataset-dir ./datasets/generated \
+  --langs zh,en \
+  --threshold 0.55 \
+  --split-enabled true \
+  --train-ratio 0.8 \
+  --val-ratio 0.1 \
+  --test-ratio 0.1 \
+  --seed 42 \
+  --auto-calibrate true \
   --merge-bundle true \
-  --bundle-dir ./models/multilingual \
-  --router-default-lang zh
+  --bundle-dir ./models/multilingual
 ```
 
-关键参数说明：
+脚本流程：
 
-1. `--langs`：
-训练语言列表，逗号分隔。
-2. `--threshold`：
-默认置信度阈值。
-3. `--default-extra-dir`：
-默认业务数据目录（按 `<lang>_business.csv` 命名）。
-4. `--generated-dataset-dir`：
-有效训练集导出目录。
-5. `--merge-bundle`：
-是否生成多语言 bundle。
-6. `--router-default-lang`：
-bundle 默认路由语言。
+1. 拉取/更新 `chatterbot-corpus`。
+2. 自动生成文件到意图映射（`chitchat_<file>`）。
+3. 合并业务 CSV（`datasets/default/<lang>_business.csv`，若存在）。
+4. 执行分割训练、评估和阈值校准。
+5. 通过 `cmd/chat-nlu-bundle` 构建多语言 bundle。
 
-## 方法 B：手动 CLI 训练
+### B）手动训练 CLI
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-train \
@@ -174,35 +204,49 @@ GOWORK=off go run ./cmd/chat-nlu-train \
   -file-map ./examples/file_intent_map.yaml \
   -extra-csv ./datasets/default/zh_business.csv \
   -dump-samples ./datasets/generated/zh_train.csv \
+  -eval-report ./datasets/generated/eval/zh_meta.json \
   -out ./models/model-zh \
   -version 2026.02.09.zh.1 \
-  -threshold 0.55
+  -threshold 0.55 \
+  -split-enabled=true \
+  -train-ratio 0.8 \
+  -val-ratio 0.1 \
+  -test-ratio 0.1 \
+  -seed 42 \
+  -auto-calibrate-thresholds=true
 ```
 
-训练参数摘要：
+关键参数：
 
-1. `-lang`：
-模型语言。
-2. `-corpus-root`：
-chatterbot 语料目录。
-3. `-file-map`、`-category-map`：
-语料映射配置。
-4. `-default-intent`：
-未映射文件的默认意图。
-5. `-skip-unmapped`、`-include-replies`：
-语料加载策略。
-6. `-extra-csv`：
-补充业务样本（`text,intent`）。
-7. `-dump-samples`：
-导出最终训练数据。
-8. `-threshold`、`-thresholds`：
-阈值配置。
-9. `-out`、`-version`：
-模型输出目录与版本号。
+- 数据：`-corpus-root`、`-file-map`、`-category-map`、`-extra-csv`
+- 评估：`-split-enabled`、`-train-ratio`、`-val-ratio`、`-test-ratio`、`-seed`、`-eval-report`
+- 阈值：`-threshold`、`-thresholds`、`-auto-calibrate-thresholds`
+- 归一：`-disable-taxonomy`（默认 `true`）、`-taxonomy-aliases`
+- 可追溯：`-source-name`、`-source-version`、`-source-revision`、`-source-repo-url`、`-source-commit`
 
-## 预测方法
+## Bundle 打包 CLI
 
-## 方法 A：单模型预测
+```bash
+GOWORK=off go run ./cmd/chat-nlu-bundle \
+  -bundle-dir ./models/multilingual \
+  -models "zh=./models/model-zh,en=./models/model-en" \
+  -default-lang zh \
+  -version 2026.02.09.bundle.1 \
+  -corpus-repo-url https://github.com/gunthercox/chatterbot-corpus.git \
+  -corpus-commit <commit> \
+  -training-params "seed=42,train_ratio=0.8,val_ratio=0.1,test_ratio=0.1"
+```
+
+`manifest.json` 包含：
+
+- 模型映射（`lang -> path`）
+- 语料来源信息
+- 训练参数快照
+- 各语言模型摘要
+
+## 预测
+
+### 单模型
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-predict \
@@ -212,42 +256,80 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
   -topk 3
 ```
 
-## 方法 B：多模型映射预测
+### 多模型映射
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-predict \
   -models "zh=./models/model-zh,en=./models/model-en" \
-  -text "what is the weather tomorrow" \
+  -text "weather tomorrow" \
   -lang auto
 ```
 
-## 方法 C：bundle 预测
+### Bundle
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-predict \
   -bundle ./models/multilingual \
+  -text "你好" \
+  -lang auto
+```
+
+### 不传模型参数（自动使用内嵌默认模型）
+
+```bash
+GOWORK=off go run ./cmd/chat-nlu-predict \
   -text "hello" \
   -lang auto
 ```
 
-预测参数摘要：
+当 `-bundle`、`-models`、`-model` 都不传时，命令会自动加载包内内嵌的默认模型。
 
-1. `-model`：
-单模型目录。
-2. `-models`：
-多模型映射（`lang=path`）。
-3. `-bundle`：
-bundle 目录（必须包含 `manifest.json`）。
-4. `-lang`：
-语言提示（`auto/zh/en/...`）。
-5. `-min-confidence`：
-单次请求阈值覆盖。
-6. `-topk`：
-返回候选数量。
+## 依赖方内嵌模型（Embedded Bundle）
+
+`chat-nlu` 支持把默认多语言模型内嵌在包内。  
+其他 Go 服务依赖该模块后，可以直接加载，不需要额外携带模型目录。
+
+```go
+router, err := chatnlu.NewRouterFromEmbedded()
+if err != nil {
+    panic(err)
+}
+
+pred, err := router.Predict(context.Background(), "hello", chatnlu.PredictOptions{
+    TopK:         3,
+    LanguageHint: "en",
+})
+```
+
+也可以指定解压缓存目录：
+
+```go
+router, err := chatnlu.NewRouterFromEmbeddedIn("./.cache/chat-nlu")
+```
+
+## 反馈回流
+
+用途：
+
+1. 将人工确认样本追加到 `datasets/default/<lang>_business.csv`
+2. 将低置信度或 `unknown` 样本写入 review 队列
+
+```bash
+./scripts/feedback_loop.sh --input ./tmp/feedback.csv
+```
+
+支持的 CSV 字段：
+
+- 必填：`text`
+- 可选别名：
+  - 语言：`language`
+  - 预测意图：`pred_intent|intent|predicted_intent`
+  - 分数：`confidence|score`
+  - 人工标签：`final_intent|human_intent|label`
 
 ## 代码接入示例
 
-单模型：
+### Engine
 
 ```go
 engine, err := chatnlu.NewEngineFromDir("./models/model-zh")
@@ -261,24 +343,7 @@ pred, err := engine.Predict(context.Background(), "明天星期几", chatnlu.Pre
 })
 ```
 
-多模型路由：
-
-```go
-router, err := chatnlu.NewRouterFromDirs(map[string]string{
-    "zh": "./models/model-zh",
-    "en": "./models/model-en",
-}, "zh")
-if err != nil {
-    panic(err)
-}
-
-pred, _ := router.Predict(context.Background(), "what is weather tomorrow", chatnlu.PredictOptions{
-    TopK:         3,
-    LanguageHint: "auto",
-})
-```
-
-Bundle 加载：
+### Router
 
 ```go
 router, err := chatnlu.NewRouterFromBundle("./models/multilingual")
@@ -286,41 +351,41 @@ if err != nil {
     panic(err)
 }
 
-pred, _ := router.Predict(context.Background(), "你好", chatnlu.PredictOptions{
+pred, err := router.Predict(context.Background(), "weather tomorrow", chatnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "auto",
 })
 ```
 
+### Hybrid Policy（规则 -> NLU -> 兜底）
+
+```go
+policy := &chatnlu.HybridPolicy{
+    Router: router,
+    Rules: []chatnlu.DeterministicRule{
+        {ID: "r1", Intent: "calendar_info", ContainsAny: []string{"星期几", "几号"}},
+    },
+}
+_ = policy.Prepare()
+
+decision, err := policy.Decide(context.Background(), userText, chatnlu.PredictOptions{TopK: 3})
+// decision.Route: rule | nlu | fallback
+// decision.ShouldCallLLM 表示是否进入 LLM
+```
+
 ## 注意事项
 
-1. `chatterbot-corpus` 主要是闲聊语料。
-业务意图（如 `calendar_info`、`weather_info`）建议补充自有标注数据。
-2. 阈值需要调优。
-阈值高会提升精度但增加 `unknown`，阈值低会提升召回但误判上升。
-3. bundle 是“多模型打包”，不是“单一融合分类器”。
-每种语言仍然独立预测。
-4. 建议对训练数据和模型进行版本管理。
-保证可复现性（语料版本 + 映射 + 阈值）。
-5. 生成数据和模型会增加仓库体积。
-如有需要可迁移到制品仓库存储。
-6. 本地缓存目录是 `./.cache`。
-已在 `.gitignore` 中忽略，可随时重建。
+1. `chatterbot-corpus` 主要是闲聊语料，业务场景需要补充自有标注数据。
+2. 多语言 bundle 是“多模型打包”，不是“单模型融合”。
+3. 固定阈值、分割比例和 seed，才能做可比离线评估。
+4. 训练与模型产物会增长较快，建议按环境规划存储策略。
 
-## 常见问题
-
-1. 语料 YAML 解析报错：
-更新到最新代码后重试（已兼容 chatterbot 常见混合结构）。
-2. 结果总是 `unknown`：
-先用 `-min-confidence` 降低阈值排查，再调整训练阈值。
-3. 语言路由不准：
-显式传 `-lang` 或设置合适默认路由语言。
-4. 业务意图命中率低：
-检查 `file-map` 和业务 CSV 样本质量与覆盖度。
-
-## 测试
+## 常用命令
 
 ```bash
-cd ../godeps/chat-nlu
+make test
+make eval
+./scripts/train_chatterbot_models.sh
+./scripts/feedback_loop.sh --input <feedback.csv>
 GOWORK=off go test ./...
 ```

@@ -1,9 +1,44 @@
 {
-  "version": "2026.02.09.bundle.060143",
-  "createdAt": "2026-02-09T06:01:43Z",
+  "version": "fix.holiday.weather.v2.2026.02.09.bundle.084952",
+  "createdAt": "2026-02-09T08:49:52.874376673Z",
   "defaultLanguage": "zh",
+  "corpus": {
+    "repoUrl": "https://github.com/gunthercox/chatterbot-corpus.git",
+    "commit": "95170ba17a10ec26507560213aa6b07d1403ec73"
+  },
+  "trainingParams": {
+    "auto_calibrate": "true",
+    "disable_taxonomy": "true",
+    "include_replies": "true",
+    "seed": "42",
+    "skip_unmapped": "true",
+    "split_enabled": "true",
+    "test_ratio": "0.1",
+    "threshold": "0.55",
+    "train_ratio": "0.8",
+    "unknown_intent": "unknown",
+    "val_ratio": "0.1"
+  },
+  "modelSummary": {
+    "en": {
+      "version": "fix.holiday.weather.v2.2026.02.09.en.084952",
+      "language": "en",
+      "trainingSampleCount": 1853,
+      "totalSampleCount": 2316,
+      "defaultThreshold": 0.55,
+      "macroF1": 0.07382822839856305
+    },
+    "zh": {
+      "version": "fix.holiday.weather.v2.2026.02.09.zh.084950",
+      "language": "zh",
+      "trainingSampleCount": 1078,
+      "totalSampleCount": 1347,
+      "defaultThreshold": 0.55,
+      "macroF1": 0.2376622718052738
+    }
+  },
   "models": {
-    "zh": "models/zh",
-    "en": "models/en"
+    "en": "models/en",
+    "zh": "models/zh"
   }
 }

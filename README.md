@@ -1,173 +1,201 @@
 # chat-nlu
 
-A lightweight, reusable intent recognition toolkit for Go projects.
+Lightweight, reusable intent recognition toolkit for Go projects.
 
-- Tokenization:
-`github.com/go-ego/gse` for Chinese, lightweight tokenizer for other languages.
-- Classification:
-`github.com/jbrukh/bayesian`.
-- Module:
-`github.com/godeps/chat-nlu`
+- Module: `github.com/godeps/chat-nlu`
+- Chinese docs: `README.zh-CN.md`
+- Core stack:
+  - Tokenization: `github.com/go-ego/gse` (Chinese), normalized splitter for non-CJK
+  - Classifier: `github.com/jbrukh/bayesian`
 
-Chinese documentation:
-`README.zh-CN.md`
+## What It Provides
 
-## What It Solves
+1. Low-latency pre-LLM intent recognition.
+2. Deterministic train/val/test evaluation pipeline.
+3. Per-intent threshold calibration (optional).
+4. Intent taxonomy normalization (aliases -> canonical intents).
+5. Multi-language routing (`zh`, `en`, extensible).
+6. Hybrid policy (`rules -> NLU -> fallback/LLM`).
+7. Data feedback loop for active dataset improvement.
+8. Reproducibility metadata in model meta and bundle manifest.
 
-1. Fast pre-LLM intent routing.
-2. Multi-language model routing (`zh`, `en`, more optional).
-3. One-click corpus-based model training from `chatterbot-corpus`.
-4. Reusable model bundle format for deployment.
-
-## Repository Structure
+## Repository Layout
 
 ```text
 chat-nlu/
   cmd/
-    chat-nlu-train/            # CLI: train one language model
-    chat-nlu-predict/          # CLI: predict from one model / multi-model / bundle
-  dataset/
-    chatterbot/                # chatterbot corpus loader
+    chat-nlu-train/            # train one language model
+    chat-nlu-predict/          # predict by single model / model map / bundle
+    chat-nlu-bundle/           # build multilingual bundle from trained models
+    chat-nlu-feedback/         # feedback ingestion and dataset/review update
+  dataset/chatterbot/          # chatterbot corpus loader
   datasets/
-    default/                   # default business CSV data, committed
+    default/
       zh_business.csv
       en_business.csv
-    generated/                 # generated effective train datasets
-      *.csv
-      *_file_map.yaml
+    generated/
+      *_train.csv              # effective training samples
+      *_file_map.yaml          # auto-generated chatterbot mappings
+      eval/*.json              # evaluation/model meta snapshots
+    feedback/
+      review/                  # low-confidence/unknown queue
+      archive/                 # optional archived feedback
   docs/
     architecture.md
   examples/
     file_intent_map.yaml
   models/
-    model-zh/                  # trained zh model artifacts
-      model.gob
-      meta.json
-    model-en/                  # trained en model artifacts
-      model.gob
-      meta.json
-    multilingual/              # merged bundle
-      manifest.json
-      models/
-        zh/
-          model.gob
-          meta.json
-        en/
-          model.gob
-          meta.json
+    model-zh/
+    model-en/
+    multilingual/
   scripts/
-    train_chatterbot_models.sh # one-click corpus download + training + bundle
+    train_chatterbot_models.sh
+    feedback_loop.sh
 
-  # core package files
+  # core package
   types.go
-  language.go
   tokenizer.go
+  language.go
+  taxonomy.go
+  evaluation.go
   trainer.go
   model.go
   engine.go
   router.go
   router_bundle.go
-```
-
-## Core Concepts
-
-1. Single model:
-one language model directory containing `model.gob` and `meta.json`.
-2. Multi-model routing:
-map language to model directory (for example `zh=...`, `en=...`).
-3. Bundle:
-a merged directory with `manifest.json` + per-language model folders.
-
-## Install
-
-```bash
-go get github.com/godeps/chat-nlu
+  hybrid_policy.go
 ```
 
 ## Quick Start
 
-### 1) One-click training (default `zh,en`)
+### 1) Run tests
+
+```bash
+cd ../godeps/chat-nlu
+make test
+```
+
+### 2) Reproducible local evaluation (`make eval`)
+
+```bash
+cd ../godeps/chat-nlu
+make eval
+```
+
+Outputs:
+
+- `datasets/generated/eval/zh_eval.json`
+- `datasets/generated/eval/en_eval.json`
+
+Both reports include split metrics (accuracy, macro-F1, micro-F1, confusion matrix, per-intent metrics) and training metadata.
+
+### 3) One-click corpus training (`zh,en` default)
 
 ```bash
 cd ../godeps/chat-nlu
 ./scripts/train_chatterbot_models.sh
 ```
 
-Default outputs:
+Outputs:
 
-1. Models:
-`./models/model-zh`, `./models/model-en`
-2. Bundle:
-`./models/multilingual`
-3. Effective train datasets:
-`./datasets/generated/zh_train.csv`, `./datasets/generated/en_train.csv`
+1. `models/model-zh`, `models/model-en`
+2. `models/multilingual`
+3. `datasets/generated/{zh,en}_train.csv`
+4. `datasets/generated/eval/{zh,en}_meta.json`
 
-### 2) Predict from bundle
+## Default Matrix (Tables)
 
-```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
-  -bundle ./models/multilingual \
-  -text "明天星期几" \
-  -lang auto
-```
+Default embedded models currently use taxonomy disabled and fine-grained intents:
 
-### 3) Predict from single model
+- `zh`: 20 classes
+- `en`: 24 classes
+- fallback: `unknown`
 
-```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
-  -model ./models/model-zh \
-  -text "你好" \
-  -lang auto
-```
+### Current Intent Classes
 
-## Training Methods
+| Intent | Description | zh | en |
+| --- | --- | --- | --- |
+| `calendar_info` | Date, weekday, holiday, lunar/solar calendar style queries | Yes | Yes |
+| `weather_info` | Weather forecast, rain, temperature, climate-style questions | Yes | Yes |
+| `chitchat_greeting` | Direct short greetings (hi/hello/good morning) | Yes | Yes |
+| `chitchat_greetings` | Greeting variants from chatterbot corpus | Yes | Yes |
+| `chitchat_ai` | AI/assistant topic small talk | Yes | Yes |
+| `chitchat_botprofile` | Bot identity/capabilities/preferences | Yes | Yes |
+| `chitchat_conversations` | Generic open-domain conversation | Yes | Yes |
+| `chitchat_emotion` | Emotion/mood/support style casual talk | Yes | Yes |
+| `chitchat_food` | Food and drink discussion | Yes | Yes |
+| `chitchat_gossip` | Gossip/celebrity/light social topics | Yes | Yes |
+| `chitchat_history` | History trivia chat | Yes | Yes |
+| `chitchat_humor` | Jokes/funny content | Yes | Yes |
+| `chitchat_literature` | Books/writing/literature chat | Yes | Yes |
+| `chitchat_money` | Money/finance-light casual talk | Yes | Yes |
+| `chitchat_movies` | Movies/entertainment chat | Yes | Yes |
+| `chitchat_politics` | Politics social chat | Yes | Yes |
+| `chitchat_psychology` | Psychology/personality casual topics | Yes | Yes |
+| `chitchat_science` | Science trivia chat | Yes | Yes |
+| `chitchat_sports` | Sports chat | Yes | Yes |
+| `chitchat_trivia` | General trivia/knowledge snippets | Yes | Yes |
+| `chitchat_coding` | Programming/dev casual topics | No | Yes |
+| `chitchat_computers` | Computer/device/software casual topics | No | Yes |
+| `chitchat_health` | Health/wellness casual topics | No | Yes |
+| `chitchat_tech_support` | Light technical support style chat | No | Yes |
 
-## Method A: one-click corpus training script
+### Supported Languages
 
-Script:
-`./scripts/train_chatterbot_models.sh`
+| Language | Code | Default Embedded Model | Auto Detect | Notes |
+| --- | --- | --- | --- | --- |
+| Chinese | `zh` | Yes | Yes | `gse` tokenizer, default class count 20 |
+| English | `en` | Yes | Yes | normalized tokenizer, default class count 24 |
+| Japanese | `ja` | No (train yourself) | Yes | language detection supported, no default model shipped |
+| Korean | `ko` | No (train yourself) | Yes | language detection supported, no default model shipped |
 
-What it does:
+### Recommended Confidence (Trust Threshold)
 
-1. Clone/update `https://github.com/gunthercox/chatterbot-corpus` to local cache.
-2. Load corpus by language folder.
-3. Auto-generate file-to-intent mapping as `chitchat_<filename>`.
-4. Auto-append default business CSV from `datasets/default/<lang>_business.csv` if exists.
-5. Train language models.
-6. Dump effective training data to `datasets/generated`.
-7. Build multilingual bundle into `models/multilingual`.
+| Use Case | Suggested Threshold | Behavior |
+| --- | --- | --- |
+| Strict tool routing (high precision) | `0.75 - 0.85` | Only high-confidence intents are accepted; fallback increases |
+| Business routing (balanced) | `0.60 - 0.70` | Good default for production intent dispatch |
+| Default baseline | `0.55` | Current training default if no per-intent override |
+| Recall-first exploration | `0.40 - 0.55` | More matched intents, but more false positives |
+| Uncertain intent | `< threshold` => `unknown` | Route to fallback or LLM |
 
-Common options:
+### Operational Notes
+
+| Topic | Risk | Recommendation |
+| --- | --- | --- |
+| Fine-grained classes | Confusion across similar chitchat intents | Keep enough per-intent samples and evaluate confusion matrix |
+| Corpus bias | chatterbot data is mostly chitchat | Always mix business CSV for production tasks |
+| Multilingual routing | Short/mixed text can route wrong language | Use language hint for critical paths |
+| Threshold drift | Retraining changes confidence distribution | Re-calibrate thresholds and compare `eval/*.json` every release |
+| Embedded bundle updates | New models require dependency rebuild | Pin model version and release notes with each update |
+
+## Training Workflows
+
+### A) One-click script (recommended)
 
 ```bash
 ./scripts/train_chatterbot_models.sh \
-  --langs zh,en,ja \
-  --threshold 0.5 \
-  --output-dir ./models \
-  --generated-dataset-dir ./datasets/generated \
+  --langs zh,en \
+  --threshold 0.55 \
+  --split-enabled true \
+  --train-ratio 0.8 \
+  --val-ratio 0.1 \
+  --test-ratio 0.1 \
+  --seed 42 \
+  --auto-calibrate true \
   --merge-bundle true \
-  --bundle-dir ./models/multilingual \
-  --router-default-lang zh
+  --bundle-dir ./models/multilingual
 ```
 
-Important options:
+What it does:
 
-1. `--langs`:
-comma-separated languages, default `zh,en`.
-2. `--threshold`:
-default confidence threshold for trained models.
-3. `--default-extra-dir`:
-directory for default business csv (`<lang>_business.csv`).
-4. `--generated-dataset-dir`:
-where effective training datasets are dumped.
-5. `--merge-bundle`:
-whether to generate merged bundle.
-6. `--router-default-lang`:
-default routing language in bundle manifest.
+1. Clone/update `chatterbot-corpus`.
+2. Auto-generate file->intent mapping (`chitchat_<file>`).
+3. Merge optional business CSV (`datasets/default/<lang>_business.csv`).
+4. Train models with split/evaluation/calibration.
+5. Build multilingual bundle via `cmd/chat-nlu-bundle`.
 
-## Method B: manual CLI training
-
-Single language from chatterbot + extra csv:
+### B) Manual training CLI
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-train \
@@ -176,35 +204,49 @@ GOWORK=off go run ./cmd/chat-nlu-train \
   -file-map ./examples/file_intent_map.yaml \
   -extra-csv ./datasets/default/zh_business.csv \
   -dump-samples ./datasets/generated/zh_train.csv \
+  -eval-report ./datasets/generated/eval/zh_meta.json \
   -out ./models/model-zh \
   -version 2026.02.09.zh.1 \
-  -threshold 0.55
+  -threshold 0.55 \
+  -split-enabled=true \
+  -train-ratio 0.8 \
+  -val-ratio 0.1 \
+  -test-ratio 0.1 \
+  -seed 42 \
+  -auto-calibrate-thresholds=true
 ```
 
-Training flags summary:
+Important flags:
 
-1. `-lang`:
-model language (`zh/en/ja/ko/...`).
-2. `-corpus-root`:
-chatterbot language folder path.
-3. `-file-map`, `-category-map`:
-corpus mapping YAML files.
-4. `-default-intent`:
-default intent for unmapped files.
-5. `-skip-unmapped`, `-include-replies`:
-corpus loading strategy.
-6. `-extra-csv`:
-custom labeled csv with `text,intent`.
-7. `-dump-samples`:
-save effective train dataset as csv.
-8. `-threshold`, `-thresholds`:
-confidence thresholds.
-9. `-out`, `-version`:
-output model directory and version.
+- Data: `-corpus-root`, `-file-map`, `-category-map`, `-extra-csv`
+- Split/eval: `-split-enabled`, `-train-ratio`, `-val-ratio`, `-test-ratio`, `-seed`, `-eval-report`
+- Threshold: `-threshold`, `-thresholds`, `-auto-calibrate-thresholds`
+- Taxonomy: `-disable-taxonomy` (default `true`), `-taxonomy-aliases`
+- Reproducibility source: `-source-name`, `-source-version`, `-source-revision`, `-source-repo-url`, `-source-commit`
 
-## Prediction Methods
+## Bundle Build CLI
 
-## Method A: single model
+```bash
+GOWORK=off go run ./cmd/chat-nlu-bundle \
+  -bundle-dir ./models/multilingual \
+  -models "zh=./models/model-zh,en=./models/model-en" \
+  -default-lang zh \
+  -version 2026.02.09.bundle.1 \
+  -corpus-repo-url https://github.com/gunthercox/chatterbot-corpus.git \
+  -corpus-commit <commit> \
+  -training-params "seed=42,train_ratio=0.8,val_ratio=0.1,test_ratio=0.1"
+```
+
+Bundle manifest includes:
+
+- model mapping (`lang -> relative path`)
+- corpus metadata
+- training parameter snapshot
+- per-model summary
+
+## Prediction
+
+### Single model
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-predict \
@@ -214,42 +256,80 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
   -topk 3
 ```
 
-## Method B: multi-model mapping
+### Multi-model map
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-predict \
   -models "zh=./models/model-zh,en=./models/model-en" \
-  -text "what is the weather tomorrow" \
+  -text "weather tomorrow" \
   -lang auto
 ```
 
-## Method C: bundle
+### Bundle
 
 ```bash
 GOWORK=off go run ./cmd/chat-nlu-predict \
   -bundle ./models/multilingual \
+  -text "你好" \
+  -lang auto
+```
+
+### No model flags (use embedded default bundle)
+
+```bash
+GOWORK=off go run ./cmd/chat-nlu-predict \
   -text "hello" \
   -lang auto
 ```
 
-Predict flags summary:
+If `-bundle`, `-models`, and `-model` are all omitted, the command loads embedded default models.
 
-1. `-model`:
-single model dir.
-2. `-models`:
-comma-separated `lang=path` map.
-3. `-bundle`:
-bundle dir with `manifest.json`.
-4. `-lang`:
-language hint (`auto/zh/en/...`).
-5. `-min-confidence`:
-override threshold per request.
-6. `-topk`:
-number of candidates returned.
+## Embedded Bundle (for dependency consumers)
+
+`chat-nlu` can embed default multilingual models into the package itself.
+When another Go service imports this module, it can load models without shipping external files.
+
+```go
+router, err := chatnlu.NewRouterFromEmbedded()
+if err != nil {
+    panic(err)
+}
+
+pred, err := router.Predict(context.Background(), "hello", chatnlu.PredictOptions{
+    TopK:         3,
+    LanguageHint: "en",
+})
+```
+
+Optional custom extraction cache directory:
+
+```go
+router, err := chatnlu.NewRouterFromEmbeddedIn("./.cache/chat-nlu")
+```
+
+## Feedback Loop
+
+Use model feedback CSV to:
+
+1. Append human-labeled rows into `datasets/default/<lang>_business.csv`
+2. Put low-confidence/unknown rows into review queue
+
+```bash
+./scripts/feedback_loop.sh --input ./tmp/feedback.csv
+```
+
+Supported CSV headers:
+
+- required: `text`
+- optional aliases:
+  - language: `language`
+  - predicted intent: `pred_intent|intent|predicted_intent`
+  - score: `confidence|score`
+  - human label: `final_intent|human_intent|label`
 
 ## Package Usage
 
-Single model:
+### Engine
 
 ```go
 engine, err := chatnlu.NewEngineFromDir("./models/model-zh")
@@ -263,24 +343,7 @@ pred, err := engine.Predict(context.Background(), "明天星期几", chatnlu.Pre
 })
 ```
 
-Router from model map:
-
-```go
-router, err := chatnlu.NewRouterFromDirs(map[string]string{
-    "zh": "./models/model-zh",
-    "en": "./models/model-en",
-}, "zh")
-if err != nil {
-    panic(err)
-}
-
-pred, _ := router.Predict(context.Background(), "what is weather tomorrow", chatnlu.PredictOptions{
-    TopK:         3,
-    LanguageHint: "auto",
-})
-```
-
-Router from bundle:
+### Router
 
 ```go
 router, err := chatnlu.NewRouterFromBundle("./models/multilingual")
@@ -288,41 +351,41 @@ if err != nil {
     panic(err)
 }
 
-pred, _ := router.Predict(context.Background(), "你好", chatnlu.PredictOptions{
+pred, err := router.Predict(context.Background(), "weather tomorrow", chatnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "auto",
 })
 ```
 
-## Notes And Caveats
+### Hybrid Policy (rules -> NLU -> fallback)
 
-1. `chatterbot-corpus` is mostly chitchat data.
-You should add business datasets for real intents like `calendar_info` and `weather_info`.
-2. Threshold tuning matters.
-High threshold improves precision but may increase `unknown`.
-3. Bundle is a deployment package, not one merged classifier.
-Each language still uses its own model.
-4. Keep generated data and model artifacts versioned.
-Reproducibility depends on corpus revision + mapping + threshold.
-5. Large generated files can grow repository size.
-If needed, move artifacts to release storage and keep only manifest snapshots in git.
-6. The local cache directory is `./.cache`.
-It is ignored by git and can be safely rebuilt.
+```go
+policy := &chatnlu.HybridPolicy{
+    Router: router,
+    Rules: []chatnlu.DeterministicRule{
+        {ID: "r1", Intent: "calendar_info", ContainsAny: []string{"星期几", "几号"}},
+    },
+}
+_ = policy.Prepare()
 
-## Troubleshooting
+decision, err := policy.Decide(context.Background(), userText, chatnlu.PredictOptions{TopK: 3})
+// decision.Route: rule | nlu | fallback
+// decision.ShouldCallLLM tells whether to continue into LLM
+```
 
-1. YAML parse errors in corpus files:
-update to latest loader and rerun script.
-2. Predictions always `unknown`:
-reduce threshold with `-min-confidence` for testing and re-tune training threshold.
-3. Wrong language routing:
-set explicit `-lang` hint or router default language.
-4. Missing expected intent labels:
-verify `file_map` and extra business CSV label quality.
+## Notes
 
-## Testing
+1. `chatterbot-corpus` is mostly chitchat; business intents still need curated data.
+2. Multilingual bundle is a packaging format, not one fused multilingual classifier.
+3. Keep thresholds and split seed stable for comparable offline evaluation.
+4. Generated artifacts can grow quickly; plan storage strategy by environment.
+
+## Commands Summary
 
 ```bash
-cd ../godeps/chat-nlu
+make test
+make eval
+./scripts/train_chatterbot_models.sh
+./scripts/feedback_loop.sh --input <feedback.csv>
 GOWORK=off go test ./...
 ```

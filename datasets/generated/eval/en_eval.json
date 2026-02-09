@@ -1,0 +1,262 @@
+{
+  "version": "eval.en.seed42",
+  "language": "en",
+  "unknownIntent": "unknown",
+  "defaultThreshold": 0.55,
+  "thresholds": {
+    "calendar_info": 0.01,
+    "chitchat_greeting": 0.55,
+    "weather_info": 0.55
+  },
+  "classes": [
+    "calendar_info",
+    "chitchat_greeting",
+    "weather_info"
+  ],
+  "canonicalIntents": [
+    "calendar_info",
+    "chitchat_greeting",
+    "weather_info"
+  ],
+  "intentAliases": {
+    "calendar": "calendar_info",
+    "chat": "chitchat_general",
+    "chitchat": "chitchat_general",
+    "chitchat_ai": "chitchat_general",
+    "chitchat_botprofile": "chitchat_general",
+    "chitchat_coding": "chitchat_general",
+    "chitchat_computers": "chitchat_general",
+    "chitchat_conversations": "chitchat_general",
+    "chitchat_emotion": "chitchat_general",
+    "chitchat_food": "chitchat_general",
+    "chitchat_gossip": "chitchat_general",
+    "chitchat_greeting": "chitchat_greeting",
+    "chitchat_greetings": "chitchat_greeting",
+    "chitchat_health": "chitchat_general",
+    "chitchat_history": "chitchat_general",
+    "chitchat_humor": "chitchat_general",
+    "chitchat_literature": "chitchat_general",
+    "chitchat_money": "chitchat_general",
+    "chitchat_movies": "chitchat_general",
+    "chitchat_politics": "chitchat_general",
+    "chitchat_psychology": "chitchat_general",
+    "chitchat_science": "chitchat_general",
+    "chitchat_sports": "chitchat_general",
+    "chitchat_tech_support": "chitchat_general",
+    "chitchat_trivia": "chitchat_general",
+    "date_info": "calendar_info",
+    "forecast": "weather_info",
+    "greeting": "chitchat_greeting",
+    "greetings": "chitchat_greeting",
+    "holiday_info": "calendar_info",
+    "unknown": "unknown",
+    "weather": "weather_info",
+    "weather_forecast": "weather_info"
+  },
+  "tokenizer": {
+    "language": "en",
+    "searchMode": true,
+    "hmm": true,
+    "lowercase": true,
+    "minTokenLen": 1,
+    "stripPunct": true,
+    "collapseSpace": true
+  },
+  "trainingSampleCount": 10,
+  "createdAt": "2026-02-09T07:20:38.513630707Z",
+  "evaluation": {
+    "test": {
+      "split": "test",
+      "samples": 1,
+      "accuracy": 0,
+      "macroF1": 0,
+      "microF1": 0,
+      "unknownRate": 0,
+      "perIntent": {
+        "calendar_info": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "chitchat_greeting": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "weather_info": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1
+        }
+      },
+      "confusion": {
+        "weather_info": {
+          "chitchat_greeting": 1
+        }
+      }
+    },
+    "train": {
+      "split": "train",
+      "samples": 10,
+      "accuracy": 0.5,
+      "macroF1": 0.4523809523809524,
+      "microF1": 0.5555555555555556,
+      "unknownRate": 0.2,
+      "perIntent": {
+        "calendar_info": {
+          "precision": 1,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "support": 4,
+          "tp": 3,
+          "fp": 0,
+          "fn": 1
+        },
+        "chitchat_greeting": {
+          "precision": 0.4,
+          "recall": 0.6666666666666666,
+          "f1": 0.5,
+          "support": 3,
+          "tp": 2,
+          "fp": 3,
+          "fn": 1
+        },
+        "weather_info": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      },
+      "confusion": {
+        "calendar_info": {
+          "calendar_info": 3,
+          "unknown": 1
+        },
+        "chitchat_greeting": {
+          "chitchat_greeting": 2,
+          "unknown": 1
+        },
+        "weather_info": {
+          "chitchat_greeting": 3
+        }
+      }
+    },
+    "val": {
+      "split": "val",
+      "samples": 1,
+      "accuracy": 0,
+      "macroF1": 0,
+      "microF1": 0,
+      "unknownRate": 0,
+      "perIntent": {
+        "calendar_info": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1
+        },
+        "chitchat_greeting": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 0,
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "weather_info": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion": {
+        "calendar_info": {
+          "chitchat_greeting": 1
+        }
+      }
+    }
+  },
+  "training": {
+    "seed": 42,
+    "totalSampleCount": 12,
+    "trainSampleCount": 10,
+    "valSampleCount": 1,
+    "testSampleCount": 1,
+    "calibrated": true,
+    "calibratedThresholds": {
+      "calendar_info": 0.01,
+      "chitchat_greeting": 0.55,
+      "weather_info": 0.55
+    },
+    "dataSummary": {
+      "calendar_info": {
+        "total": 5,
+        "train": 4,
+        "val": 1,
+        "test": 0
+      },
+      "chitchat_greeting": {
+        "total": 3,
+        "train": 3,
+        "val": 0,
+        "test": 0
+      },
+      "weather_info": {
+        "total": 4,
+        "train": 3,
+        "val": 0,
+        "test": 1
+      }
+    },
+    "config": {
+      "defaultThreshold": 0.55,
+      "tokenizer": {
+        "language": "en",
+        "searchMode": true,
+        "hmm": true,
+        "lowercase": true,
+        "minTokenLen": 1,
+        "stripPunct": true,
+        "collapseSpace": true
+      },
+      "split": {
+        "enabled": true,
+        "trainRatio": 0.8,
+        "valRatio": 0.1,
+        "testRatio": 0.1,
+        "seed": 42
+      },
+      "autoCalibrateThresholds": true,
+      "taxonomyEnabled": true
+    }
+  },
+  "source": {
+    "name": "default-business",
+    "version": "repository",
+    "revision": "en"
+  }
+}

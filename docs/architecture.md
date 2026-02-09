@@ -2,57 +2,105 @@
 
 ## Overview
 
-`chat-nlu` is a lightweight intent recognition module:
+`chat-nlu` is a lightweight intent recognition package focused on low-latency pre-LLM routing and reusable deployment.
+
+Core stack:
 
 - Chinese tokenization: `gse`
-- Other language tokenization: lightweight normalized token splitter
-- Classification: `jbrukh/bayesian`
-- Inference policy: confidence thresholds + unknown fallback
+- Non-CJK tokenization: normalized splitter
+- Classifier: `jbrukh/bayesian`
 
-## Components
+## Main Components
 
-- `tokenizer.go`: normalization, punctuation stripping, stopword filtering, language-aware tokenization.
-- `trainer.go`: supervised training from labeled samples.
-- `model.go`: persist/load artifacts (`model.gob`, `meta.json`).
-- `engine.go`: concurrent-safe single-model prediction and hot reload.
-- `router.go`: multi-language model routing by hint or auto detection.
-- `router_bundle.go`: multilingual bundle manifest and bundle loader.
+- `tokenizer.go`: language-aware tokenization and normalization.
 - `language.go`: language normalization and lightweight language detection.
-- `dataset/chatterbot/loader.go`: load chatterbot corpus (`*.yml`) into labeled samples.
-- `cmd/chat-nlu-train`: train model from chatterbot and/or extra CSV.
-- `cmd/chat-nlu-predict`: run prediction from model artifacts (single or multi-model).
-- `scripts/train_chatterbot_models.sh`: one-click corpus download + zh/en training + bundle generation.
+- `taxonomy.go`: intent alias normalization (taxonomy).
+- `evaluation.go`: deterministic split, threshold calibration, metrics and confusion matrix.
+- `trainer.go`: supervised training and metadata generation.
+- `model.go`: model persistence and loading (`model.gob`, `meta.json`).
+- `engine.go`: single-model prediction and hot reload.
+- `router.go`: multi-language routing with optional cross-language raw-score fallback.
+- `router_bundle.go`: bundle manifest and bundle loader.
+- `embedded_bundle.go`: embedded bundle extraction and router loading for dependency consumers.
+- `hybrid_policy.go`: deterministic rules + NLU + fallback orchestration.
+- `dataset/chatterbot/loader.go`: chatterbot corpus loader.
 
-## Inference Flow
+## Runtime Flow
 
-Single model (`Engine`):
+### 1) Pre-LLM phase
 
-1. Normalize input text.
-2. Tokenize by model language.
-3. Get class probabilities from bayesian model.
-4. Apply threshold (per intent or default).
-5. Return matched intent or unknown.
+1. Optional deterministic rule matching.
+2. NLU prediction (`Engine` or `Router`).
+3. If matched with confidence, return deterministic route/tool intent.
+4. If unknown/low confidence, go fallback path (typically call LLM).
 
-Multi model (`Router`):
+### 2) Fallback/LLM phase
 
-1. Resolve language by `LanguageHint` or `DetectLanguage`.
-2. Route to corresponding `Engine`.
-3. Run single-model inference.
+`chat-nlu` does not replace LLM generation; it decides when to skip/route/escalate.
 
-Bundle model:
+### 3) Feedback phase
 
-1. `scripts/train_chatterbot_models.sh` produces `models/multilingual/manifest.json`.
-2. `NewRouterFromBundle()` loads all language models from bundle paths.
+Prediction logs + human labels are fed into `cmd/chat-nlu-feedback`:
 
-## Model Files
+- high-quality labels -> business dataset (`datasets/default/*_business.csv`)
+- low-confidence/unknown -> review queue (`datasets/feedback/review`)
 
-- `model.gob`: classifier binary.
-- `meta.json`: language, classes, thresholds, tokenizer settings, version.
+## Training & Evaluation Flow
+
+1. Load data from chatterbot and/or business CSV.
+2. Optionally apply taxonomy normalization (disabled by default).
+3. Tokenize samples.
+4. Deterministically split into train/val/test (hash + seed).
+5. Train bayesian classifier on train split.
+6. Optional threshold calibration on validation split.
+7. Evaluate train/val/test with:
+   - accuracy
+   - macro/micro F1
+   - per-intent precision/recall/F1
+   - confusion matrix
+8. Save model and metadata.
+
+## Artifacts
+
+### Single model directory
+
+- `model.gob`
+- `meta.json`
+
+`meta.json` includes:
+
+- version/language/threshold policy
+- classes + canonical intents + aliases
+- tokenizer config
+- training metadata (split sizes, seed, calibration)
+- evaluation report by split
+- source metadata
+
+### Bundle directory
+
+- `manifest.json`
+- `models/<lang>/{model.gob,meta.json}`
+
+`manifest.json` includes:
+
+- model map (`lang -> relative path`)
+- default language
+- corpus metadata
+- training parameter snapshot
+- per-model summary
+
+## Design Tradeoffs
+
+1. Prioritizes latency and explainability over deep semantic modeling.
+2. Bayesian model is easy to train/deploy, but needs quality labels for domain intents.
+3. Cross-language routing fallback improves robustness for short/mixed input, with small extra compute.
+4. Taxonomy normalization can reduce intent drift, but default is disabled to preserve fine-grained classes.
 
 ## Integration Pattern
 
-Use in pre-LLM stage:
+Recommended production chain:
 
-1. Predict intent from user text.
-2. If matched and high confidence, route deterministic tools.
-3. Otherwise, fallback to LLM.
+1. `HybridPolicy` (rule first)
+2. NLU inference (`Router`)
+3. If `fallback`, call LLM/tool planner
+4. Capture feedback and retrain periodically

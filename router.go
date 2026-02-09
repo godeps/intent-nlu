@@ -8,22 +8,51 @@ import (
 	"sync"
 )
 
+// RouterOptions controls auto language routing behavior.
+type RouterOptions struct {
+	AutoDetectMinConfidence     float64
+	ShortTextRuneLimit          int
+	EnableCrossLanguageFallback bool
+}
+
+// DefaultRouterOptions returns default router behavior.
+func DefaultRouterOptions() RouterOptions {
+	return RouterOptions{
+		AutoDetectMinConfidence:     0.72,
+		ShortTextRuneLimit:          3,
+		EnableCrossLanguageFallback: true,
+	}
+}
+
 // Router routes inputs to language-specific intent engines.
 type Router struct {
 	mu          sync.RWMutex
 	engines     map[Language]*Engine
 	defaultLang Language
+	options     RouterOptions
 }
 
 // NewRouter creates an empty router.
 func NewRouter(defaultLang string) *Router {
+	return NewRouterWithOptions(defaultLang, DefaultRouterOptions())
+}
+
+// NewRouterWithOptions creates an empty router with options.
+func NewRouterWithOptions(defaultLang string, options RouterOptions) *Router {
 	lang := normalizeLanguage(defaultLang)
 	if lang == LanguageAuto {
 		lang = LanguageEN
 	}
+	if options.AutoDetectMinConfidence <= 0 {
+		options.AutoDetectMinConfidence = DefaultRouterOptions().AutoDetectMinConfidence
+	}
+	if options.ShortTextRuneLimit <= 0 {
+		options.ShortTextRuneLimit = DefaultRouterOptions().ShortTextRuneLimit
+	}
 	return &Router{
 		engines:     map[Language]*Engine{},
 		defaultLang: lang,
+		options:     options,
 	}
 }
 
@@ -91,12 +120,25 @@ func (r *Router) Predict(ctx context.Context, text string, opts PredictOptions) 
 		return Prediction{}, fmt.Errorf("router is nil")
 	}
 
-	lang := normalizeLanguage(opts.LanguageHint)
-	if lang == LanguageAuto {
-		lang = DetectLanguage(text)
+	hint := normalizeLanguage(opts.LanguageHint)
+	var selectedLang Language
+	if hint != LanguageAuto {
+		selectedLang = hint
+	} else {
+		detection := DetectLanguageDetailed(text)
+		selectedLang = detection.Language
+		if detection.Language == LanguageAuto {
+			selectedLang = r.defaultLang
+		}
+		if r.options.EnableCrossLanguageFallback &&
+			(detection.Confidence < r.options.AutoDetectMinConfidence || detection.ShortText || detection.LetterCount <= r.options.ShortTextRuneLimit) {
+			if lang, ok := r.pickBestLanguageByRawScore(ctx, text, opts); ok {
+				selectedLang = lang
+			}
+		}
 	}
 
-	engine, usedLang := r.pickEngine(lang)
+	engine, usedLang := r.pickEngine(selectedLang)
 	if engine == nil {
 		return Prediction{}, fmt.Errorf("no engine available")
 	}
@@ -142,4 +184,45 @@ func (r *Router) pickEngine(lang Language) (*Engine, Language) {
 		return engine, key
 	}
 	return nil, LanguageAuto
+}
+
+func (r *Router) pickBestLanguageByRawScore(ctx context.Context, text string, opts PredictOptions) (Language, bool) {
+	r.mu.RLock()
+	if len(r.engines) == 0 {
+		r.mu.RUnlock()
+		return LanguageAuto, false
+	}
+	engines := make(map[Language]*Engine, len(r.engines))
+	for lang, engine := range r.engines {
+		engines[lang] = engine
+	}
+	defaultLang := r.defaultLang
+	r.mu.RUnlock()
+
+	bestLang := LanguageAuto
+	bestScore := -1.0
+	for lang, engine := range engines {
+		rawOpts := opts
+		rawOpts.MinConfidence = 0
+		rawOpts.IgnoreThreshold = true
+		pred, err := engine.Predict(ctx, text, rawOpts)
+		if err != nil {
+			continue
+		}
+		score := pred.Confidence
+		if score > bestScore {
+			bestScore = score
+			bestLang = lang
+			continue
+		}
+		if score == bestScore {
+			if lang == defaultLang {
+				bestLang = lang
+			}
+		}
+	}
+	if bestLang == LanguageAuto {
+		return LanguageAuto, false
+	}
+	return bestLang, true
 }

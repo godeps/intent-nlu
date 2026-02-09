@@ -1,0 +1,121 @@
+package chatnlu
+
+import "strings"
+
+// DefaultIntentAliases returns stable intent taxonomy aliases.
+func DefaultIntentAliases() map[string]string {
+	aliases := map[string]string{
+		"unknown":                "unknown",
+		"calendar":               "calendar_info",
+		"date_info":              "calendar_info",
+		"holiday_info":           "calendar_info",
+		"weather":                "weather_info",
+		"forecast":               "weather_info",
+		"weather_forecast":       "weather_info",
+		"greeting":               "chitchat_greeting",
+		"greetings":              "chitchat_greeting",
+		"chitchat_greetings":     "chitchat_greeting",
+		"chitchat_greeting":      "chitchat_greeting",
+		"chitchat_conversations": "chitchat_general",
+		"chitchat_botprofile":    "chitchat_general",
+		"chitchat_emotion":       "chitchat_general",
+		"chitchat_food":          "chitchat_general",
+		"chitchat_gossip":        "chitchat_general",
+		"chitchat_history":       "chitchat_general",
+		"chitchat_humor":         "chitchat_general",
+		"chitchat_literature":    "chitchat_general",
+		"chitchat_money":         "chitchat_general",
+		"chitchat_movies":        "chitchat_general",
+		"chitchat_politics":      "chitchat_general",
+		"chitchat_psychology":    "chitchat_general",
+		"chitchat_science":       "chitchat_general",
+		"chitchat_sports":        "chitchat_general",
+		"chitchat_trivia":        "chitchat_general",
+		"chitchat_ai":            "chitchat_general",
+		"chitchat_coding":        "chitchat_general",
+		"chitchat_computers":     "chitchat_general",
+		"chitchat_health":        "chitchat_general",
+		"chitchat_tech_support":  "chitchat_general",
+		"chat":                   "chitchat_general",
+		"chitchat":               "chitchat_general",
+	}
+	return aliases
+}
+
+// NormalizeIntent normalizes one intent to canonical taxonomy label.
+func NormalizeIntent(intent string, aliases map[string]string) string {
+	intent = strings.ToLower(strings.TrimSpace(intent))
+	if intent == "" {
+		return ""
+	}
+	if len(aliases) == 0 {
+		return intent
+	}
+	if canonical, ok := aliases[intent]; ok {
+		canonical = strings.ToLower(strings.TrimSpace(canonical))
+		if canonical != "" {
+			return canonical
+		}
+	}
+	return intent
+}
+
+// NormalizeThresholds canonicalizes threshold keys with taxonomy aliases.
+func NormalizeThresholds(thresholds map[string]float64, aliases map[string]string) map[string]float64 {
+	if len(thresholds) == 0 {
+		return nil
+	}
+	out := make(map[string]float64)
+	for key, value := range thresholds {
+		if value <= 0 {
+			continue
+		}
+		intent := NormalizeIntent(key, aliases)
+		if intent == "" {
+			continue
+		}
+		out[intent] = value
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
+func mergeIntentAliases(base map[string]string, ext map[string]string) map[string]string {
+	out := make(map[string]string, len(base)+len(ext))
+	for k, v := range base {
+		key := strings.ToLower(strings.TrimSpace(k))
+		val := strings.ToLower(strings.TrimSpace(v))
+		if key == "" || val == "" {
+			continue
+		}
+		out[key] = val
+	}
+	for k, v := range ext {
+		key := strings.ToLower(strings.TrimSpace(k))
+		val := strings.ToLower(strings.TrimSpace(v))
+		if key == "" || val == "" {
+			continue
+		}
+		out[key] = val
+	}
+	return out
+}
+
+func canonicalIntentsFromClasses(classes []string) []string {
+	seen := map[string]struct{}{}
+	result := make([]string, 0, len(classes))
+	for _, intent := range classes {
+		intent = strings.TrimSpace(intent)
+		if intent == "" {
+			continue
+		}
+		if _, ok := seen[intent]; ok {
+			continue
+		}
+		seen[intent] = struct{}{}
+		result = append(result, intent)
+	}
+	return result
+}

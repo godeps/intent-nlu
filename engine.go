@@ -103,10 +103,10 @@ func (e *Engine) Predict(_ context.Context, text string, opts PredictOptions) (P
 	}
 
 	candidates := make([]Candidate, 0, len(scores))
-	bestIntent := strings.TrimSpace(string(bestClass))
+	bestIntent := NormalizeIntent(strings.TrimSpace(string(bestClass)), state.meta.IntentAliases)
 	bestScore := 0.0
 	for i, score := range scores {
-		intent := string(classes[i])
+		intent := NormalizeIntent(string(classes[i]), state.meta.IntentAliases)
 		candidates = append(candidates, Candidate{Intent: intent, Score: score})
 		if intent == bestIntent {
 			bestScore = score
@@ -132,6 +132,9 @@ func (e *Engine) Predict(_ context.Context, text string, opts PredictOptions) (P
 	}
 	if opts.MinConfidence > 0 {
 		threshold = opts.MinConfidence
+	}
+	if opts.IgnoreThreshold {
+		threshold = 0
 	}
 
 	if bestIntent == "" {

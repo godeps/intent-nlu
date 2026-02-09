@@ -24,7 +24,7 @@ func main() {
 		minConfidence float64
 	)
 
-	flag.StringVar(&modelDir, "model", "./model", "single model directory containing model.gob and meta.json")
+	flag.StringVar(&modelDir, "model", "", "single model directory containing model.gob and meta.json")
 	flag.StringVar(&modelsSpec, "models", "", "multi-model mapping: zh=./model-zh,en=./model-en")
 	flag.StringVar(&bundleDir, "bundle", "", "multilingual bundle directory containing manifest.json")
 	flag.StringVar(&text, "text", "", "input text; if empty, read one line from stdin")
@@ -71,12 +71,18 @@ func main() {
 			log.Fatalf("load router models failed: %v", routerErr)
 		}
 		pred, err = router.Predict(context.Background(), text, opts)
-	} else {
+	} else if strings.TrimSpace(modelDir) != "" {
 		engine, loadErr := chatnlu.NewEngineFromDir(modelDir)
 		if loadErr != nil {
 			log.Fatalf("load model failed: %v", loadErr)
 		}
 		pred, err = engine.Predict(context.Background(), text, opts)
+	} else {
+		router, routerErr := chatnlu.NewRouterFromEmbedded()
+		if routerErr != nil {
+			log.Fatalf("load embedded default bundle failed: %v", routerErr)
+		}
+		pred, err = router.Predict(context.Background(), text, opts)
 	}
 	if err != nil {
 		log.Fatalf("predict failed: %v", err)

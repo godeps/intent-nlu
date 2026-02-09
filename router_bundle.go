@@ -17,14 +17,31 @@ const (
 
 // BundleManifest describes one multilingual model bundle.
 type BundleManifest struct {
-	Version         string            `json:"version"`
-	CreatedAt       time.Time         `json:"createdAt"`
-	DefaultLanguage string            `json:"defaultLanguage"`
-	Models          map[string]string `json:"models"` // lang -> relative model directory
+	Version         string                        `json:"version"`
+	CreatedAt       time.Time                     `json:"createdAt"`
+	DefaultLanguage string                        `json:"defaultLanguage"`
+	Corpus          SourceMetadata                `json:"corpus,omitempty"`
+	TrainingParams  map[string]string             `json:"trainingParams,omitempty"`
+	ModelSummary    map[string]BundleModelSummary `json:"modelSummary,omitempty"`
+	Models          map[string]string             `json:"models"` // lang -> relative model directory
+}
+
+// BundleModelSummary stores high-level model metadata in bundle manifest.
+type BundleModelSummary struct {
+	Version             string  `json:"version,omitempty"`
+	Language            string  `json:"language,omitempty"`
+	TrainingSampleCount int     `json:"trainingSampleCount,omitempty"`
+	TotalSampleCount    int     `json:"totalSampleCount,omitempty"`
+	DefaultThreshold    float64 `json:"defaultThreshold,omitempty"`
+	MacroF1             float64 `json:"macroF1,omitempty"`
 }
 
 // NewRouterFromBundle loads multilingual models from a bundle directory.
 func NewRouterFromBundle(bundleDir string) (*Router, error) {
+	bundleDir = strings.TrimSpace(bundleDir)
+	if bundleDir == "" {
+		return NewRouterFromEmbedded()
+	}
 	manifest, err := LoadBundleManifest(bundleDir)
 	if err != nil {
 		return nil, err
@@ -64,6 +81,10 @@ func NewRouterFromBundle(bundleDir string) (*Router, error) {
 
 // LoadBundleManifest reads manifest.json from a bundle directory.
 func LoadBundleManifest(bundleDir string) (BundleManifest, error) {
+	bundleDir = strings.TrimSpace(bundleDir)
+	if bundleDir == "" {
+		return BundleManifest{}, fmt.Errorf("bundle dir is required")
+	}
 	path := filepath.Join(bundleDir, BundleManifestFileName)
 	bytes, err := os.ReadFile(path)
 	if err != nil {

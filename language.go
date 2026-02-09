@@ -16,6 +16,15 @@ const (
 	LanguageKO   Language = "ko"
 )
 
+// LanguageDetection stores language detection result.
+type LanguageDetection struct {
+	Language    Language
+	Confidence  float64
+	Reason      string
+	LetterCount int
+	ShortText   bool
+}
+
 func normalizeLanguage(raw string) Language {
 	raw = strings.ToLower(strings.TrimSpace(raw))
 	switch raw {
@@ -48,9 +57,14 @@ func isCJKLanguage(lang Language) bool {
 
 // DetectLanguage returns a lightweight language guess for routing.
 func DetectLanguage(text string) Language {
+	return DetectLanguageDetailed(text).Language
+}
+
+// DetectLanguageDetailed returns language detection with confidence and reason.
+func DetectLanguageDetailed(text string) LanguageDetection {
 	text = strings.TrimSpace(text)
 	if text == "" {
-		return LanguageEN
+		return LanguageDetection{Language: LanguageEN, Confidence: 0.1, Reason: "empty_text", ShortText: true}
 	}
 
 	total := 0
@@ -66,24 +80,65 @@ func DetectLanguage(text string) Language {
 			continue
 		}
 		if unicode.In(r, unicode.Hiragana, unicode.Katakana) {
-			return LanguageJA
+			return LanguageDetection{Language: LanguageJA, Confidence: 0.99, Reason: "kana_detected", LetterCount: total, ShortText: total <= 3}
 		}
 		if unicode.In(r, unicode.Hangul) {
-			return LanguageKO
+			return LanguageDetection{Language: LanguageKO, Confidence: 0.99, Reason: "hangul_detected", LetterCount: total, ShortText: total <= 3}
 		}
 		if (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') {
 			latin++
 		}
 	}
 
+	if total == 0 {
+		return LanguageDetection{Language: LanguageEN, Confidence: 0.1, Reason: "no_letters", ShortText: true}
+	}
+
+	shortText := total <= 3
 	if han > 0 && han*2 >= total {
-		return LanguageZH
+		confidence := float64(han) / float64(total)
+		if shortText {
+			confidence *= 0.75
+		}
+		return LanguageDetection{
+			Language:    LanguageZH,
+			Confidence:  confidence,
+			Reason:      "han_majority",
+			LetterCount: total,
+			ShortText:   shortText,
+		}
 	}
 	if latin > 0 {
-		return LanguageEN
+		confidence := float64(latin) / float64(total)
+		if shortText {
+			confidence *= 0.75
+		}
+		return LanguageDetection{
+			Language:    LanguageEN,
+			Confidence:  confidence,
+			Reason:      "latin_majority",
+			LetterCount: total,
+			ShortText:   shortText,
+		}
 	}
 	if han > 0 {
-		return LanguageZH
+		confidence := float64(han) / float64(total)
+		if shortText {
+			confidence *= 0.75
+		}
+		return LanguageDetection{
+			Language:    LanguageZH,
+			Confidence:  confidence,
+			Reason:      "han_partial",
+			LetterCount: total,
+			ShortText:   shortText,
+		}
 	}
-	return LanguageEN
+	return LanguageDetection{
+		Language:    LanguageEN,
+		Confidence:  0.4,
+		Reason:      "fallback_en",
+		LetterCount: total,
+		ShortText:   shortText,
+	}
 }

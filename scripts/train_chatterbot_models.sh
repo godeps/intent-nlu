@@ -5,6 +5,7 @@ set -euo pipefail
 # Default languages: zh,en
 # Default outputs are saved inside repository:
 # - datasets/generated/*.csv (effective training data)
+# - datasets/generated/eval/*.json (training/evaluation metadata)
 # - models/model-<lang> (trained model artifacts)
 # - models/multilingual (merged multilingual bundle)
 
@@ -17,14 +18,27 @@ CORPUS_REPO_DIR="${REPO_ROOT}/.cache/chatterbot-corpus"
 OUTPUT_DIR="${REPO_ROOT}/models"
 DEFAULT_EXTRA_DIR="${REPO_ROOT}/datasets/default"
 GENERATED_DATASET_DIR="${REPO_ROOT}/datasets/generated"
+EVAL_REPORT_DIR="${REPO_ROOT}/datasets/generated/eval"
 THRESHOLD="0.55"
 UNKNOWN_INTENT="unknown"
 INCLUDE_REPLIES="true"
 SKIP_UNMAPPED="true"
+SPLIT_ENABLED="true"
+TRAIN_RATIO="0.8"
+VAL_RATIO="0.1"
+TEST_RATIO="0.1"
+SEED="42"
+AUTO_CALIBRATE="true"
+DISABLE_TAXONOMY="true"
+TAXONOMY_ALIASES=""
 VERSION_PREFIX="$(date -u +%Y.%m.%d)"
 MERGE_BUNDLE="true"
 BUNDLE_DIR="${REPO_ROOT}/models/multilingual"
+BUNDLE_VERSION=""
 ROUTER_DEFAULT_LANG=""
+
+CORPUS_COMMIT=""
+CORPUS_HEAD=""
 
 usage() {
   cat <<USAGE
@@ -37,12 +51,22 @@ Options:
   --output-dir <dir>               Output model root dir
   --default-extra-dir <dir>        Directory of default business CSV files (<lang>_business.csv)
   --generated-dataset-dir <dir>    Directory to dump effective training datasets
+  --eval-report-dir <dir>          Directory to dump model metadata/evaluation reports
   --threshold <float>              Default threshold for each trained model
   --unknown-intent <name>          Unknown intent label
   --include-replies <bool>         Include all turns in conversations
   --skip-unmapped <bool>           Skip files without mapped intents
+  --split-enabled <bool>           Enable deterministic train/val/test split
+  --train-ratio <float>            Train split ratio
+  --val-ratio <float>              Validation split ratio
+  --test-ratio <float>             Test split ratio
+  --seed <int>                     Split seed
+  --auto-calibrate <bool>          Auto calibrate per-intent thresholds from validation split
+  --disable-taxonomy <bool>        Disable built-in intent taxonomy normalization (default: true)
+  --taxonomy-aliases <file>        Extra taxonomy alias YAML file
   --merge-bundle <bool>            Build merged multilingual bundle, default: true
   --bundle-dir <dir>               Output multilingual bundle dir
+  --bundle-version <ver>           Bundle version (default auto generated)
   --router-default-lang <lang>     Default language in bundle manifest
   --version-prefix <prefix>        Model version prefix (suffix auto includes lang + timestamp)
   -h, --help                       Show this help
@@ -144,12 +168,22 @@ prepare_corpus_repo() {
   if [[ -d "${CORPUS_REPO_DIR}/.git" ]]; then
     log "updating corpus repo: ${CORPUS_REPO_DIR}"
     git -C "${CORPUS_REPO_DIR}" fetch --depth 1 origin
-    git -C "${CORPUS_REPO_DIR}" reset --hard origin/master 2>/dev/null || \
-      git -C "${CORPUS_REPO_DIR}" reset --hard origin/main
+    local head_ref
+    head_ref="$(git -C "${CORPUS_REPO_DIR}" symbolic-ref refs/remotes/origin/HEAD 2>/dev/null || true)"
+    if [[ -n "${head_ref}" ]]; then
+      local branch="${head_ref#refs/remotes/origin/}"
+      git -C "${CORPUS_REPO_DIR}" reset --hard "origin/${branch}"
+    else
+      git -C "${CORPUS_REPO_DIR}" reset --hard origin/main || git -C "${CORPUS_REPO_DIR}" reset --hard origin/master
+    fi
   else
     log "cloning corpus repo to: ${CORPUS_REPO_DIR}"
     git clone --depth 1 "${CORPUS_REPO_URL}" "${CORPUS_REPO_DIR}"
   fi
+
+  CORPUS_COMMIT="$(git -C "${CORPUS_REPO_DIR}" rev-parse HEAD)"
+  CORPUS_HEAD="$(git -C "${CORPUS_REPO_DIR}" rev-parse --abbrev-ref HEAD || true)"
+  log "corpus commit=${CORPUS_COMMIT} branch=${CORPUS_HEAD}"
 }
 
 parse_args() {
@@ -167,6 +201,8 @@ parse_args() {
         DEFAULT_EXTRA_DIR="$2"; shift 2 ;;
       --generated-dataset-dir)
         GENERATED_DATASET_DIR="$2"; shift 2 ;;
+      --eval-report-dir)
+        EVAL_REPORT_DIR="$2"; shift 2 ;;
       --threshold)
         THRESHOLD="$2"; shift 2 ;;
       --unknown-intent)
@@ -175,10 +211,28 @@ parse_args() {
         INCLUDE_REPLIES="$2"; shift 2 ;;
       --skip-unmapped)
         SKIP_UNMAPPED="$2"; shift 2 ;;
+      --split-enabled)
+        SPLIT_ENABLED="$2"; shift 2 ;;
+      --train-ratio)
+        TRAIN_RATIO="$2"; shift 2 ;;
+      --val-ratio)
+        VAL_RATIO="$2"; shift 2 ;;
+      --test-ratio)
+        TEST_RATIO="$2"; shift 2 ;;
+      --seed)
+        SEED="$2"; shift 2 ;;
+      --auto-calibrate)
+        AUTO_CALIBRATE="$2"; shift 2 ;;
+      --disable-taxonomy)
+        DISABLE_TAXONOMY="$2"; shift 2 ;;
+      --taxonomy-aliases)
+        TAXONOMY_ALIASES="$2"; shift 2 ;;
       --merge-bundle)
         MERGE_BUNDLE="$2"; shift 2 ;;
       --bundle-dir)
         BUNDLE_DIR="$2"; shift 2 ;;
+      --bundle-version)
+        BUNDLE_VERSION="$2"; shift 2 ;;
       --router-default-lang)
         ROUTER_DEFAULT_LANG="$2"; shift 2 ;;
       --version-prefix)
@@ -209,9 +263,10 @@ train_one_language() {
     exit 1
   fi
 
-  mkdir -p "${GENERATED_DATASET_DIR}" "${OUTPUT_DIR}"
+  mkdir -p "${GENERATED_DATASET_DIR}" "${OUTPUT_DIR}" "${EVAL_REPORT_DIR}"
   local map_file="${GENERATED_DATASET_DIR}/${lang}_file_map.yaml"
   local dump_samples_csv="${GENERATED_DATASET_DIR}/${lang}_train.csv"
+  local eval_report="${EVAL_REPORT_DIR}/${lang}_meta.json"
   generate_file_map "${corpus_dir}" "${map_file}"
 
   local version="${VERSION_PREFIX}.${lang}.$(date -u +%H%M%S)"
@@ -228,37 +283,44 @@ train_one_language() {
 
   (
     cd "${REPO_ROOT}"
+    local cmd=(
+      env GOWORK=off go run ./cmd/chat-nlu-train
+      -lang "${lang}"
+      -corpus-root "${corpus_dir}"
+      -file-map "${map_file}"
+      -skip-unmapped="${SKIP_UNMAPPED}"
+      -include-replies="${INCLUDE_REPLIES}"
+      -dump-samples "${dump_samples_csv}"
+      -eval-report "${eval_report}"
+      -out "${model_dir}"
+      -version "${version}"
+      -threshold "${THRESHOLD}"
+      -unknown-intent "${UNKNOWN_INTENT}"
+      -split-enabled="${SPLIT_ENABLED}"
+      -train-ratio "${TRAIN_RATIO}"
+      -val-ratio "${VAL_RATIO}"
+      -test-ratio "${TEST_RATIO}"
+      -seed "${SEED}"
+      -auto-calibrate-thresholds="${AUTO_CALIBRATE}"
+      -disable-taxonomy="${DISABLE_TAXONOMY}"
+      -source-name "chatterbot-corpus"
+      -source-version "${CORPUS_HEAD}"
+      -source-revision "${corpus_subdir}"
+      -source-repo-url "${CORPUS_REPO_URL}"
+      -source-commit "${CORPUS_COMMIT}"
+    )
     if [[ -n "${extra_csv}" ]]; then
-      GOWORK=off go run ./cmd/chat-nlu-train \
-        -lang "${lang}" \
-        -corpus-root "${corpus_dir}" \
-        -file-map "${map_file}" \
-        -skip-unmapped="${SKIP_UNMAPPED}" \
-        -include-replies="${INCLUDE_REPLIES}" \
-        -extra-csv "${extra_csv}" \
-        -dump-samples "${dump_samples_csv}" \
-        -out "${model_dir}" \
-        -version "${version}" \
-        -threshold "${THRESHOLD}" \
-        -unknown-intent "${UNKNOWN_INTENT}"
-    else
-      GOWORK=off go run ./cmd/chat-nlu-train \
-        -lang "${lang}" \
-        -corpus-root "${corpus_dir}" \
-        -file-map "${map_file}" \
-        -skip-unmapped="${SKIP_UNMAPPED}" \
-        -include-replies="${INCLUDE_REPLIES}" \
-        -dump-samples "${dump_samples_csv}" \
-        -out "${model_dir}" \
-        -version "${version}" \
-        -threshold "${THRESHOLD}" \
-        -unknown-intent "${UNKNOWN_INTENT}"
+      cmd+=( -extra-csv "${extra_csv}" )
     fi
+    if [[ -n "${TAXONOMY_ALIASES}" ]]; then
+      cmd+=( -taxonomy-aliases "${TAXONOMY_ALIASES}" )
+    fi
+    "${cmd[@]}"
   )
 
   TRAINED_MODEL_DIRS["${lang}"]="${model_dir}"
   TRAINED_LANGS+=("${lang}")
-  log "trained lang=${lang} model=${model_dir} dataset=${dump_samples_csv}"
+  log "trained lang=${lang} model=${model_dir} dataset=${dump_samples_csv} eval=${eval_report}"
 }
 
 assemble_multilingual_bundle() {
@@ -275,43 +337,39 @@ assemble_multilingual_bundle() {
     default_lang="${TRAINED_LANGS[0]}"
   fi
 
-  local bundle_models_dir="${BUNDLE_DIR}/models"
-  rm -rf "${BUNDLE_DIR}"
-  mkdir -p "${bundle_models_dir}"
+  local bundle_version="${BUNDLE_VERSION}"
+  if [[ -z "${bundle_version}" ]]; then
+    bundle_version="${VERSION_PREFIX}.bundle.$(date -u +%H%M%S)"
+  fi
 
+  local models_spec=""
+  local sorted_langs
+  sorted_langs="$(printf '%s\n' "${TRAINED_LANGS[@]}" | sort)"
+  models_spec=""
   local lang
-  for lang in "${TRAINED_LANGS[@]}"; do
-    local src_dir="${TRAINED_MODEL_DIRS[${lang}]}"
-    local dst_dir="${bundle_models_dir}/${lang}"
-    mkdir -p "${dst_dir}"
-    cp "${src_dir}/model.gob" "${dst_dir}/model.gob"
-    cp "${src_dir}/meta.json" "${dst_dir}/meta.json"
-  done
+  while IFS= read -r lang; do
+    [[ -z "${lang}" ]] && continue
+    if [[ -z "${models_spec}" ]]; then
+      models_spec="${lang}=${TRAINED_MODEL_DIRS[${lang}]}"
+    else
+      models_spec="${models_spec},${lang}=${TRAINED_MODEL_DIRS[${lang}]}"
+    fi
+  done <<< "${sorted_langs}"
 
-  local manifest_path="${BUNDLE_DIR}/manifest.json"
-  local now
-  now="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  local version="${VERSION_PREFIX}.bundle.$(date -u +%H%M%S)"
+  local training_params
+  training_params="threshold=${THRESHOLD},unknown_intent=${UNKNOWN_INTENT},split_enabled=${SPLIT_ENABLED},train_ratio=${TRAIN_RATIO},val_ratio=${VAL_RATIO},test_ratio=${TEST_RATIO},seed=${SEED},auto_calibrate=${AUTO_CALIBRATE},disable_taxonomy=${DISABLE_TAXONOMY},include_replies=${INCLUDE_REPLIES},skip_unmapped=${SKIP_UNMAPPED}"
 
-  {
-    echo '{'
-    echo "  \"version\": \"${version}\"," 
-    echo "  \"createdAt\": \"${now}\"," 
-    echo "  \"defaultLanguage\": \"${default_lang}\"," 
-    echo '  "models": {'
-    local i=0
-    local total=${#TRAINED_LANGS[@]}
-    for lang in "${TRAINED_LANGS[@]}"; do
-      i=$((i + 1))
-      local comma=","
-      if [[ ${i} -eq ${total} ]]; then
-        comma=""
-      fi
-      echo "    \"${lang}\": \"models/${lang}\"${comma}"
-    done
-    echo '  }'
-    echo '}'
-  } > "${manifest_path}"
+  (
+    cd "${REPO_ROOT}"
+    GOWORK=off go run ./cmd/chat-nlu-bundle \
+      -bundle-dir "${BUNDLE_DIR}" \
+      -models "${models_spec}" \
+      -default-lang "${default_lang}" \
+      -version "${bundle_version}" \
+      -corpus-repo-url "${CORPUS_REPO_URL}" \
+      -corpus-commit "${CORPUS_COMMIT}" \
+      -training-params "${training_params}"
+  )
 
   log "multilingual bundle generated: ${BUNDLE_DIR}"
 }
@@ -320,7 +378,15 @@ main() {
   parse_args "$@"
   ensure_bool "${INCLUDE_REPLIES}"
   ensure_bool "${SKIP_UNMAPPED}"
+  ensure_bool "${SPLIT_ENABLED}"
+  ensure_bool "${AUTO_CALIBRATE}"
+  ensure_bool "${DISABLE_TAXONOMY}"
   ensure_bool "${MERGE_BUNDLE}"
+
+  if [[ -n "${TAXONOMY_ALIASES}" && ! -f "${TAXONOMY_ALIASES}" ]]; then
+    echo "taxonomy alias file not found: ${TAXONOMY_ALIASES}" >&2
+    exit 1
+  fi
 
   prepare_corpus_repo
 
@@ -341,7 +407,7 @@ main() {
   done
 
   assemble_multilingual_bundle
-  log "all done. models are under ${OUTPUT_DIR}; datasets under ${GENERATED_DATASET_DIR}"
+  log "all done. models are under ${OUTPUT_DIR}; datasets under ${GENERATED_DATASET_DIR}; eval reports under ${EVAL_REPORT_DIR}"
 }
 
 main "$@"
