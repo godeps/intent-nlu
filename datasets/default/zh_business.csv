@@ -1,0 +1,14 @@
+text,intent
+明天星期几,calendar_info
+后天星期几,calendar_info
+今天是几月几号,calendar_info
+元宵节是哪一天,calendar_info
+今年中秋节是几号,calendar_info
+下周一是几号,calendar_info
+上海明天天气怎么样,weather_info
+北京今天会下雨吗,weather_info
+深圳这周天气预报,weather_info
+广州现在多少度,weather_info
+你好,chitchat_greeting
+早上好,chitchat_greeting
+晚上好,chitchat_greeting

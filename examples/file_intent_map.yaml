@@ -1,0 +1,5 @@
+greetings.yml: chitchat_greeting
+conversations.yml: chitchat_general
+emotion.yml: chitchat_emotion
+calendar.yml: calendar_info
+weather.yml: weather_info

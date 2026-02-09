@@ -1,0 +1,9 @@
+{
+  "version": "2026.02.09.bundle.060143",
+  "createdAt": "2026-02-09T06:01:43Z",
+  "defaultLanguage": "zh",
+  "models": {
+    "zh": "models/zh",
+    "en": "models/en"
+  }
+}

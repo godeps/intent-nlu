@@ -1,0 +1,13 @@
+text,intent
+what day is tomorrow,calendar_info
+what is the date today,calendar_info
+when is the lantern festival,calendar_info
+what date is next monday,calendar_info
+is tomorrow a holiday,calendar_info
+weather in shanghai tomorrow,weather_info
+will it rain in beijing today,weather_info
+what is the forecast this week,weather_info
+what is the temperature in guangzhou,weather_info
+hello,chitchat_greeting
+good morning,chitchat_greeting
+good evening,chitchat_greeting

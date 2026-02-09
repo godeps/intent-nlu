@@ -1,0 +1,43 @@
+{
+  "version": "2026.02.09.en.060142",
+  "language": "en",
+  "unknownIntent": "unknown",
+  "defaultThreshold": 0.55,
+  "classes": [
+    "calendar_info",
+    "chitchat_ai",
+    "chitchat_botprofile",
+    "chitchat_coding",
+    "chitchat_computers",
+    "chitchat_conversations",
+    "chitchat_emotion",
+    "chitchat_food",
+    "chitchat_gossip",
+    "chitchat_greeting",
+    "chitchat_greetings",
+    "chitchat_health",
+    "chitchat_history",
+    "chitchat_humor",
+    "chitchat_literature",
+    "chitchat_money",
+    "chitchat_movies",
+    "chitchat_politics",
+    "chitchat_psychology",
+    "chitchat_science",
+    "chitchat_sports",
+    "chitchat_tech_support",
+    "chitchat_trivia",
+    "weather_info"
+  ],
+  "tokenizer": {
+    "language": "en",
+    "searchMode": true,
+    "hmm": true,
+    "lowercase": true,
+    "minTokenLen": 1,
+    "stripPunct": true,
+    "collapseSpace": true
+  },
+  "trainingSampleCount": 1942,
+  "createdAt": "2026-02-09T06:01:43.16119363Z"
+}
