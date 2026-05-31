@@ -1,64 +1,24 @@
 {
-  "version": "2026.05.31.en.143913",
+  "version": "2026.05.31.en.153954",
   "language": "en",
   "unknownIntent": "unknown",
   "defaultThreshold": 0.55,
   "thresholds": {
-    "calendar_info": 0.3,
-    "chitchat_ai": 0.01,
-    "chitchat_botprofile": 0.01,
-    "chitchat_coding": 0.01,
-    "chitchat_computers": 0.01,
-    "chitchat_conversations": 0.01,
-    "chitchat_emotion": 0.01,
-    "chitchat_food": 0.01,
-    "chitchat_gossip": 0.01,
-    "chitchat_greeting": 0.44392824516404544,
-    "chitchat_greetings": 0.01,
-    "chitchat_health": 0.55,
-    "chitchat_history": 0.01,
-    "chitchat_humor": 0.01,
-    "chitchat_literature": 0.01,
-    "chitchat_money": 0.01,
-    "chitchat_movies": 0.01,
-    "chitchat_politics": 0.01,
-    "chitchat_psychology": 0.01,
-    "chitchat_science": 0.01,
-    "chitchat_sports": 0.01,
-    "chitchat_tech_support": 0.01,
-    "chitchat_trivia": 0.01,
-    "creative_3d": 0.3,
-    "creative_audio": 0.1,
-    "creative_image": 0.1,
+    "calendar_info": 0.55,
+    "chitchat_general": 0.01,
+    "chitchat_greeting": 0.9790138822089275,
+    "creative_3d": 0.55,
+    "creative_audio": 0.3552391603478511,
+    "creative_image": 0.01,
     "creative_video": 0.01,
-    "general_chat": 0.01,
-    "media_analysis": 0.01,
-    "weather_info": 0.3
+    "general_chat": 0.3,
+    "media_analysis": 0.9,
+    "weather_info": 0.9925701326067364
   },
   "classes": [
     "calendar_info",
-    "chitchat_ai",
-    "chitchat_botprofile",
-    "chitchat_coding",
-    "chitchat_computers",
-    "chitchat_conversations",
-    "chitchat_emotion",
-    "chitchat_food",
-    "chitchat_gossip",
+    "chitchat_general",
     "chitchat_greeting",
-    "chitchat_greetings",
-    "chitchat_health",
-    "chitchat_history",
-    "chitchat_humor",
-    "chitchat_literature",
-    "chitchat_money",
-    "chitchat_movies",
-    "chitchat_politics",
-    "chitchat_psychology",
-    "chitchat_science",
-    "chitchat_sports",
-    "chitchat_tech_support",
-    "chitchat_trivia",
     "creative_3d",
     "creative_audio",
     "creative_image",
@@ -69,28 +29,8 @@
   ],
   "canonicalIntents": [
     "calendar_info",
-    "chitchat_ai",
-    "chitchat_botprofile",
-    "chitchat_coding",
-    "chitchat_computers",
-    "chitchat_conversations",
-    "chitchat_emotion",
-    "chitchat_food",
-    "chitchat_gossip",
+    "chitchat_general",
     "chitchat_greeting",
-    "chitchat_greetings",
-    "chitchat_health",
-    "chitchat_history",
-    "chitchat_humor",
-    "chitchat_literature",
-    "chitchat_money",
-    "chitchat_movies",
-    "chitchat_politics",
-    "chitchat_psychology",
-    "chitchat_science",
-    "chitchat_sports",
-    "chitchat_tech_support",
-    "chitchat_trivia",
     "creative_3d",
     "creative_audio",
     "creative_image",
@@ -99,6 +39,52 @@
     "media_analysis",
     "weather_info"
   ],
+  "intentAliases": {
+    "3d_modeling": "creative_3d",
+    "ad_production": "creative_video",
+    "audio_production": "creative_audio",
+    "calendar": "calendar_info",
+    "chat": "chitchat_general",
+    "chitchat": "chitchat_general",
+    "chitchat_ai": "chitchat_general",
+    "chitchat_botprofile": "chitchat_general",
+    "chitchat_coding": "chitchat_general",
+    "chitchat_computers": "chitchat_general",
+    "chitchat_conversations": "chitchat_general",
+    "chitchat_emotion": "chitchat_general",
+    "chitchat_food": "chitchat_general",
+    "chitchat_gossip": "chitchat_general",
+    "chitchat_greeting": "chitchat_greeting",
+    "chitchat_greetings": "chitchat_greeting",
+    "chitchat_health": "chitchat_general",
+    "chitchat_history": "chitchat_general",
+    "chitchat_humor": "chitchat_general",
+    "chitchat_literature": "chitchat_general",
+    "chitchat_money": "chitchat_general",
+    "chitchat_movies": "chitchat_general",
+    "chitchat_politics": "chitchat_general",
+    "chitchat_psychology": "chitchat_general",
+    "chitchat_science": "chitchat_general",
+    "chitchat_sports": "chitchat_general",
+    "chitchat_tech_support": "chitchat_general",
+    "chitchat_trivia": "chitchat_general",
+    "date_info": "calendar_info",
+    "film_production": "creative_video",
+    "forecast": "weather_info",
+    "greeting": "chitchat_greeting",
+    "greetings": "chitchat_greeting",
+    "holiday_info": "calendar_info",
+    "image_analysis": "media_analysis",
+    "image_generation": "creative_image",
+    "music_creation": "creative_audio",
+    "poster_design": "creative_image",
+    "unknown": "unknown",
+    "video_analysis": "media_analysis",
+    "video_editing": "creative_video",
+    "video_production": "creative_video",
+    "weather": "weather_info",
+    "weather_forecast": "weather_info"
+  },
   "tokenizer": {
     "language": "en",
     "searchMode": true,
@@ -109,1239 +95,458 @@
     "collapseSpace": true
   },
   "trainingSampleCount": 2602,
-  "createdAt": "2026-05-31T14:39:13.464477941Z",
+  "createdAt": "2026-05-31T15:39:54.867426495Z",
   "evaluation": {
     "test": {
       "split": "test",
       "samples": 325,
-      "accuracy": 0.1076923076923077,
-      "macroF1": 0.09660718294051626,
-      "microF1": 0.11363636363636363,
-      "unknownRate": 0.10461538461538461,
+      "accuracy": 0.3415384615384615,
+      "macroF1": 0.6363679702650291,
+      "microF1": 0.41495327102803736,
+      "unknownRate": 0.35384615384615387,
       "perIntent": {
         "calendar_info": {
-          "precision": 1,
-          "recall": 0.41935483870967744,
-          "f1": 0.5909090909090909,
-          "support": 31,
-          "tp": 13,
-          "fp": 0,
-          "fn": 18
-        },
-        "chitchat_ai": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 12,
-          "tp": 0,
-          "fp": 0,
-          "fn": 12
-        },
-        "chitchat_botprofile": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 5,
-          "tp": 0,
-          "fp": 0,
-          "fn": 5
-        },
-        "chitchat_coding": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 26,
-          "tp": 0,
-          "fp": 0,
-          "fn": 26
-        },
-        "chitchat_computers": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 4,
-          "tp": 0,
-          "fp": 0,
-          "fn": 4
-        },
-        "chitchat_conversations": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 12,
-          "tp": 0,
+          "precision": 0.9696969696969697,
+          "recall": 1,
+          "f1": 0.9846153846153847,
+          "support": 32,
+          "tp": 32,
           "fp": 1,
-          "fn": 12
+          "fn": 0
         },
-        "chitchat_emotion": {
-          "precision": 1,
-          "recall": 0.08695652173913043,
-          "f1": 0.16,
-          "support": 23,
-          "tp": 2,
-          "fp": 0,
-          "fn": 21
-        },
-        "chitchat_food": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 3,
-          "tp": 0,
-          "fp": 0,
-          "fn": 3
-        },
-        "chitchat_gossip": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 3,
-          "tp": 0,
-          "fp": 0,
-          "fn": 3
+        "chitchat_general": {
+          "precision": 0.8333333333333334,
+          "recall": 0.05555555555555555,
+          "f1": 0.10416666666666666,
+          "support": 180,
+          "tp": 10,
+          "fp": 2,
+          "fn": 170
         },
         "chitchat_greeting": {
           "precision": 0,
           "recall": 0,
           "f1": 0,
-          "support": 0,
-          "tp": 0,
-          "fp": 254,
-          "fn": 0
-        },
-        "chitchat_greetings": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 6,
-          "tp": 0,
-          "fp": 0,
-          "fn": 6
-        },
-        "chitchat_health": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 0,
-          "tp": 0,
-          "fp": 0,
-          "fn": 0
-        },
-        "chitchat_history": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 4,
-          "tp": 0,
-          "fp": 0,
-          "fn": 4
-        },
-        "chitchat_humor": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
           "support": 2,
           "tp": 0,
-          "fp": 0,
+          "fp": 89,
           "fn": 2
         },
-        "chitchat_literature": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 9,
-          "tp": 0,
-          "fp": 0,
-          "fn": 9
-        },
-        "chitchat_money": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 5,
-          "tp": 0,
-          "fp": 0,
-          "fn": 5
-        },
-        "chitchat_movies": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 3,
-          "tp": 0,
-          "fp": 0,
-          "fn": 3
-        },
-        "chitchat_politics": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 4,
-          "tp": 0,
-          "fp": 0,
-          "fn": 4
-        },
-        "chitchat_psychology": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 12,
-          "tp": 0,
-          "fp": 0,
-          "fn": 12
-        },
-        "chitchat_science": {
-          "precision": 1,
-          "recall": 0.14285714285714285,
-          "f1": 0.25,
-          "support": 7,
-          "tp": 1,
-          "fp": 0,
-          "fn": 6
-        },
-        "chitchat_sports": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 5,
-          "tp": 0,
-          "fp": 0,
-          "fn": 5
-        },
-        "chitchat_tech_support": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 0,
-          "tp": 0,
-          "fp": 0,
+        "creative_3d": {
+          "precision": 0.5454545454545454,
+          "recall": 1,
+          "f1": 0.7058823529411764,
+          "support": 6,
+          "tp": 6,
+          "fp": 5,
           "fn": 0
         },
-        "chitchat_trivia": {
-          "precision": 0.5,
-          "recall": 0.023809523809523808,
-          "f1": 0.04545454545454545,
-          "support": 42,
-          "tp": 1,
-          "fp": 1,
-          "fn": 41
-        },
-        "creative_3d": {
-          "precision": 1,
-          "recall": 0.5,
-          "f1": 0.6666666666666666,
-          "support": 6,
-          "tp": 3,
-          "fp": 0,
-          "fn": 3
-        },
         "creative_audio": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 8,
-          "tp": 0,
+          "precision": 1,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353,
+          "support": 9,
+          "tp": 8,
           "fp": 0,
-          "fn": 8
+          "fn": 1
         },
         "creative_image": {
           "precision": 1,
-          "recall": 0.125,
-          "f1": 0.2222222222222222,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
           "support": 16,
-          "tp": 2,
+          "tp": 12,
           "fp": 0,
-          "fn": 14
+          "fn": 4
         },
         "creative_video": {
           "precision": 1,
-          "recall": 0.17391304347826086,
-          "f1": 0.29629629629629634,
-          "support": 23,
-          "tp": 4,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "support": 24,
+          "tp": 21,
           "fp": 0,
-          "fn": 19
+          "fn": 3
         },
         "general_chat": {
           "precision": 0,
           "recall": 0,
           "f1": 0,
-          "support": 30,
+          "support": 31,
           "tp": 0,
-          "fp": 0,
-          "fn": 30
+          "fp": 1,
+          "fn": 31
         },
         "media_analysis": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 6,
-          "tp": 0,
+          "precision": 1,
+          "recall": 0.8571428571428571,
+          "f1": 0.923076923076923,
+          "support": 7,
+          "tp": 6,
           "fp": 0,
-          "fn": 6
+          "fn": 1
         },
         "weather_info": {
-          "precision": 1,
-          "recall": 0.5,
-          "f1": 0.6666666666666666,
+          "precision": 0.9411764705882353,
+          "recall": 0.8888888888888888,
+          "f1": 0.9142857142857143,
           "support": 18,
-          "tp": 9,
-          "fp": 0,
-          "fn": 9
+          "tp": 16,
+          "fp": 1,
+          "fn": 2
         }
       },
       "confusion": {
         "calendar_info": {
-          "calendar_info": 13,
-          "chitchat_greeting": 18
+          "calendar_info": 32
         },
-        "chitchat_ai": {
-          "chitchat_greeting": 11,
-          "unknown": 1
+        "chitchat_general": {
+          "calendar_info": 1,
+          "chitchat_general": 10,
+          "chitchat_greeting": 87,
+          "general_chat": 1,
+          "unknown": 81
         },
-        "chitchat_botprofile": {
-          "chitchat_greeting": 4,
-          "unknown": 1
-        },
-        "chitchat_coding": {
-          "chitchat_greeting": 26
-        },
-        "chitchat_computers": {
-          "chitchat_greeting": 4
-        },
-        "chitchat_conversations": {
-          "chitchat_greeting": 9,
-          "unknown": 3
-        },
-        "chitchat_emotion": {
-          "chitchat_emotion": 2,
-          "chitchat_greeting": 20,
-          "unknown": 1
-        },
-        "chitchat_food": {
-          "chitchat_greeting": 3
-        },
-        "chitchat_gossip": {
-          "chitchat_greeting": 3
-        },
-        "chitchat_greetings": {
-          "chitchat_conversations": 1,
-          "chitchat_greeting": 4,
-          "chitchat_trivia": 1
-        },
-        "chitchat_history": {
-          "chitchat_greeting": 2,
-          "unknown": 2
-        },
-        "chitchat_humor": {
-          "chitchat_greeting": 2
-        },
-        "chitchat_literature": {
-          "chitchat_greeting": 6,
-          "unknown": 3
-        },
-        "chitchat_money": {
-          "chitchat_greeting": 3,
-          "unknown": 2
-        },
-        "chitchat_movies": {
-          "chitchat_greeting": 3
-        },
-        "chitchat_politics": {
-          "chitchat_greeting": 4
-        },
-        "chitchat_psychology": {
-          "chitchat_greeting": 11,
-          "unknown": 1
-        },
-        "chitchat_science": {
-          "chitchat_greeting": 4,
-          "chitchat_science": 1,
-          "unknown": 2
-        },
-        "chitchat_sports": {
-          "chitchat_greeting": 5
-        },
-        "chitchat_trivia": {
-          "chitchat_greeting": 25,
-          "chitchat_trivia": 1,
-          "unknown": 16
+        "chitchat_greeting": {
+          "chitchat_general": 2
         },
         "creative_3d": {
-          "chitchat_greeting": 3,
-          "creative_3d": 3
+          "creative_3d": 6
         },
         "creative_audio": {
-          "chitchat_greeting": 7,
+          "creative_audio": 8,
           "unknown": 1
         },
         "creative_image": {
-          "chitchat_greeting": 14,
-          "creative_image": 2
+          "creative_3d": 2,
+          "creative_image": 12,
+          "unknown": 2
         },
         "creative_video": {
-          "chitchat_greeting": 19,
-          "creative_video": 4
-        },
-        "general_chat": {
-          "chitchat_greeting": 29,
+          "creative_3d": 2,
+          "creative_video": 21,
           "unknown": 1
         },
+        "general_chat": {
+          "chitchat_greeting": 1,
+          "creative_3d": 1,
+          "unknown": 28,
+          "weather_info": 1
+        },
         "media_analysis": {
-          "chitchat_greeting": 6
+          "chitchat_greeting": 1,
+          "media_analysis": 6
         },
         "weather_info": {
-          "chitchat_greeting": 9,
-          "weather_info": 9
+          "unknown": 2,
+          "weather_info": 16
         }
       }
     },
     "train": {
       "split": "train",
       "samples": 2602,
-      "accuracy": 0.14219830899308225,
-      "macroF1": 0.15135902895817582,
-      "microF1": 0.14624505928853757,
-      "unknownRate": 0.05534204458109147,
+      "accuracy": 0.4215987701767871,
+      "macroF1": 0.7348884525047142,
+      "microF1": 0.4981834695731154,
+      "unknownRate": 0.3074558032282859,
       "perIntent": {
         "calendar_info": {
-          "precision": 0.9315068493150684,
-          "recall": 0.4594594594594595,
-          "f1": 0.6153846153846154,
-          "support": 148,
-          "tp": 68,
-          "fp": 5,
-          "fn": 80
+          "precision": 0.8895705521472392,
+          "recall": 0.9731543624161074,
+          "f1": 0.9294871794871795,
+          "support": 149,
+          "tp": 145,
+          "fp": 18,
+          "fn": 4
         },
-        "chitchat_ai": {
-          "precision": 0.8,
-          "recall": 0.030534351145038167,
-          "f1": 0.0588235294117647,
-          "support": 131,
-          "tp": 4,
-          "fp": 1,
-          "fn": 127
-        },
-        "chitchat_botprofile": {
-          "precision": 1,
-          "recall": 0.08695652173913043,
-          "f1": 0.16,
-          "support": 23,
-          "tp": 2,
-          "fp": 0,
-          "fn": 21
-        },
-        "chitchat_coding": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 152,
-          "tp": 0,
-          "fp": 6,
-          "fn": 152
-        },
-        "chitchat_computers": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 39,
-          "tp": 0,
-          "fp": 0,
-          "fn": 39
-        },
-        "chitchat_conversations": {
-          "precision": 0.2857142857142857,
-          "recall": 0.019417475728155338,
-          "f1": 0.03636363636363636,
-          "support": 103,
-          "tp": 2,
-          "fp": 5,
-          "fn": 101
-        },
-        "chitchat_emotion": {
-          "precision": 0.5294117647058824,
-          "recall": 0.04568527918781726,
-          "f1": 0.08411214953271028,
-          "support": 197,
-          "tp": 9,
+        "chitchat_general": {
+          "precision": 0.9638009049773756,
+          "recall": 0.14382174206617152,
+          "f1": 0.2502937720329025,
+          "support": 1481,
+          "tp": 213,
           "fp": 8,
-          "fn": 188
-        },
-        "chitchat_food": {
-          "precision": 1,
-          "recall": 0.04,
-          "f1": 0.07692307692307693,
-          "support": 25,
-          "tp": 1,
-          "fp": 0,
-          "fn": 24
-        },
-        "chitchat_gossip": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 19,
-          "tp": 0,
-          "fp": 0,
-          "fn": 19
+          "fn": 1268
         },
         "chitchat_greeting": {
-          "precision": 0.0009784735812133072,
-          "recall": 0.5,
-          "f1": 0.001953125,
-          "support": 4,
-          "tp": 2,
-          "fp": 2042,
-          "fn": 2
-        },
-        "chitchat_greetings": {
-          "precision": 0.6666666666666666,
-          "recall": 0.18181818181818182,
-          "f1": 0.28571428571428575,
-          "support": 22,
-          "tp": 4,
-          "fp": 2,
-          "fn": 18
-        },
-        "chitchat_health": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 9,
-          "tp": 0,
-          "fp": 0,
-          "fn": 9
-        },
-        "chitchat_history": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 11,
-          "tp": 0,
-          "fp": 0,
-          "fn": 11
-        },
-        "chitchat_humor": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
+          "precision": 0.015037593984962405,
+          "recall": 0.35714285714285715,
+          "f1": 0.02886002886002886,
           "support": 28,
-          "tp": 0,
-          "fp": 0,
-          "fn": 28
-        },
-        "chitchat_literature": {
-          "precision": 1,
-          "recall": 0.016129032258064516,
-          "f1": 0.031746031746031744,
-          "support": 62,
-          "tp": 1,
-          "fp": 0,
-          "fn": 61
-        },
-        "chitchat_money": {
-          "precision": 1,
-          "recall": 0.05555555555555555,
-          "f1": 0.10526315789473684,
-          "support": 36,
-          "tp": 2,
-          "fp": 0,
-          "fn": 34
-        },
-        "chitchat_movies": {
-          "precision": 1,
-          "recall": 0.14705882352941177,
-          "f1": 0.25641025641025644,
-          "support": 34,
-          "tp": 5,
-          "fp": 0,
-          "fn": 29
-        },
-        "chitchat_politics": {
-          "precision": 1,
-          "recall": 0.047619047619047616,
-          "f1": 0.0909090909090909,
-          "support": 21,
-          "tp": 1,
-          "fp": 0,
-          "fn": 20
-        },
-        "chitchat_psychology": {
-          "precision": 0.6,
-          "recall": 0.030303030303030304,
-          "f1": 0.057692307692307696,
-          "support": 99,
-          "tp": 3,
-          "fp": 2,
-          "fn": 96
-        },
-        "chitchat_science": {
-          "precision": 0.3333333333333333,
-          "recall": 0.02702702702702703,
-          "f1": 0.05,
-          "support": 37,
-          "tp": 1,
-          "fp": 2,
-          "fn": 36
-        },
-        "chitchat_sports": {
-          "precision": 0.6666666666666666,
-          "recall": 0.05263157894736842,
-          "f1": 0.09756097560975609,
-          "support": 38,
-          "tp": 2,
-          "fp": 1,
-          "fn": 36
-        },
-        "chitchat_tech_support": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 18,
-          "tp": 0,
-          "fp": 0,
+          "tp": 10,
+          "fp": 655,
           "fn": 18
-        },
-        "chitchat_trivia": {
-          "precision": 0.9801980198019802,
-          "recall": 0.24087591240875914,
-          "f1": 0.38671875,
-          "support": 411,
-          "tp": 99,
-          "fp": 2,
-          "fn": 312
         },
         "creative_3d": {
-          "precision": 0.9615384615384616,
-          "recall": 0.38461538461538464,
-          "f1": 0.5494505494505495,
-          "support": 65,
-          "tp": 25,
-          "fp": 1,
-          "fn": 40
+          "precision": 0.9565217391304348,
+          "recall": 1,
+          "f1": 0.9777777777777777,
+          "support": 66,
+          "tp": 66,
+          "fp": 3,
+          "fn": 0
         },
         "creative_audio": {
-          "precision": 0.9090909090909091,
-          "recall": 0.1282051282051282,
-          "f1": 0.22471910112359544,
-          "support": 78,
-          "tp": 10,
-          "fp": 1,
-          "fn": 68
+          "precision": 0.9166666666666666,
+          "recall": 0.9625,
+          "f1": 0.9390243902439025,
+          "support": 80,
+          "tp": 77,
+          "fp": 7,
+          "fn": 3
         },
         "creative_image": {
-          "precision": 1,
-          "recall": 0.1377245508982036,
-          "f1": 0.2421052631578947,
-          "support": 167,
-          "tp": 23,
-          "fp": 0,
-          "fn": 144
+          "precision": 0.9938271604938271,
+          "recall": 0.9583333333333334,
+          "f1": 0.9757575757575757,
+          "support": 168,
+          "tp": 161,
+          "fp": 1,
+          "fn": 7
         },
         "creative_video": {
-          "precision": 0.9545454545454546,
-          "recall": 0.12883435582822086,
-          "f1": 0.22702702702702707,
-          "support": 163,
-          "tp": 21,
-          "fp": 1,
-          "fn": 142
+          "precision": 0.9802631578947368,
+          "recall": 0.9085365853658537,
+          "f1": 0.9430379746835442,
+          "support": 164,
+          "tp": 149,
+          "fp": 3,
+          "fn": 15
         },
         "general_chat": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 237,
-          "tp": 0,
-          "fp": 3,
-          "fn": 237
+          "precision": 0.9375,
+          "recall": 0.25210084033613445,
+          "f1": 0.3973509933774834,
+          "support": 238,
+          "tp": 60,
+          "fp": 4,
+          "fn": 178
         },
         "media_analysis": {
-          "precision": 1,
-          "recall": 0.12941176470588237,
-          "f1": 0.22916666666666669,
-          "support": 85,
-          "tp": 11,
-          "fp": 0,
-          "fn": 74
+          "precision": 0.9512195121951219,
+          "recall": 0.9069767441860465,
+          "f1": 0.9285714285714286,
+          "support": 86,
+          "tp": 78,
+          "fp": 4,
+          "fn": 8
         },
         "weather_info": {
-          "precision": 0.925,
-          "recall": 0.5285714285714286,
-          "f1": 0.6727272727272726,
-          "support": 140,
-          "tp": 74,
-          "fp": 6,
-          "fn": 66
+          "precision": 0.9857142857142858,
+          "recall": 0.971830985915493,
+          "f1": 0.9787234042553192,
+          "support": 142,
+          "tp": 138,
+          "fp": 2,
+          "fn": 4
         }
       },
       "confusion": {
         "calendar_info": {
-          "calendar_info": 68,
-          "chitchat_greeting": 79,
-          "unknown": 1
-        },
-        "chitchat_ai": {
-          "calendar_info": 2,
-          "chitchat_ai": 4,
-          "chitchat_coding": 1,
-          "chitchat_emotion": 1,
-          "chitchat_greeting": 119,
+          "calendar_info": 145,
           "unknown": 4
         },
-        "chitchat_botprofile": {
-          "chitchat_botprofile": 2,
-          "chitchat_emotion": 1,
-          "chitchat_greeting": 20
-        },
-        "chitchat_coding": {
-          "chitchat_greeting": 152
-        },
-        "chitchat_computers": {
-          "calendar_info": 1,
-          "chitchat_greeting": 37,
-          "unknown": 1
-        },
-        "chitchat_conversations": {
-          "chitchat_coding": 1,
-          "chitchat_conversations": 2,
-          "chitchat_emotion": 4,
-          "chitchat_greeting": 90,
-          "chitchat_greetings": 1,
-          "unknown": 5
-        },
-        "chitchat_emotion": {
-          "chitchat_ai": 1,
-          "chitchat_conversations": 2,
-          "chitchat_emotion": 9,
-          "chitchat_greeting": 171,
-          "chitchat_psychology": 1,
-          "chitchat_trivia": 1,
-          "unknown": 12
-        },
-        "chitchat_food": {
-          "chitchat_food": 1,
-          "chitchat_greeting": 23,
-          "unknown": 1
-        },
-        "chitchat_gossip": {
-          "chitchat_greeting": 18,
-          "unknown": 1
+        "chitchat_general": {
+          "calendar_info": 12,
+          "chitchat_general": 213,
+          "chitchat_greeting": 639,
+          "creative_3d": 1,
+          "creative_audio": 1,
+          "creative_image": 1,
+          "general_chat": 4,
+          "unknown": 610
         },
         "chitchat_greeting": {
-          "chitchat_conversations": 1,
-          "chitchat_greeting": 2,
-          "unknown": 1
-        },
-        "chitchat_greetings": {
-          "chitchat_coding": 1,
-          "chitchat_greeting": 12,
-          "chitchat_greetings": 4,
-          "chitchat_psychology": 1,
-          "general_chat": 2,
-          "unknown": 2
-        },
-        "chitchat_health": {
-          "chitchat_conversations": 1,
-          "chitchat_emotion": 1,
-          "chitchat_greeting": 5,
-          "unknown": 1,
-          "weather_info": 1
-        },
-        "chitchat_history": {
-          "chitchat_greeting": 9,
-          "unknown": 2
-        },
-        "chitchat_humor": {
-          "chitchat_greeting": 27,
-          "unknown": 1
-        },
-        "chitchat_literature": {
-          "chitchat_greeting": 50,
-          "chitchat_literature": 1,
-          "unknown": 10,
-          "weather_info": 1
-        },
-        "chitchat_money": {
-          "chitchat_greeting": 30,
-          "chitchat_money": 2,
-          "unknown": 4
-        },
-        "chitchat_movies": {
-          "chitchat_greeting": 22,
-          "chitchat_movies": 5,
-          "unknown": 7
-        },
-        "chitchat_politics": {
-          "chitchat_greeting": 13,
-          "chitchat_politics": 1,
-          "unknown": 7
-        },
-        "chitchat_psychology": {
-          "chitchat_greeting": 96,
-          "chitchat_psychology": 3
-        },
-        "chitchat_science": {
-          "calendar_info": 1,
-          "chitchat_greeting": 24,
-          "chitchat_science": 1,
-          "chitchat_trivia": 1,
-          "unknown": 10
-        },
-        "chitchat_sports": {
-          "chitchat_greeting": 31,
-          "chitchat_sports": 2,
-          "unknown": 5
-        },
-        "chitchat_tech_support": {
-          "chitchat_greeting": 18
-        },
-        "chitchat_trivia": {
-          "chitchat_coding": 2,
-          "chitchat_conversations": 1,
-          "chitchat_emotion": 1,
-          "chitchat_greeting": 244,
-          "chitchat_science": 2,
-          "chitchat_sports": 1,
-          "chitchat_trivia": 99,
-          "general_chat": 1,
-          "unknown": 59,
-          "weather_info": 1
+          "chitchat_general": 4,
+          "chitchat_greeting": 10,
+          "unknown": 14
         },
         "creative_3d": {
-          "chitchat_greeting": 40,
-          "creative_3d": 25
+          "creative_3d": 66
         },
         "creative_audio": {
-          "chitchat_greeting": 64,
-          "creative_audio": 10,
-          "creative_video": 1,
-          "unknown": 3
+          "creative_audio": 77,
+          "creative_video": 2,
+          "unknown": 1
         },
         "creative_image": {
-          "chitchat_greeting": 142,
-          "creative_3d": 1,
-          "creative_image": 23,
-          "unknown": 1
+          "creative_3d": 2,
+          "creative_audio": 2,
+          "creative_image": 161,
+          "unknown": 3
         },
         "creative_video": {
-          "chitchat_greeting": 140,
           "creative_audio": 1,
-          "creative_video": 21,
-          "unknown": 1
+          "creative_video": 149,
+          "media_analysis": 1,
+          "unknown": 13
         },
         "general_chat": {
-          "calendar_info": 1,
-          "chitchat_coding": 1,
-          "chitchat_greeting": 226,
-          "chitchat_greetings": 1,
-          "unknown": 5,
-          "weather_info": 3
+          "calendar_info": 5,
+          "chitchat_general": 4,
+          "chitchat_greeting": 16,
+          "creative_audio": 3,
+          "creative_video": 1,
+          "general_chat": 60,
+          "media_analysis": 3,
+          "unknown": 144,
+          "weather_info": 2
         },
         "media_analysis": {
-          "chitchat_greeting": 74,
-          "media_analysis": 11
+          "media_analysis": 78,
+          "unknown": 8
         },
         "weather_info": {
-          "chitchat_greeting": 66,
-          "weather_info": 74
+          "calendar_info": 1,
+          "unknown": 3,
+          "weather_info": 138
         }
       }
     },
     "val": {
       "split": "val",
       "samples": 325,
-      "accuracy": 0.10153846153846154,
-      "macroF1": 0.11643784241409265,
-      "microF1": 0.10662358642972536,
-      "unknownRate": 0.09538461538461539,
+      "accuracy": 0.3046153846153846,
+      "macroF1": 0.6664738751036673,
+      "microF1": 0.3859649122807018,
+      "unknownRate": 0.42153846153846153,
       "perIntent": {
         "calendar_info": {
           "precision": 1,
-          "recall": 0.56,
-          "f1": 0.717948717948718,
-          "support": 25,
-          "tp": 14,
-          "fp": 0,
-          "fn": 11
-        },
-        "chitchat_ai": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 20,
-          "tp": 0,
-          "fp": 2,
-          "fn": 20
-        },
-        "chitchat_botprofile": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 4,
-          "tp": 0,
-          "fp": 0,
-          "fn": 4
-        },
-        "chitchat_coding": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 16,
-          "tp": 0,
-          "fp": 2,
-          "fn": 16
-        },
-        "chitchat_computers": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 2,
-          "tp": 0,
+          "recall": 0.9130434782608695,
+          "f1": 0.9545454545454545,
+          "support": 23,
+          "tp": 21,
           "fp": 0,
           "fn": 2
         },
-        "chitchat_conversations": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 6,
-          "tp": 0,
-          "fp": 1,
-          "fn": 6
-        },
-        "chitchat_emotion": {
-          "precision": 1,
-          "recall": 0.037037037037037035,
-          "f1": 0.07142857142857142,
-          "support": 27,
-          "tp": 1,
-          "fp": 0,
-          "fn": 26
-        },
-        "chitchat_food": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 2,
-          "tp": 0,
-          "fp": 0,
-          "fn": 2
-        },
-        "chitchat_gossip": {
-          "precision": 1,
-          "recall": 0.5,
-          "f1": 0.6666666666666666,
-          "support": 2,
-          "tp": 1,
-          "fp": 0,
-          "fn": 1
+        "chitchat_general": {
+          "precision": 0.7333333333333333,
+          "recall": 0.05759162303664921,
+          "f1": 0.10679611650485436,
+          "support": 191,
+          "tp": 11,
+          "fp": 4,
+          "fn": 180
         },
         "chitchat_greeting": {
-          "precision": 0.00392156862745098,
-          "recall": 0.5,
-          "f1": 0.007782101167315175,
-          "support": 2,
-          "tp": 1,
-          "fp": 254,
-          "fn": 1
-        },
-        "chitchat_greetings": {
-          "precision": 1,
-          "recall": 0.3333333333333333,
-          "f1": 0.5,
-          "support": 3,
-          "tp": 1,
-          "fp": 0,
-          "fn": 2
-        },
-        "chitchat_health": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 0,
-          "tp": 0,
-          "fp": 0,
-          "fn": 0
-        },
-        "chitchat_history": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 1,
-          "tp": 0,
-          "fp": 0,
-          "fn": 1
-        },
-        "chitchat_humor": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 3,
-          "tp": 0,
-          "fp": 0,
-          "fn": 3
-        },
-        "chitchat_literature": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 2,
-          "tp": 0,
-          "fp": 1,
-          "fn": 2
-        },
-        "chitchat_money": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 5,
-          "tp": 0,
-          "fp": 0,
-          "fn": 5
-        },
-        "chitchat_movies": {
-          "precision": 1,
-          "recall": 0.1111111111111111,
-          "f1": 0.19999999999999998,
-          "support": 9,
-          "tp": 1,
-          "fp": 0,
-          "fn": 8
-        },
-        "chitchat_politics": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 3,
-          "tp": 0,
-          "fp": 0,
-          "fn": 3
-        },
-        "chitchat_psychology": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 8,
-          "tp": 0,
-          "fp": 0,
-          "fn": 8
-        },
-        "chitchat_science": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 4,
-          "tp": 0,
-          "fp": 0,
-          "fn": 4
-        },
-        "chitchat_sports": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 5,
-          "tp": 0,
-          "fp": 0,
-          "fn": 5
-        },
-        "chitchat_tech_support": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 2,
-          "tp": 0,
-          "fp": 0,
-          "fn": 2
-        },
-        "chitchat_trivia": {
-          "precision": 1,
-          "recall": 0.03508771929824561,
-          "f1": 0.06779661016949151,
-          "support": 57,
+          "precision": 0.023255813953488372,
+          "recall": 0.2857142857142857,
+          "f1": 0.04301075268817204,
+          "support": 7,
           "tp": 2,
-          "fp": 0,
-          "fn": 55
+          "fp": 84,
+          "fn": 5
         },
         "creative_3d": {
-          "precision": 1,
-          "recall": 0.1111111111111111,
-          "f1": 0.19999999999999998,
-          "support": 9,
-          "tp": 1,
-          "fp": 0,
-          "fn": 8
+          "precision": 0.8888888888888888,
+          "recall": 1,
+          "f1": 0.9411764705882353,
+          "support": 8,
+          "tp": 8,
+          "fp": 1,
+          "fn": 0
         },
         "creative_audio": {
           "precision": 1,
-          "recall": 0.21428571428571427,
-          "f1": 0.35294117647058826,
-          "support": 14,
-          "tp": 3,
+          "recall": 0.8181818181818182,
+          "f1": 0.9,
+          "support": 11,
+          "tp": 9,
           "fp": 0,
-          "fn": 11
+          "fn": 2
         },
         "creative_image": {
           "precision": 1,
-          "recall": 0.05,
-          "f1": 0.09523809523809523,
-          "support": 20,
-          "tp": 1,
+          "recall": 0.8421052631578947,
+          "f1": 0.9142857142857143,
+          "support": 19,
+          "tp": 16,
           "fp": 0,
-          "fn": 19
+          "fn": 3
         },
         "creative_video": {
           "precision": 1,
-          "recall": 0.07142857142857142,
-          "f1": 0.13333333333333333,
-          "support": 14,
-          "tp": 1,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "support": 12,
+          "tp": 10,
           "fp": 0,
-          "fn": 13
+          "fn": 2
         },
         "general_chat": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 33,
-          "tp": 0,
+          "precision": 1,
+          "recall": 0.03225806451612903,
+          "f1": 0.0625,
+          "support": 31,
+          "tp": 1,
           "fp": 0,
-          "fn": 33
+          "fn": 30
         },
         "media_analysis": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 9,
-          "tp": 0,
+          "precision": 1,
+          "recall": 0.7142857142857143,
+          "f1": 0.8333333333333333,
+          "support": 7,
+          "tp": 5,
           "fp": 0,
-          "fn": 9
+          "fn": 2
         },
         "weather_info": {
-          "precision": 0.8571428571428571,
-          "recall": 0.3333333333333333,
-          "f1": 0.48,
-          "support": 18,
-          "tp": 6,
-          "fp": 1,
-          "fn": 12
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "support": 16,
+          "tp": 16,
+          "fp": 0,
+          "fn": 0
         }
       },
       "confusion": {
         "calendar_info": {
-          "calendar_info": 14,
-          "chitchat_greeting": 10,
-          "weather_info": 1
-        },
-        "chitchat_ai": {
-          "chitchat_conversations": 1,
-          "chitchat_greeting": 18,
-          "unknown": 1
-        },
-        "chitchat_botprofile": {
-          "chitchat_greeting": 4
-        },
-        "chitchat_coding": {
-          "chitchat_greeting": 16
-        },
-        "chitchat_computers": {
-          "chitchat_greeting": 2
-        },
-        "chitchat_conversations": {
-          "chitchat_greeting": 5,
-          "unknown": 1
-        },
-        "chitchat_emotion": {
-          "chitchat_emotion": 1,
-          "chitchat_greeting": 24,
-          "chitchat_literature": 1,
-          "unknown": 1
-        },
-        "chitchat_food": {
-          "chitchat_greeting": 2
-        },
-        "chitchat_gossip": {
-          "chitchat_gossip": 1,
-          "chitchat_greeting": 1
-        },
-        "chitchat_greeting": {
-          "chitchat_coding": 1,
-          "chitchat_greeting": 1
-        },
-        "chitchat_greetings": {
-          "chitchat_greeting": 1,
-          "chitchat_greetings": 1,
-          "unknown": 1
-        },
-        "chitchat_history": {
-          "chitchat_greeting": 1
-        },
-        "chitchat_humor": {
-          "chitchat_greeting": 3
-        },
-        "chitchat_literature": {
-          "chitchat_greeting": 2
-        },
-        "chitchat_money": {
-          "chitchat_greeting": 5
-        },
-        "chitchat_movies": {
-          "chitchat_ai": 1,
-          "chitchat_greeting": 6,
-          "chitchat_movies": 1,
-          "unknown": 1
-        },
-        "chitchat_politics": {
-          "chitchat_greeting": 2,
-          "unknown": 1
-        },
-        "chitchat_psychology": {
-          "chitchat_greeting": 7,
-          "unknown": 1
-        },
-        "chitchat_science": {
-          "chitchat_greeting": 4
-        },
-        "chitchat_sports": {
-          "chitchat_greeting": 3,
+          "calendar_info": 21,
           "unknown": 2
         },
-        "chitchat_tech_support": {
-          "chitchat_greeting": 2
+        "chitchat_general": {
+          "chitchat_general": 11,
+          "chitchat_greeting": 79,
+          "unknown": 101
         },
-        "chitchat_trivia": {
-          "chitchat_ai": 1,
-          "chitchat_coding": 1,
-          "chitchat_greeting": 32,
-          "chitchat_trivia": 2,
-          "unknown": 21
+        "chitchat_greeting": {
+          "chitchat_general": 3,
+          "chitchat_greeting": 2,
+          "unknown": 2
         },
         "creative_3d": {
-          "chitchat_greeting": 8,
-          "creative_3d": 1
+          "creative_3d": 8
         },
         "creative_audio": {
-          "chitchat_greeting": 10,
-          "creative_audio": 3,
-          "unknown": 1
+          "creative_audio": 9,
+          "unknown": 2
         },
         "creative_image": {
-          "chitchat_greeting": 19,
-          "creative_image": 1
+          "creative_image": 16,
+          "unknown": 3
         },
         "creative_video": {
-          "chitchat_greeting": 13,
-          "creative_video": 1
+          "creative_3d": 1,
+          "creative_video": 10,
+          "unknown": 1
         },
         "general_chat": {
-          "chitchat_greeting": 33
+          "chitchat_general": 1,
+          "chitchat_greeting": 4,
+          "general_chat": 1,
+          "unknown": 25
         },
         "media_analysis": {
-          "chitchat_greeting": 9
+          "chitchat_greeting": 1,
+          "media_analysis": 5,
+          "unknown": 1
         },
         "weather_info": {
-          "chitchat_greeting": 12,
-          "weather_info": 6
+          "weather_info": 16
         }
       }
     }
@@ -1354,216 +559,76 @@
     "testSampleCount": 325,
     "calibrated": true,
     "calibratedThresholds": {
-      "calendar_info": 0.3,
-      "chitchat_ai": 0.01,
-      "chitchat_botprofile": 0.01,
-      "chitchat_coding": 0.01,
-      "chitchat_computers": 0.01,
-      "chitchat_conversations": 0.01,
-      "chitchat_emotion": 0.01,
-      "chitchat_food": 0.01,
-      "chitchat_gossip": 0.01,
-      "chitchat_greeting": 0.44392824516404544,
-      "chitchat_greetings": 0.01,
-      "chitchat_health": 0.55,
-      "chitchat_history": 0.01,
-      "chitchat_humor": 0.01,
-      "chitchat_literature": 0.01,
-      "chitchat_money": 0.01,
-      "chitchat_movies": 0.01,
-      "chitchat_politics": 0.01,
-      "chitchat_psychology": 0.01,
-      "chitchat_science": 0.01,
-      "chitchat_sports": 0.01,
-      "chitchat_tech_support": 0.01,
-      "chitchat_trivia": 0.01,
-      "creative_3d": 0.3,
-      "creative_audio": 0.1,
-      "creative_image": 0.1,
+      "calendar_info": 0.55,
+      "chitchat_general": 0.01,
+      "chitchat_greeting": 0.9790138822089275,
+      "creative_3d": 0.55,
+      "creative_audio": 0.3552391603478511,
+      "creative_image": 0.01,
       "creative_video": 0.01,
-      "general_chat": 0.01,
-      "media_analysis": 0.01,
-      "weather_info": 0.3
+      "general_chat": 0.3,
+      "media_analysis": 0.9,
+      "weather_info": 0.9925701326067364
     },
     "dataSummary": {
       "calendar_info": {
         "total": 204,
-        "train": 148,
-        "val": 25,
-        "test": 31
+        "train": 149,
+        "val": 23,
+        "test": 32
       },
-      "chitchat_ai": {
-        "total": 163,
-        "train": 131,
-        "val": 20,
-        "test": 12
-      },
-      "chitchat_botprofile": {
-        "total": 32,
-        "train": 23,
-        "val": 4,
-        "test": 5
-      },
-      "chitchat_coding": {
-        "total": 194,
-        "train": 152,
-        "val": 16,
-        "test": 26
-      },
-      "chitchat_computers": {
-        "total": 45,
-        "train": 39,
-        "val": 2,
-        "test": 4
-      },
-      "chitchat_conversations": {
-        "total": 121,
-        "train": 103,
-        "val": 6,
-        "test": 12
-      },
-      "chitchat_emotion": {
-        "total": 247,
-        "train": 197,
-        "val": 27,
-        "test": 23
-      },
-      "chitchat_food": {
-        "total": 30,
-        "train": 25,
-        "val": 2,
-        "test": 3
-      },
-      "chitchat_gossip": {
-        "total": 24,
-        "train": 19,
-        "val": 2,
-        "test": 3
+      "chitchat_general": {
+        "total": 1852,
+        "train": 1481,
+        "val": 191,
+        "test": 180
       },
       "chitchat_greeting": {
-        "total": 6,
-        "train": 4,
-        "val": 2,
-        "test": 0
-      },
-      "chitchat_greetings": {
-        "total": 31,
-        "train": 22,
-        "val": 3,
-        "test": 6
-      },
-      "chitchat_health": {
-        "total": 9,
-        "train": 9,
-        "val": 0,
-        "test": 0
-      },
-      "chitchat_history": {
-        "total": 16,
-        "train": 11,
-        "val": 1,
-        "test": 4
-      },
-      "chitchat_humor": {
-        "total": 33,
+        "total": 37,
         "train": 28,
-        "val": 3,
+        "val": 7,
         "test": 2
-      },
-      "chitchat_literature": {
-        "total": 73,
-        "train": 62,
-        "val": 2,
-        "test": 9
-      },
-      "chitchat_money": {
-        "total": 46,
-        "train": 36,
-        "val": 5,
-        "test": 5
-      },
-      "chitchat_movies": {
-        "total": 46,
-        "train": 34,
-        "val": 9,
-        "test": 3
-      },
-      "chitchat_politics": {
-        "total": 28,
-        "train": 21,
-        "val": 3,
-        "test": 4
-      },
-      "chitchat_psychology": {
-        "total": 119,
-        "train": 99,
-        "val": 8,
-        "test": 12
-      },
-      "chitchat_science": {
-        "total": 48,
-        "train": 37,
-        "val": 4,
-        "test": 7
-      },
-      "chitchat_sports": {
-        "total": 48,
-        "train": 38,
-        "val": 5,
-        "test": 5
-      },
-      "chitchat_tech_support": {
-        "total": 20,
-        "train": 18,
-        "val": 2,
-        "test": 0
-      },
-      "chitchat_trivia": {
-        "total": 510,
-        "train": 411,
-        "val": 57,
-        "test": 42
       },
       "creative_3d": {
         "total": 80,
-        "train": 65,
-        "val": 9,
+        "train": 66,
+        "val": 8,
         "test": 6
       },
       "creative_audio": {
         "total": 100,
-        "train": 78,
-        "val": 14,
-        "test": 8
+        "train": 80,
+        "val": 11,
+        "test": 9
       },
       "creative_image": {
         "total": 203,
-        "train": 167,
-        "val": 20,
+        "train": 168,
+        "val": 19,
         "test": 16
       },
       "creative_video": {
         "total": 200,
-        "train": 163,
-        "val": 14,
-        "test": 23
+        "train": 164,
+        "val": 12,
+        "test": 24
       },
       "general_chat": {
         "total": 300,
-        "train": 237,
-        "val": 33,
-        "test": 30
+        "train": 238,
+        "val": 31,
+        "test": 31
       },
       "media_analysis": {
         "total": 100,
-        "train": 85,
-        "val": 9,
-        "test": 6
+        "train": 86,
+        "val": 7,
+        "test": 7
       },
       "weather_info": {
         "total": 176,
-        "train": 140,
-        "val": 18,
+        "train": 142,
+        "val": 16,
         "test": 18
       }
     },
@@ -1586,7 +651,7 @@
         "seed": 42
       },
       "autoCalibrateThresholds": true,
-      "taxonomyEnabled": false
+      "taxonomyEnabled": true
     }
   },
   "source": {

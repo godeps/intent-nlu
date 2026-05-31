@@ -1,6 +1,6 @@
 {
-  "version": "2026.05.31.bundle.143913",
-  "createdAt": "2026-05-31T14:39:13.731637698Z",
+  "version": "2026.05.31.bundle.153954",
+  "createdAt": "2026-05-31T15:39:55.144769791Z",
   "defaultLanguage": "zh",
   "corpus": {
     "repoUrl": "https://github.com/gunthercox/chatterbot-corpus.git",
@@ -8,7 +8,7 @@
   },
   "trainingParams": {
     "auto_calibrate": "true",
-    "disable_taxonomy": "true",
+    "disable_taxonomy": "false",
     "include_replies": "true",
     "seed": "42",
     "skip_unmapped": "true",
@@ -21,20 +21,20 @@
   },
   "modelSummary": {
     "en": {
-      "version": "2026.05.31.en.143913",
+      "version": "2026.05.31.en.153954",
       "language": "en",
       "trainingSampleCount": 2602,
       "totalSampleCount": 3252,
       "defaultThreshold": 0.55,
-      "macroF1": 0.09660718294051626
+      "macroF1": 0.6363679702650291
     },
     "zh": {
-      "version": "2026.05.31.zh.143911",
+      "version": "2026.05.31.zh.153952",
       "language": "zh",
       "trainingSampleCount": 1846,
       "totalSampleCount": 2308,
       "defaultThreshold": 0.55,
-      "macroF1": 0.22038394953428778
+      "macroF1": 0.6885772391842843
     }
   },
   "models": {
