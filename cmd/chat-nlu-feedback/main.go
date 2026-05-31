@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	chatnlu "github.com/godeps/chat-nlu"
+	chatnlu "github.com/godeps/intent-nlu"
 )
 
 type feedbackRecord struct {

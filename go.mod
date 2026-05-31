@@ -1,4 +1,4 @@
-module github.com/godeps/chat-nlu
+module github.com/godeps/intent-nlu
 
 go 1.25
 

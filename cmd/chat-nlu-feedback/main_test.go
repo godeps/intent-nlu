@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	chatnlu "github.com/godeps/chat-nlu"
+	chatnlu "github.com/godeps/intent-nlu"
 )
 
 func TestLoadFeedbackCSVAndMergeSamples(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	chatnlu "github.com/godeps/chat-nlu"
+	chatnlu "github.com/godeps/intent-nlu"
 )
 
 func main() {

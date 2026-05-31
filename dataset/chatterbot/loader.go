@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	chatnlu "github.com/godeps/chat-nlu"
+	chatnlu "github.com/godeps/intent-nlu"
 	"gopkg.in/yaml.v3"
 )
 

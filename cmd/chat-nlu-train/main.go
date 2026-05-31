@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"strings"
 
-	chatnlu "github.com/godeps/chat-nlu"
-	"github.com/godeps/chat-nlu/dataset/chatterbot"
+	chatnlu "github.com/godeps/intent-nlu"
+	"github.com/godeps/intent-nlu/dataset/chatterbot"
 )
 
 func main() {

@@ -183,7 +183,7 @@ Each intent covers approximately:
 |------|--------|
 | `saker/pkg/runtime/skills/nlu_matcher.go` (new) | `NLUMatcher` implementing `Matcher` interface |
 | `saker/pkg/runtime/skills/loader.go` | Wire NLU matcher as fallback after keyword |
-| `saker/go.mod` | Add `github.com/godeps/chat-nlu` dependency |
+| `saker/go.mod` | Add `github.com/godeps/intent-nlu` dependency |
 
 ### NLUMatcher Implementation
 
@@ -193,7 +193,7 @@ package skills
 import (
     "context"
     "fmt"
-    chatnlu "github.com/godeps/chat-nlu"
+    chatnlu "github.com/godeps/intent-nlu"
 )
 
 // intentToSkill maps NLU intents to skill names.
