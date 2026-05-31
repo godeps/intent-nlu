@@ -271,14 +271,18 @@ train_one_language() {
 
   local version="${VERSION_PREFIX}.${lang}.$(date -u +%H%M%S)"
   local model_dir="${OUTPUT_DIR}/model-${lang}"
-  local extra_csv="${DEFAULT_EXTRA_DIR}/${lang}_business.csv"
+  local extra_csv=""
+  for csv_file in "${DEFAULT_EXTRA_DIR}/${lang}_business.csv" "${DEFAULT_EXTRA_DIR}/${lang}_skill_routing.csv"; do
+    if [[ -f "${csv_file}" ]]; then
+      [[ -n "${extra_csv}" ]] && extra_csv="${extra_csv},"
+      extra_csv="${extra_csv}${csv_file}"
+      log "using dataset: ${csv_file}"
+    fi
+  done
 
   log "training lang=${lang} corpus=${corpus_dir} out=${model_dir}"
-  if [[ -f "${extra_csv}" ]]; then
-    log "using default extra dataset: ${extra_csv}"
-  else
-    extra_csv=""
-    log "no default extra dataset for ${lang}, skip extra csv"
+  if [[ -z "${extra_csv}" ]]; then
+    log "no default extra datasets for ${lang}, skip extra csv"
   fi
 
   (

@@ -45,6 +45,53 @@ func TestNormalizeIntentAndThresholds(t *testing.T) {
 	}
 }
 
+func TestSkillRoutingAliases(t *testing.T) {
+	aliases := DefaultIntentAliases()
+
+	cases := []struct {
+		input string
+		want  string
+	}{
+		{"video_production", "creative_video"},
+		{"video_editing", "creative_video"},
+		{"film_production", "creative_video"},
+		{"ad_production", "creative_video"},
+		{"image_generation", "creative_image"},
+		{"poster_design", "creative_image"},
+		{"music_creation", "creative_audio"},
+		{"audio_production", "creative_audio"},
+		{"3d_modeling", "creative_3d"},
+		{"video_analysis", "media_analysis"},
+		{"image_analysis", "media_analysis"},
+		{"creative_video", "creative_video"},
+		{"creative_image", "creative_image"},
+		{"creative_audio", "creative_audio"},
+		{"creative_3d", "creative_3d"},
+		{"media_analysis", "media_analysis"},
+	}
+	for _, tc := range cases {
+		got := NormalizeIntent(tc.input, aliases)
+		if got != tc.want {
+			t.Errorf("NormalizeIntent(%q) = %q, want %q", tc.input, got, tc.want)
+		}
+	}
+
+	thresholds := NormalizeThresholds(map[string]float64{
+		"video_production": 0.65,
+		"image_generation": 0.70,
+		"3d_modeling":      0.75,
+	}, aliases)
+	if thresholds["creative_video"] != 0.65 {
+		t.Errorf("expected creative_video threshold 0.65, got %v", thresholds["creative_video"])
+	}
+	if thresholds["creative_image"] != 0.70 {
+		t.Errorf("expected creative_image threshold 0.70, got %v", thresholds["creative_image"])
+	}
+	if thresholds["creative_3d"] != 0.75 {
+		t.Errorf("expected creative_3d threshold 0.75, got %v", thresholds["creative_3d"])
+	}
+}
+
 func TestCanonicalIntentsFromClasses(t *testing.T) {
 	got := canonicalIntentsFromClasses([]string{
 		"calendar_info",

@@ -1,0 +1,984 @@
+text,intent
+create a product promotional video,creative_video
+make me a 30-second commercial,creative_video
+generate a brand video for our company,creative_video
+produce a short video ad,creative_video
+make a product demo video,creative_video
+create a corporate introduction video,creative_video
+generate an advertisement video,creative_video
+I need a 15-second commercial spot,creative_video
+make a product showcase video,creative_video
+create a TVC advertisement,creative_video
+produce a new product launch video,creative_video
+make an e-commerce product video,creative_video
+create a company profile short film,creative_video
+generate a merchandise display video,creative_video
+make an app feature demo video,creative_video
+I want a holiday promotion ad video,creative_video
+create a recruitment promotional video,creative_video
+make a course promo video,creative_video
+produce a tutorial video,creative_video
+generate an event recap video,creative_video
+create a real estate promotional video,creative_video
+make a year-end summary video,creative_video
+I need a wedding video,creative_video
+produce a tourism destination promo,creative_video
+create a restaurant promotional video,creative_video
+make a fitness course video,creative_video
+produce a cooking tutorial video,creative_video
+generate a music video,creative_video
+create a product unboxing video,creative_video
+make a tech product review video,creative_video
+produce a brand story video,creative_video
+generate a public service announcement video,creative_video
+create a TikTok short video,creative_video
+make an Instagram Reels video,creative_video
+produce a YouTube video,creative_video
+create a social media video ad,creative_video
+make a vertical video for stories,creative_video
+produce a square video for feeds,creative_video
+create a livestream teaser video,creative_video
+generate a video trailer,creative_video
+make a horizontal widescreen promo,creative_video
+create a 4K promotional video,creative_video
+produce an animated explainer video,creative_video
+generate a 2D animation video,creative_video
+make a motion graphics video,creative_video
+create a stop-motion short film,creative_video
+produce a whiteboard animation,creative_video
+make a 3D animated promo,creative_video
+create a cartoon animation video,creative_video
+generate a hand-drawn animation ad,creative_video
+produce a kinetic typography video,creative_video
+create a logo animation video,creative_video
+make a transition effects video,creative_video
+generate a particle effects video,creative_video
+produce a vlog-style video,creative_video
+edit this video footage for me,creative_video
+add an intro and outro to the video,creative_video
+do post-production on this video,creative_video
+add subtitles and effects to the video,creative_video
+color grade this video,creative_video
+make a video mashup,creative_video
+turn these photos into a video,creative_video
+add background music and transitions to the video,creative_video
+create a video opener,creative_video
+make a countdown video,creative_video
+produce a timelapse video,creative_video
+create a slow-motion video,creative_video
+make me a cool video,creative_video
+put together a short clip,creative_video
+whip up a quick ad,creative_video
+can you make a promo video,creative_video
+I need a video done,creative_video
+get me a product video,creative_video
+throw together a video for me,creative_video
+knock out a quick commercial,creative_video
+put a video together real quick,creative_video
+shoot me a video ad,creative_video
+make something I can post on social media,creative_video
+create a video for my YouTube channel,creative_video
+make a catchy video ad,creative_video
+get me a creative commercial,creative_video
+produce something with good vibes,creative_video
+make a trendy video,creative_video
+create something eye-catching,creative_video
+make a slick promo,creative_video
+create a viral video ad,creative_video
+produce an influencer-style video,creative_video
+make a shopping haul video,creative_video
+create a store tour video,creative_video
+produce a review video,creative_video
+make a nice vlog for me,creative_video
+create a travel video,creative_video
+make video,creative_video
+shoot a clip,creative_video
+create ad,creative_video
+need a promo,creative_video
+generate video,creative_video
+make commercial,creative_video
+produce short film,creative_video
+do a video,creative_video
+make MV,creative_video
+video editing,creative_video
+create animation,creative_video
+film an ad,creative_video
+intro video,creative_video
+edit video,creative_video
+make a clip,creative_video
+create a full product line introduction video,creative_video
+make a video for our trade show booth to loop,creative_video
+I need an English product video for overseas clients,creative_video
+create a 15-second video for subway digital screens,creative_video
+produce an investor pitch video,creative_video
+make a gala opening video,creative_video
+create an employee training video,creative_video
+produce a customer case study video,creative_video
+make an anniversary celebration video,creative_video
+create a summer sale video ad,creative_video
+produce a Black Friday promotional video,creative_video
+make a Christmas themed video,creative_video
+create a Valentine's Day short video,creative_video
+turn this PowerPoint into a video presentation,creative_video
+can you make a video for me,creative_video
+could you generate a video please,creative_video
+would you produce a video,creative_video
+is it possible to make a commercial,creative_video
+I'd like to get a promo video made,creative_video
+make a 60-second brand ad video,creative_video
+create a bilingual promo with subtitles,creative_video
+produce a 9:16 vertical video ad,creative_video
+make a 16:9 widescreen corporate film,creative_video
+create a 1080p product showcase video,creative_video
+produce a voiceover product intro video,creative_video
+make a looping product display video,creative_video
+create a split-screen product comparison video,creative_video
+produce a cinematic brand video,creative_video
+make a documentary-style brand story,creative_video
+create an interview-style customer video,creative_video
+produce a fast-paced product montage,creative_video
+make a slow-motion brand video,creative_video
+create a retro film-grain style short video,creative_video
+produce a cyberpunk style commercial,creative_video
+make a minimalist product intro video,creative_video
+create a mobile-first in-feed video ad,creative_video
+produce a how-to video for our product,creative_video
+make a behind-the-scenes video,creative_video
+create a webinar highlight video,creative_video
+produce a product comparison video,creative_video
+create a factory tour video,creative_video
+make an online launch event video,creative_video
+produce a service walkthrough video,creative_video
+create a franchise recruitment video,creative_video
+make a brand collaboration video,creative_video
+produce a founder interview video,creative_video
+create a project report video,creative_video
+make a campus recruitment promo,creative_video
+produce a product upgrade announcement video,creative_video
+create a data report visualization video,creative_video
+make a user story sharing video,creative_video
+design a product poster for me,creative_image
+generate a promotional poster,creative_image
+create a logo design,creative_image
+make an event promotional graphic,creative_image
+create a banner image,creative_image
+draw an illustration for me,creative_image
+design a business card,creative_image
+generate a product main image,creative_image
+make a social media graphic,creative_image
+draw a cartoon avatar,creative_image
+design a holiday greeting card,creative_image
+create a blog cover image,creative_image
+generate an e-commerce header image,creative_image
+design an app splash screen,creative_image
+make a recruitment poster,creative_image
+draw a product usage scenario illustration,creative_image
+design a brand visual,creative_image
+generate a food photography style image,creative_image
+make a real estate promotional graphic,creative_image
+design a certificate template,creative_image
+draw a cute mascot character,creative_image
+generate a sci-fi style illustration,creative_image
+design an album cover,creative_image
+create a Pinterest-style share image,creative_image
+generate a photo collage,creative_image
+make a packaging design mockup,creative_image
+draw a watercolor landscape painting,creative_image
+design a promotional event poster,creative_image
+create an exhibition board design,creative_image
+generate a data visualization chart,creative_image
+draw a game character concept art,creative_image
+design an icon set,creative_image
+create a menu design,creative_image
+generate an AI art piece,creative_image
+design an infographic,creative_image
+create a presentation cover image,creative_image
+draw a comic-style character,creative_image
+design a website hero image,creative_image
+generate a cyberpunk style image,creative_image
+create a traditional ink wash painting,creative_image
+draw a pixel art game graphic,creative_image
+design a Black Friday sale poster,creative_image
+create a summer promotion main image,creative_image
+generate a Christmas themed poster,creative_image
+make a New Year greeting card design,creative_image
+design a Mother's Day poster,creative_image
+create a Valentine's Day promotional graphic,creative_image
+make a graduation season poster,creative_image
+generate a back-to-school promotional image,creative_image
+design a Halloween themed graphic,creative_image
+create a Thanksgiving poster,creative_image
+whip up a poster,creative_image
+make me a nice graphic,creative_image
+create a logo for me,creative_image
+get me a promo image,creative_image
+draw something for me,creative_image
+make a good-looking cover,creative_image
+get me an illustration,creative_image
+draw a cartoon picture,creative_image
+make me an avatar,creative_image
+put together a product image,creative_image
+make a graphic I can post online,creative_image
+create a profile picture for me,creative_image
+make a nice background image,creative_image
+get me a wallpaper,creative_image
+make some stickers,creative_image
+create a greeting card graphic,creative_image
+get me a nice thumbnail,creative_image
+make a QR code poster,creative_image
+put together a product shot,creative_image
+make a promotional graphic for me,creative_image
+make a poster,creative_image
+design a banner,creative_image
+generate an illustration,creative_image
+create an icon,creative_image
+make a cover image,creative_image
+create a thumbnail,creative_image
+make a social media post graphic,creative_image
+design an infographic for me,creative_image
+create a key visual,creative_image
+design an avatar,creative_image
+generate a logo mark,creative_image
+make a hero image,creative_image
+create a mockup,creative_image
+do a graphic design,creative_image
+make a render,creative_image
+draw image,creative_image
+make poster,creative_image
+draw a picture,creative_image
+generate image,creative_image
+make graphic,creative_image
+need a poster,creative_image
+design logo,creative_image
+draw avatar,creative_image
+make thumbnail,creative_image
+get me an image,creative_image
+design icon,creative_image
+create artwork,creative_image
+make cover,creative_image
+generate illustration,creative_image
+make wallpaper,creative_image
+design a modern minimalist company logo,creative_image
+make an A3 printable poster,creative_image
+draw a landscape illustration for a phone wallpaper,creative_image
+generate a white-background e-commerce product image,creative_image
+design a gradient app icon,creative_image
+make a wide-format Twitter header image,creative_image
+draw a four-panel comic strip,creative_image
+design a consistent social media template set,creative_image
+create a tech-looking presentation background,creative_image
+generate a minimalist brand poster,creative_image
+make a vintage style event graphic,creative_image
+draw an oil painting style portrait,creative_image
+design a flat-style infographic,creative_image
+create a 3D text effect poster,creative_image
+generate a neon light effect promotional image,creative_image
+draw an anime-style character,creative_image
+design a retro-wave aesthetic poster,creative_image
+create a vaporwave style graphic,creative_image
+design a brand mascot character,creative_image
+make a line art style illustration,creative_image
+create a video thumbnail image,creative_image
+make a YouTube cover image,creative_image
+design a livestream room background,creative_image
+create a course cover image,creative_image
+make an article header image,creative_image
+design an event invitation graphic,creative_image
+create a registration QR code poster,creative_image
+make a product comparison chart image,creative_image
+create a user testimonial display graphic,creative_image
+design an electronic invitation card,creative_image
+create a program brochure cover,creative_image
+draw a route map illustration,creative_image
+generate a starry sky wallpaper,creative_image
+make a fitness check-in share graphic,creative_image
+design an award certificate template,creative_image
+draw a botanical watercolor illustration,creative_image
+make a reading notes companion graphic,creative_image
+design a cute avatar sticker,creative_image
+create a bullet journal calendar graphic,creative_image
+generate a cyberpunk cityscape illustration,creative_image
+make a geometric line art cover,creative_image
+design a badge emblem,creative_image
+draw a realistic pencil portrait sketch,creative_image
+create a countdown event teaser graphic,creative_image
+design a unified product series visual,creative_image
+make a virtual meeting background wallpaper,creative_image
+generate a product close-up with lighting effects,creative_image
+create an origami style creative illustration,creative_image
+create background music for me,creative_audio
+generate a BGM track,creative_audio
+make me a song,creative_audio
+compose a melody for me,creative_audio
+produce a sound effect,creative_audio
+make a podcast intro music,creative_audio
+generate relaxing instrumental music,creative_audio
+create an electronic music track,creative_audio
+compose an ad background tune,creative_audio
+produce a video soundtrack,creative_audio
+generate ambient sound effects,creative_audio
+make a game background music,creative_audio
+compose a children's song,creative_audio
+generate a jazz style music piece,creative_audio
+create a classical piano composition,creative_audio
+make a hip-hop beat,creative_audio
+produce a Chinese traditional style music,creative_audio
+generate a rock style track,creative_audio
+create an R&B style song,creative_audio
+compose a folk guitar piece,creative_audio
+generate an orchestral style music,creative_audio
+make a meditation music track,creative_audio
+produce workout music,creative_audio
+create a rhythmic advertising tune,creative_audio
+generate an upbeat opening music,creative_audio
+make a suspenseful atmosphere background,creative_audio
+create a horror sound effect,creative_audio
+produce natural white noise,creative_audio
+generate rain sound effects,creative_audio
+make a door opening and closing sound effect,creative_audio
+create a victory fanfare sound effect,creative_audio
+produce a notification chime,creative_audio
+make a countdown timer sound effect,creative_audio
+generate a transition sound effect,creative_audio
+create an intro jingle,creative_audio
+make a phone ringtone,creative_audio
+produce an alarm tone,creative_audio
+generate a message notification sound,creative_audio
+create a voiceover track,creative_audio
+whip up some music,creative_audio
+get me a BGM,creative_audio
+make some background music,creative_audio
+put together a sound effect,creative_audio
+make me a tune,creative_audio
+create something chill to listen to,creative_audio
+get me a soundtrack,creative_audio
+make a pumped-up beat,creative_audio
+produce something calming,creative_audio
+get me an epic soundtrack,creative_audio
+create an opening theme,creative_audio
+make some easy listening music,creative_audio
+put together something for running,creative_audio
+make background music,creative_audio
+create a sound effect,creative_audio
+generate lofi music,creative_audio
+make a jingle,creative_audio
+create a podcast intro,creative_audio
+generate ambient music,creative_audio
+make a ringtone,creative_audio
+create cinematic music,creative_audio
+make a trap beat,creative_audio
+produce EDM music,creative_audio
+make music,creative_audio
+compose a tune,creative_audio
+need BGM,creative_audio
+make a song,creative_audio
+create music,creative_audio
+make sound effects,creative_audio
+add music,creative_audio
+make ringtone,creative_audio
+compose something,creative_audio
+create a BGM suitable for short videos,creative_audio
+generate a 3-minute light music track,creative_audio
+make music suitable for yoga,creative_audio
+produce a corporate promo soundtrack,creative_audio
+create music for a coffee shop ambiance,creative_audio
+make romantic wedding music,creative_audio
+generate a tech-feeling soundtrack,creative_audio
+produce presentation background music,creative_audio
+create festive holiday music,creative_audio
+make a game victory sound effect,creative_audio
+create morning show opening music,creative_audio
+generate a drum loop beat,creative_audio
+make livestream background music,creative_audio
+produce hold music for phone calls,creative_audio
+create radio transition music,creative_audio
+generate 8-bit retro game sound effects,creative_audio
+make tense dramatic music for a short film,creative_audio
+produce Japanese style background music,creative_audio
+create poetry recitation accompaniment music,creative_audio
+generate upbeat celebration music,creative_audio
+create a 3D product model for me,creative_3d
+generate a 3D character model,creative_3d
+make a three-dimensional product render,creative_3d
+build a 3D scene for me,creative_3d
+create a 3D animated character,creative_3d
+make a 3D architectural visualization,creative_3d
+generate a 3D product showcase model,creative_3d
+create a 3D print model file,creative_3d
+make a 3D interior design rendering,creative_3d
+create a 3D virtual showroom,creative_3d
+build a 3D game character model,creative_3d
+generate a 3D furniture model,creative_3d
+make a car 3D rendering,creative_3d
+create a 3D jewelry model,creative_3d
+produce a 3D product exploded view,creative_3d
+generate a 3D terrain model,creative_3d
+make a 3D city model,creative_3d
+create a 3D figurine model,creative_3d
+generate a 3D food model,creative_3d
+make a 3D portrait bust,creative_3d
+create a 3D mechanical part model,creative_3d
+produce a 3D packaging box mockup,creative_3d
+generate a low-poly style 3D model,creative_3d
+create a realistic 3D scene,creative_3d
+make a cartoon-style 3D character,creative_3d
+put together a 3D model,creative_3d
+get me a three-dimensional model,creative_3d
+make a 3D rendering for me,creative_3d
+do a 3D render,creative_3d
+create a three-dimensional product visual,creative_3d
+make a solid model,creative_3d
+put together a 3D scene,creative_3d
+render a 3D environment for me,creative_3d
+make a 3D animated figure,creative_3d
+create a 3D product display,creative_3d
+make a 3D model,creative_3d
+create 3D rendering,creative_3d
+do 3D visualization,creative_3d
+make a three-dimensional model,creative_3d
+create a 3D mockup,creative_3d
+make a 3D asset,creative_3d
+generate low poly model,creative_3d
+create a 3D character,creative_3d
+make a wireframe 3D model,creative_3d
+create a 3D mesh,creative_3d
+make 3D,creative_3d
+create model,creative_3d
+3D render,creative_3d
+build model,creative_3d
+make three-dimensional,creative_3d
+3D modeling,creative_3d
+render model,creative_3d
+make it 3D,creative_3d
+create a 360-degree rotatable 3D product model,creative_3d
+generate an AR-ready 3D product model,creative_3d
+create a VR scene 3D environment,creative_3d
+make a 3D print STL file,creative_3d
+produce an e-commerce 3D product spin,creative_3d
+create a textured 3D furniture model,creative_3d
+generate a PBR material 3D product render,creative_3d
+make an isometric 3D scene illustration,creative_3d
+create a 3D text effect,creative_3d
+make a 3D floor plan model,creative_3d
+create an industrial 3D CAD model,creative_3d
+generate a concept car 3D design,creative_3d
+create a high-precision industrial part 3D model,creative_3d
+generate a cartoon-style 3D mascot,creative_3d
+make a 3D lettering effect,creative_3d
+create an exhibition hall 3D layout model,creative_3d
+produce a 3D product teardown animation model,creative_3d
+generate a sci-fi style 3D scene,creative_3d
+create a 3D virtual office environment,creative_3d
+make a 3D landscape design rendering,creative_3d
+analyze the content of this video for me,media_analysis
+tell me what is in this image,media_analysis
+identify the people in this video,media_analysis
+analyze the composition of this video footage,media_analysis
+describe this image for me,media_analysis
+check the quality of this video,media_analysis
+extract key frames from this video,media_analysis
+analyze the camera settings of this photo,media_analysis
+recognize the text in this image,media_analysis
+count how many people are in this video,media_analysis
+analyze the color grading style of this video,media_analysis
+identify the objects in this image,media_analysis
+check the resolution of this video,media_analysis
+analyze the composition ratio of this image,media_analysis
+extract the subtitle content from this video,media_analysis
+tell me what style this image is,media_analysis
+analyze the pacing of this video,media_analysis
+identify the brand logos in this image,media_analysis
+check if this video has watermarks,media_analysis
+analyze the color scheme of this image,media_analysis
+interpret what this video is about,media_analysis
+tell me the emotion expressed in this image,media_analysis
+analyze the creative highlights of this ad video,media_analysis
+identify the products in this video,media_analysis
+review the design of this image,media_analysis
+analyze the virality of this short video,media_analysis
+extract the soundtrack info from this video,media_analysis
+evaluate this poster design,media_analysis
+analyze this competitor's video ad,media_analysis
+identify the scene location in this image,media_analysis
+check the transitions in this video,media_analysis
+analyze the layout of this image,media_analysis
+check the frame rate of this video,media_analysis
+identify the resolution and format of this image,media_analysis
+analyze the audio quality of this video,media_analysis
+tell me what is being said in this video,media_analysis
+translate the dialogue in this video,media_analysis
+analyze the EXIF data of this image,media_analysis
+spot the differences between these two images,media_analysis
+compare these two video clips,media_analysis
+take a look at this video,media_analysis
+analyze this image,media_analysis
+tell me what is in the picture,media_analysis
+check out what this video is about,media_analysis
+how does this image look,media_analysis
+review this video clip,media_analysis
+give me an analysis of this graphic,media_analysis
+what does this frame show,media_analysis
+check if this footage is usable,media_analysis
+how is this video shot,media_analysis
+analyze this video,media_analysis
+describe this picture,media_analysis
+identify this image,media_analysis
+review this video,media_analysis
+analyze this picture,media_analysis
+caption this image,media_analysis
+video analysis,media_analysis
+image recognition,media_analysis
+look at this image,media_analysis
+check this photo,media_analysis
+analyze the lighting setup of this product shoot video,media_analysis
+check if the white balance is accurate in this product photo,media_analysis
+analyze the quality of this user-generated content,media_analysis
+identify the timestamp of each scene in this video,media_analysis
+compare the effectiveness of these A/B test ad images,media_analysis
+analyze the target audience of this video,media_analysis
+find the moments the product appears in this livestream recording,media_analysis
+identify all the SKUs in this product image,media_analysis
+analyze the abnormal behavior in this surveillance video,media_analysis
+check the copyright watermark info in this video material,media_analysis
+analyze this product image's shooting angle,media_analysis
+review the visual hierarchy of this design draft,media_analysis
+check the audio-visual sync in this video,media_analysis
+identify the text in this image and translate it,media_analysis
+analyze the key points from this screenshot of user comments,media_analysis
+check the consistency of this product image set,media_analysis
+analyze the talking points in this competitor livestream,media_analysis
+identify the filter effects used in this video,media_analysis
+check if this image has been photoshopped,media_analysis
+analyze the content structure of this short video,media_analysis
+extract all text information from this video,media_analysis
+check the copyright info on this image,media_analysis
+compare the pros and cons of these two design drafts,media_analysis
+estimate where viewers might drop off in this video,media_analysis
+evaluate how attractive this video thumbnail is,media_analysis
+identify the QR code content in this image,media_analysis
+analyze the user feedback in this review screenshot,media_analysis
+find the highlight moments in this livestream clip,media_analysis
+tell me what emotions this image conveys,media_analysis
+what is the weather like today,general_chat
+translate this paragraph into English,general_chat
+what bugs are in this code,general_chat
+how do I learn Python programming,general_chat
+help me solve this math problem,general_chat
+tell me a joke,general_chat
+recommend some good books,general_chat
+what is my schedule for tomorrow,general_chat
+help me write an email,general_chat
+what is machine learning,general_chat
+summarize this article for me,general_chat
+what is the most effective way to lose weight,general_chat
+recommend a movie,general_chat
+help me write a self-introduction,general_chat
+what is blockchain technology,general_chat
+help me calculate this bill,general_chat
+how do you make braised pork,general_chat
+write me a poem,general_chat
+what is quantum computing,general_chat
+help me plan a travel itinerary,general_chat
+how to improve spoken English,general_chat
+help me revise this essay,general_chat
+what is artificial intelligence,general_chat
+help me write product copy,general_chat
+what is the best way to manage money,general_chat
+explain the theory of relativity,general_chat
+help me write a work report,general_chat
+what is big data analytics,general_chat
+help me create an Excel formula,general_chat
+how to take care of succulents,general_chat
+hello,general_chat
+who are you,general_chat
+what can you do,general_chat
+good morning,general_chat
+good evening,general_chat
+thank you,general_chat
+goodbye,general_chat
+how can I help you,general_chat
+what is your name,general_chat
+are you an AI,general_chat
+I'm feeling down what should I do,general_chat
+comfort me,general_chat
+I'm so tired today,general_chat
+what do you think is the meaning of life,general_chat
+let's just chat,general_chat
+I'm so bored,general_chat
+tell me a story,general_chat
+do you have any suggestions,general_chat
+what do you like,general_chat
+how was your day,general_chat
+how to write SQL queries,general_chat
+explain this algorithm,general_chat
+what is the difference between JavaScript and TypeScript,general_chat
+how to deploy a website,general_chat
+help me write a regular expression,general_chat
+how to merge branches in Git,general_chat
+how to use Docker,general_chat
+help me optimize this code for performance,general_chat
+what is a REST API,general_chat
+help me write a database query,general_chat
+how to configure Nginx,general_chat
+help me debug this program,general_chat
+what is microservice architecture,general_chat
+how to use Kubernetes,general_chat
+help me write an automation script,general_chat
+what is CI/CD,general_chat
+help me fix this error message,general_chat
+how to design database schema,general_chat
+help me write a web scraper,general_chat
+what is a distributed system,general_chat
+how to convert video formats,general_chat
+how to compress images,general_chat
+what is 4K resolution,general_chat
+how to trim audio files,general_chat
+how to convert PDF to image,general_chat
+how to compress video without losing quality,general_chat
+what is HDR technology,general_chat
+how to remove watermarks from images,general_chat
+what audio formats are there,general_chat
+what is Dolby audio,general_chat
+how to extract audio from video,general_chat
+what is the difference between vector and raster,general_chat
+how to make an image background transparent,general_chat
+what is CMYK vs RGB,general_chat
+what does video frame rate mean,general_chat
+how to screen record,general_chat
+what is bitrate,general_chat
+how to combine multiple images into one,general_chat
+what are video encoding formats,general_chat
+how to convert vertical video to horizontal,general_chat
+help me write a business plan,general_chat
+how to do market research,general_chat
+what is SWOT analysis,general_chat
+help me write a project proposal,general_chat
+how to do competitive analysis,general_chat
+help me create a user survey,general_chat
+what is OKR management,general_chat
+help me write a work summary,general_chat
+how to improve team collaboration,general_chat
+help me create a SWOT analysis report,general_chat
+how to prepare for an interview,general_chat
+help me revise my resume,general_chat
+what is agile development,general_chat
+help me write a requirements document,general_chat
+how to manage time effectively,general_chat
+help me write a speech,general_chat
+what is user experience design,general_chat
+help me create a competitive analysis sheet,general_chat
+how to improve work efficiency,general_chat
+help me make a study plan,general_chat
+what is one plus one,general_chat
+what is pi,general_chat
+how far is the Earth from the Moon,general_chat
+what is the speed of light,general_chat
+how many states are in the US,general_chat
+what is the highest mountain in the world,general_chat
+who invented the light bulb,general_chat
+how many planets are in the solar system,general_chat
+what is the chemical formula for water,general_chat
+how did dinosaurs go extinct,general_chat
+translate this into Japanese,general_chat
+what does this English word mean,general_chat
+help me write a French self-introduction,general_chat
+how to learn Korean,general_chat
+translate this document for me,general_chat
+how do you read this German sentence,general_chat
+translate this from Chinese to English,general_chat
+how do you say this in Spanish,general_chat
+correct the grammar in this English text,general_chat
+how to memorize English vocabulary quickly,general_chat
+will it rain tomorrow,general_chat
+what is the weather forecast for next week,general_chat
+what time is it now,general_chat
+what day is it today,general_chat
+are there any holidays this weekend,general_chat
+set an alarm for me,general_chat
+what is on the schedule for tomorrow,general_chat
+what is today's date,general_chat
+are there any holidays next month,general_chat
+what is the current exchange rate,general_chat
+how is the stock market doing today,general_chat
+what is Bitcoin trading at now,general_chat
+what is the gold price,general_chat
+what is the USD to EUR exchange rate,general_chat
+what are the latest tech news,general_chat
+what were yesterday's sports results,general_chat
+any good TV shows recently,general_chat
+recommend a good restaurant nearby,general_chat
+recommend a song,general_chat
+what games are trending right now,general_chat
+how to make scrambled eggs with tomato,general_chat
+recommend a fitness plan,general_chat
+what is the keto diet,general_chat
+how to improve sleep quality,general_chat
+check if this contract has any issues,general_chat
+what is intellectual property,general_chat
+how to register a company,general_chat
+help me write a leave request,general_chat
+what are overtime pay regulations,general_chat
+what software can make videos,general_chat
+which is better Premiere or Final Cut,general_chat
+how to learn video editing,general_chat
+what are video transition effects,general_chat
+what is the difference between AE and PR,general_chat
+how to add subtitles to videos,general_chat
+what software should I use to learn design,general_chat
+what is the difference between Photoshop and Illustrator,general_chat
+how to learn drawing,general_chat
+what is UI design,general_chat
+how to improve design aesthetics,general_chat
+what is the golden ratio in design,general_chat
+how to make nice presentations,general_chat
+what is color psychology,general_chat
+help me analyze this data,general_chat
+what is A/B testing,general_chat
+how to do data visualization,general_chat
+help me write a Python data analysis script,general_chat
+what is conversion rate,general_chat
+how to improve user retention,general_chat
+help me analyze this website's SEO,general_chat
+what is social media marketing,general_chat
+how to write marketing copy,general_chat
+help me do a PEST analysis,general_chat
+what are video shooting tips,general_chat
+how to take better photos,general_chat
+what is the rule of thirds,general_chat
+any smartphone photography tips,general_chat
+what is white balance,general_chat
+how to color correct photos,general_chat
+what is depth of field,general_chat
+how to shoot timelapse footage,general_chat
+what is the exposure triangle,general_chat
+how to choose camera lenses,general_chat
+what is a TVC,general_chat
+what are video marketing trends,general_chat
+what is video SEO,general_chat
+how to increase video views,general_chat
+short video content strategy tips,general_chat
+what is live commerce,general_chat
+how to grow a video channel,general_chat
+how does the TikTok algorithm work,general_chat
+what is content marketing,general_chat
+how to do brand promotion,general_chat
+what is NFT digital art,general_chat
+explain how GPT works,general_chat
+what is the metaverse,general_chat
+how to protect personal privacy online,general_chat
+recommend some learning resources,general_chat
+what is carbon neutrality,general_chat
+how to do proper waste sorting,general_chat
+check this text for grammar errors,general_chat
+what are the advantages of 5G technology,general_chat
+how to choose the right computer,general_chat
+recommend a smartphone,general_chat
+what is cloud computing,general_chat
+how to maintain a car,general_chat
+calculate my monthly mortgage payment,general_chat
+what is digital currency,general_chat
+how to build a small app,general_chat
+help me write a product description,general_chat
+what is edge computing,general_chat
+how to manage knowledge effectively,general_chat
+recommend a note-taking app,general_chat
+what is the difference between deep learning and machine learning,general_chat
+how to write a good research paper,general_chat
+translate this Japanese text,general_chat
+what is the difference between SaaS and PaaS,general_chat
+how to do code reviews,general_chat
+help me write a test report,general_chat
+what is DevOps,general_chat
+how to manage projects well,general_chat
+analyze the trend in this data,general_chat
+what is regression analysis,general_chat
+how to build user personas,general_chat
+help me write an ad copy,general_chat
+what is growth hacking,general_chat
+how to improve website conversion rate,general_chat
+help me write a thank you letter,general_chat
+what is sentiment analysis technology,general_chat
+how to create good content,general_chat
+help me organize product requirements,general_chat
+what is MVP minimum viable product,general_chat
+explain this physics formula,general_chat
+what is game theory,general_chat
+how to make a mobile app,general_chat
+recommend a CRM system,general_chat
+what is supply chain management,general_chat
+how to write professional business emails,general_chat
+translate this Korean text,general_chat
+what is collaborative filtering algorithm,general_chat
+how to maintain customer relationships,general_chat
+help me write an event planning proposal,general_chat
+how to choose server configurations,general_chat
+check the logic of this code,general_chat
+what is containerized deployment,general_chat
+how to do proper data backups,general_chat
+recommend a project management tool,general_chat
+what is an API gateway,general_chat
+how to write good technical documentation,general_chat
+explain this economics concept,general_chat
+what is inflation,general_chat
+how to do financial budgeting,general_chat
+analyze the outlook of this industry,general_chat
+what is a business model canvas,general_chat
+how to do brand positioning,general_chat
+help me write a social media post,general_chat
+what is influencer marketing,general_chat
+how to build a private traffic pool,general_chat
+recommend free learning websites,general_chat
+what is the Feynman learning technique,general_chat
+how to take good reading notes,general_chat
+help me write an opening speech,general_chat
+how to use mind maps properly,general_chat
+how to overcome procrastination,general_chat
+help me create a study schedule,general_chat
+how to stay focused,general_chat
+recommend career development courses,general_chat
+what is the difference between OKR and KPI,general_chat
+how to write a good performance review,general_chat
+give me some startup ideas,general_chat
+what is the lean startup methodology,general_chat
+how to design equity structure,general_chat
+translate this French text,general_chat
+what is the difference between copyright and trademark,general_chat
+recommend a video conferencing tool,general_chat
+how to manage remote teams,general_chat
+what is the difference between VR and AR,general_chat
+explain this chemical reaction equation,general_chat
+what are the properties of carbon fiber,general_chat
+how to choose investment products,general_chat
+calculate compound interest returns for me,general_chat
+what is an index fund,general_chat
+how to manage risk properly,general_chat
+analyze this stock for me,general_chat
+what are convertible bonds,general_chat
+how to start dollar cost averaging,general_chat
+review this insurance policy for me,general_chat
+what is the difference between annuity and universal life insurance,general_chat
+how to do tax planning,general_chat
+recommend a budgeting app,general_chat
+make a crowdfunding campaign video,creative_video
+create a product assembly instruction video,creative_video
+produce a safety training video,creative_video
+make a customer onboarding walkthrough video,creative_video
+create a quarterly business review video,creative_video
+produce a team introduction video,creative_video
+make a product features highlight reel,creative_video
+create a thank you video for our customers,creative_video
+produce a seasonal campaign video,creative_video
+make a testimonial compilation video,creative_video
+create a how-it-works explainer video,creative_video
+produce a company culture video,creative_video
+make an FAQ video for our product,creative_video
+create a time-lapse construction progress video,creative_video
+produce a charity fundraiser video,creative_video
+make an internal communications video,creative_video
+create a trade show sizzle reel,creative_video
+produce a product teaser countdown video,creative_video
+make a recap video of the conference,creative_video
+create a day-in-the-life video,creative_video
+produce a before-and-after transformation video,creative_video
+make a product roadmap video presentation,creative_video
+create a sustainability initiative video,creative_video
+produce a welcome aboard video for new hires,creative_video
+make a 360-degree product video,creative_video
+create a shoppable video for our store,creative_video
+produce a personalized birthday greeting video,creative_video
+make a podcast video episode,creative_video
+create a multi-language product video,creative_video
+produce a side-by-side feature comparison video,creative_video
+make a gif-style looping product clip,creative_video
+create a hand-drawn sketch animation,creative_video
+produce a whiteboard explainer with voiceover,creative_video
+create a reaction-style review video,creative_video
+produce a step-by-step cooking process video,creative_video
+make a drone footage style aerial video,creative_video
+create a live action mixed with animation video,creative_video
+produce a screencast tutorial video,creative_video
+make a time-lapse drawing process video,creative_video
+create a split-screen comparison review video,creative_video
+produce a fashion lookbook video,creative_video
+make a workout routine demonstration video,creative_video
+design a set of app onboarding illustrations,creative_image
+create a seasonal sale promotional banner set,creative_image
+draw a children's book style illustration,creative_image
+make a company org chart infographic,creative_image
+design a restaurant menu layout,creative_image
+create a team photo composite image,creative_image
+draw a map illustration with landmarks,creative_image
+design a loyalty card template,creative_image
+create a customer journey infographic,creative_image
+make a comparison chart graphic,creative_image
+design a timeline infographic,creative_image
+create a wireframe mockup image,creative_image
+draw a floor plan layout illustration,creative_image
+design a product feature highlight graphic,creative_image
+make a step-by-step instruction graphic,creative_image
+create a mood board collage,creative_image
+design a magazine cover layout,creative_image
+draw a botanical scientific illustration,creative_image
+make a pie chart visualization graphic,creative_image
+design a newsletter header image,creative_image
+create a mobile UI concept screenshot,creative_image
+draw a fashion sketch illustration,creative_image
+design an email header banner,creative_image
+create a book cover design,creative_image
+make a real estate listing feature image,creative_image
+design a sports team logo,creative_image
+create a monogram design,creative_image
+draw a technical blueprint illustration,creative_image
+make a pattern design for fabric,creative_image
+design a label for a wine bottle,creative_image
+create a festival promotional flyer,creative_image
+draw a pet portrait illustration,creative_image
+design a dashboard UI mockup image,creative_image
+create a world map with data overlay graphic,creative_image
+make a before-and-after comparison image,creative_image
+design a ticket stub graphic,creative_image
+create a gift tag design,creative_image
+draw a chibi anime style character,creative_image
+make a social proof statistics graphic,creative_image
+design a process flow diagram image,creative_image
+create a trophy and achievement badge set,creative_image
+draw a kawaii style food illustration,creative_image
+design a photo frame template,creative_image
+make a product size guide graphic,creative_image
+create a branded emoji sticker pack,creative_image
+design a parking lot map illustration,creative_image
+draw an architectural facade illustration,creative_image
+make a seasonal greeting email graphic,creative_image
+design a coupon template image,creative_image
+create a team roster graphic,creative_image
+draw an exploded view product illustration,creative_image
+make a nutrition facts infographic,creative_image
+design a daily planner page graphic,creative_image
+create a color palette swatch card,creative_image
+make a nature sounds forest ambiance track,creative_audio
+create an upbeat ukulele background track,creative_audio
+generate a cinematic orchestral trailer music,creative_audio
+produce a calm piano study music track,creative_audio
+make a funky bass groove loop,creative_audio
+create an acoustic guitar campfire song,creative_audio
+generate a chiptune retro game soundtrack,creative_audio
+produce a dramatic drum roll sound effect,creative_audio
+make a whoosh transition sound effect,creative_audio
+create a 3D shoe product model,creative_3d
+generate a 3D architectural facade render,creative_3d
+make a 3D panoramic living room scene,creative_3d
+create a low-poly style 3D animal model,creative_3d
+produce a 3D product assembly animation model,creative_3d
+make a 3D topographic map model,creative_3d
+create a 3D watch product showcase model,creative_3d
+analyze the camera movement technique in this video,media_analysis
+identify the font used in this image,media_analysis
+check the aspect ratio of this video,media_analysis
+analyze the narrative structure of this ad,media_analysis
+identify all the colors used in this design,media_analysis
+check the audio levels in this video,media_analysis
+analyze the engagement hooks in this social video,media_analysis
+identify the background location in this photo,media_analysis
+check this image for accessibility contrast issues,media_analysis
+analyze the thumbnail click-through appeal of this image,media_analysis
+review the pacing and rhythm of this video edit,media_analysis

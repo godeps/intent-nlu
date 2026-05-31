@@ -59,7 +59,7 @@ func main() {
 	flag.StringVar(&defaultIntent, "default-intent", "", "default intent for unmapped files")
 	flag.BoolVar(&skipUnmapped, "skip-unmapped", true, "skip files without resolved intent")
 	flag.BoolVar(&includeReplies, "include-replies", true, "include all utterances in conversations")
-	flag.StringVar(&extraCSV, "extra-csv", "", "optional extra csv samples (text,intent)")
+	flag.StringVar(&extraCSV, "extra-csv", "", "comma-separated extra csv files (text,intent format)")
 	flag.StringVar(&dumpSamplesCSV, "dump-samples", "", "optional path to dump effective training samples (csv)")
 	flag.StringVar(&evalReportPath, "eval-report", "", "optional path to dump evaluation metadata (json)")
 	flag.StringVar(&outDir, "out", "./model", "output model directory")
@@ -117,11 +117,17 @@ func main() {
 	}
 
 	if strings.TrimSpace(extraCSV) != "" {
-		loaded, err := chatnlu.LoadSamplesCSV(extraCSV)
-		if err != nil {
-			log.Fatalf("load extra csv failed: %v", err)
+		for _, csvPath := range strings.Split(extraCSV, ",") {
+			csvPath = strings.TrimSpace(csvPath)
+			if csvPath == "" {
+				continue
+			}
+			loaded, err := chatnlu.LoadSamplesCSV(csvPath)
+			if err != nil {
+				log.Fatalf("load extra csv %s: %v", csvPath, err)
+			}
+			samples = append(samples, loaded...)
 		}
-		samples = append(samples, loaded...)
 	}
 	if strings.TrimSpace(dumpSamplesCSV) != "" {
 		dir := filepath.Dir(dumpSamplesCSV)

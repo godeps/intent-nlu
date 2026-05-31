@@ -5,6 +5,82 @@ import (
 	"testing"
 )
 
+func TestHybridPolicySkillRouting(t *testing.T) {
+	modelDir := trainModelForTest(t, "zh", []Sample{
+		{Text: "帮我制作一个产品宣传视频", Intent: "creative_video"},
+		{Text: "做一个30秒的广告片", Intent: "creative_video"},
+		{Text: "生成一段短视频", Intent: "creative_video"},
+		{Text: "来个宣传片", Intent: "creative_video"},
+		{Text: "帮我画一张海报", Intent: "creative_image"},
+		{Text: "设计一个logo", Intent: "creative_image"},
+		{Text: "生成一张插画", Intent: "creative_image"},
+		{Text: "做一张宣传图", Intent: "creative_image"},
+		{Text: "今天天气怎么样", Intent: "general_chat"},
+		{Text: "帮我写段代码", Intent: "general_chat"},
+		{Text: "你好啊", Intent: "general_chat"},
+		{Text: "推荐一本书", Intent: "general_chat"},
+	})
+	engine, err := NewEngineFromDir(modelDir)
+	if err != nil {
+		t.Fatalf("NewEngineFromDir failed: %v", err)
+	}
+
+	policy := &HybridPolicy{
+		Engine: engine,
+		Rules: []DeterministicRule{
+			{
+				ID:          "rule_video_keyword",
+				Intent:      "video_production",
+				ContainsAny: []string{"tvc", "宣传片制作"},
+			},
+		},
+	}
+	if err := policy.Prepare(); err != nil {
+		t.Fatalf("Prepare failed: %v", err)
+	}
+
+	dec, err := policy.Decide(context.Background(), "帮我做一个TVC宣传片制作", PredictOptions{TopK: 2})
+	if err != nil {
+		t.Fatalf("Decide(rule) failed: %v", err)
+	}
+	if dec.Route != HybridRouteRule {
+		t.Fatalf("expected rule route, got %s", dec.Route)
+	}
+	if dec.Intent != "creative_video" {
+		t.Fatalf("expected taxonomy-normalized creative_video, got %s", dec.Intent)
+	}
+
+	dec, err = policy.Decide(context.Background(), "帮我做一个产品广告片", PredictOptions{TopK: 2})
+	if err != nil {
+		t.Fatalf("Decide(nlu) failed: %v", err)
+	}
+	if dec.Route != HybridRouteNLU {
+		t.Fatalf("expected nlu route, got %s", dec.Route)
+	}
+	if dec.Intent != "creative_video" {
+		t.Fatalf("expected creative_video via NLU, got %s", dec.Intent)
+	}
+
+	dec, err = policy.Decide(context.Background(), "画一张海报", PredictOptions{TopK: 2})
+	if err != nil {
+		t.Fatalf("Decide(nlu image) failed: %v", err)
+	}
+	if dec.Route != HybridRouteNLU || dec.Intent != "creative_image" {
+		t.Fatalf("expected creative_image via NLU, got route=%s intent=%s", dec.Route, dec.Intent)
+	}
+
+	dec, err = policy.Decide(context.Background(), "完全无关的随机测试输入内容", PredictOptions{
+		TopK:          2,
+		MinConfidence: 0.999,
+	})
+	if err != nil {
+		t.Fatalf("Decide(fallback) failed: %v", err)
+	}
+	if dec.Route != HybridRouteFallback || !dec.ShouldCallLLM {
+		t.Fatalf("expected fallback route, got route=%s shouldCallLLM=%v", dec.Route, dec.ShouldCallLLM)
+	}
+}
+
 func TestHybridPolicyRuleNLUAndFallback(t *testing.T) {
 	modelDir := trainModelForTest(t, "zh", []Sample{
 		{Text: "明天星期几", Intent: "calendar_info"},

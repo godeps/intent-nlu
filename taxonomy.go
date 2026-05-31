@@ -38,6 +38,17 @@ func DefaultIntentAliases() map[string]string {
 		"chitchat_tech_support":  "chitchat_general",
 		"chat":                   "chitchat_general",
 		"chitchat":               "chitchat_general",
+		"video_production":       "creative_video",
+		"video_editing":          "creative_video",
+		"film_production":        "creative_video",
+		"ad_production":          "creative_video",
+		"image_generation":       "creative_image",
+		"poster_design":          "creative_image",
+		"music_creation":         "creative_audio",
+		"audio_production":       "creative_audio",
+		"3d_modeling":            "creative_3d",
+		"video_analysis":         "media_analysis",
+		"image_analysis":         "media_analysis",
 	}
 	return aliases
 }

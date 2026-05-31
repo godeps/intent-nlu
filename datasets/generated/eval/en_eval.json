@@ -5,54 +5,37 @@
   "defaultThreshold": 0.55,
   "thresholds": {
     "calendar_info": 0.01,
-    "chitchat_greeting": 0.55,
-    "weather_info": 0.55
+    "chitchat_greeting": 0.8601423732290343,
+    "creative_3d": 0.3,
+    "creative_audio": 0.01,
+    "creative_image": 0.01,
+    "creative_video": 0.01,
+    "general_chat": 0.01,
+    "media_analysis": 0.01,
+    "weather_info": 0.01
   },
   "classes": [
     "calendar_info",
     "chitchat_greeting",
+    "creative_3d",
+    "creative_audio",
+    "creative_image",
+    "creative_video",
+    "general_chat",
+    "media_analysis",
     "weather_info"
   ],
   "canonicalIntents": [
     "calendar_info",
     "chitchat_greeting",
+    "creative_3d",
+    "creative_audio",
+    "creative_image",
+    "creative_video",
+    "general_chat",
+    "media_analysis",
     "weather_info"
   ],
-  "intentAliases": {
-    "calendar": "calendar_info",
-    "chat": "chitchat_general",
-    "chitchat": "chitchat_general",
-    "chitchat_ai": "chitchat_general",
-    "chitchat_botprofile": "chitchat_general",
-    "chitchat_coding": "chitchat_general",
-    "chitchat_computers": "chitchat_general",
-    "chitchat_conversations": "chitchat_general",
-    "chitchat_emotion": "chitchat_general",
-    "chitchat_food": "chitchat_general",
-    "chitchat_gossip": "chitchat_general",
-    "chitchat_greeting": "chitchat_greeting",
-    "chitchat_greetings": "chitchat_greeting",
-    "chitchat_health": "chitchat_general",
-    "chitchat_history": "chitchat_general",
-    "chitchat_humor": "chitchat_general",
-    "chitchat_literature": "chitchat_general",
-    "chitchat_money": "chitchat_general",
-    "chitchat_movies": "chitchat_general",
-    "chitchat_politics": "chitchat_general",
-    "chitchat_psychology": "chitchat_general",
-    "chitchat_science": "chitchat_general",
-    "chitchat_sports": "chitchat_general",
-    "chitchat_tech_support": "chitchat_general",
-    "chitchat_trivia": "chitchat_general",
-    "date_info": "calendar_info",
-    "forecast": "weather_info",
-    "greeting": "chitchat_greeting",
-    "greetings": "chitchat_greeting",
-    "holiday_info": "calendar_info",
-    "unknown": "unknown",
-    "weather": "weather_info",
-    "weather_forecast": "weather_info"
-  },
   "tokenizer": {
     "language": "en",
     "searchMode": true,
@@ -62,25 +45,25 @@
     "stripPunct": true,
     "collapseSpace": true
   },
-  "trainingSampleCount": 10,
-  "createdAt": "2026-02-09T07:20:38.513630707Z",
+  "trainingSampleCount": 1095,
+  "createdAt": "2026-05-31T14:41:23.271705164Z",
   "evaluation": {
     "test": {
       "split": "test",
-      "samples": 1,
-      "accuracy": 0,
-      "macroF1": 0,
-      "microF1": 0,
-      "unknownRate": 0,
+      "samples": 137,
+      "accuracy": 0.22627737226277372,
+      "macroF1": 0.2702992767592251,
+      "microF1": 0.2450592885375494,
+      "unknownRate": 0.15328467153284672,
       "perIntent": {
         "calendar_info": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 0,
-          "tp": 0,
+          "precision": 1,
+          "recall": 0.43333333333333335,
+          "f1": 0.6046511627906976,
+          "support": 30,
+          "tp": 13,
           "fp": 0,
-          "fn": 0
+          "fn": 17
         },
         "chitchat_greeting": {
           "precision": 0,
@@ -88,148 +71,461 @@
           "f1": 0,
           "support": 0,
           "tp": 0,
-          "fp": 1,
+          "fp": 84,
           "fn": 0
         },
-        "weather_info": {
+        "creative_3d": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "support": 6,
+          "tp": 3,
+          "fp": 0,
+          "fn": 3
+        },
+        "creative_audio": {
           "precision": 0,
           "recall": 0,
           "f1": 0,
-          "support": 1,
+          "support": 8,
           "tp": 0,
           "fp": 0,
-          "fn": 1
+          "fn": 8
+        },
+        "creative_image": {
+          "precision": 1,
+          "recall": 0.125,
+          "f1": 0.2222222222222222,
+          "support": 16,
+          "tp": 2,
+          "fp": 0,
+          "fn": 14
+        },
+        "creative_video": {
+          "precision": 1,
+          "recall": 0.17391304347826086,
+          "f1": 0.29629629629629634,
+          "support": 23,
+          "tp": 4,
+          "fp": 0,
+          "fn": 19
+        },
+        "general_chat": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 30,
+          "tp": 0,
+          "fp": 0,
+          "fn": 30
+        },
+        "media_analysis": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6
+        },
+        "weather_info": {
+          "precision": 0.9,
+          "recall": 0.5,
+          "f1": 0.6428571428571429,
+          "support": 18,
+          "tp": 9,
+          "fp": 1,
+          "fn": 9
         }
       },
       "confusion": {
+        "calendar_info": {
+          "calendar_info": 13,
+          "chitchat_greeting": 10,
+          "unknown": 7
+        },
+        "creative_3d": {
+          "chitchat_greeting": 2,
+          "creative_3d": 3,
+          "unknown": 1
+        },
+        "creative_audio": {
+          "chitchat_greeting": 4,
+          "unknown": 4
+        },
+        "creative_image": {
+          "chitchat_greeting": 12,
+          "creative_image": 2,
+          "unknown": 2
+        },
+        "creative_video": {
+          "chitchat_greeting": 16,
+          "creative_video": 4,
+          "unknown": 3
+        },
+        "general_chat": {
+          "chitchat_greeting": 29,
+          "weather_info": 1
+        },
+        "media_analysis": {
+          "chitchat_greeting": 6
+        },
         "weather_info": {
-          "chitchat_greeting": 1
+          "chitchat_greeting": 5,
+          "unknown": 4,
+          "weather_info": 9
         }
       }
     },
     "train": {
       "split": "train",
-      "samples": 10,
-      "accuracy": 0.5,
-      "macroF1": 0.4523809523809524,
-      "microF1": 0.5555555555555556,
-      "unknownRate": 0.2,
+      "samples": 1095,
+      "accuracy": 0.2191780821917808,
+      "macroF1": 0.31085421064731744,
+      "microF1": 0.23797719385225583,
+      "unknownRate": 0.15799086757990868,
       "perIntent": {
         "calendar_info": {
-          "precision": 1,
-          "recall": 0.75,
-          "f1": 0.8571428571428571,
-          "support": 4,
-          "tp": 3,
-          "fp": 0,
-          "fn": 1
+          "precision": 0.9861111111111112,
+          "recall": 0.47651006711409394,
+          "f1": 0.6425339366515836,
+          "support": 149,
+          "tp": 71,
+          "fp": 1,
+          "fn": 78
         },
         "chitchat_greeting": {
-          "precision": 0.4,
-          "recall": 0.6666666666666666,
-          "f1": 0.5,
-          "support": 3,
+          "precision": 0.0029717682020802376,
+          "recall": 0.5,
+          "f1": 0.005908419497784342,
+          "support": 4,
           "tp": 2,
-          "fp": 3,
-          "fn": 1
+          "fp": 671,
+          "fn": 2
+        },
+        "creative_3d": {
+          "precision": 0.9615384615384616,
+          "recall": 0.3787878787878788,
+          "f1": 0.5434782608695652,
+          "support": 66,
+          "tp": 25,
+          "fp": 1,
+          "fn": 41
+        },
+        "creative_audio": {
+          "precision": 0.9090909090909091,
+          "recall": 0.125,
+          "f1": 0.21978021978021975,
+          "support": 80,
+          "tp": 10,
+          "fp": 1,
+          "fn": 70
+        },
+        "creative_image": {
+          "precision": 1,
+          "recall": 0.14285714285714285,
+          "f1": 0.25,
+          "support": 168,
+          "tp": 24,
+          "fp": 0,
+          "fn": 144
+        },
+        "creative_video": {
+          "precision": 0.9545454545454546,
+          "recall": 0.12804878048780488,
+          "f1": 0.22580645161290325,
+          "support": 164,
+          "tp": 21,
+          "fp": 1,
+          "fn": 143
+        },
+        "general_chat": {
+          "precision": 1,
+          "recall": 0.004201680672268907,
+          "f1": 0.008368200836820083,
+          "support": 238,
+          "tp": 1,
+          "fp": 0,
+          "fn": 237
+        },
+        "media_analysis": {
+          "precision": 1,
+          "recall": 0.12941176470588237,
+          "f1": 0.22916666666666669,
+          "support": 85,
+          "tp": 11,
+          "fp": 0,
+          "fn": 74
         },
         "weather_info": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 3,
-          "tp": 0,
-          "fp": 0,
-          "fn": 3
+          "precision": 0.9146341463414634,
+          "recall": 0.5319148936170213,
+          "f1": 0.672645739910314,
+          "support": 141,
+          "tp": 75,
+          "fp": 7,
+          "fn": 66
         }
       },
       "confusion": {
         "calendar_info": {
-          "calendar_info": 3,
-          "unknown": 1
+          "calendar_info": 71,
+          "chitchat_greeting": 43,
+          "unknown": 35
         },
         "chitchat_greeting": {
           "chitchat_greeting": 2,
-          "unknown": 1
+          "unknown": 2
+        },
+        "creative_3d": {
+          "chitchat_greeting": 21,
+          "creative_3d": 25,
+          "unknown": 20
+        },
+        "creative_audio": {
+          "chitchat_greeting": 53,
+          "creative_audio": 10,
+          "creative_video": 1,
+          "unknown": 16
+        },
+        "creative_image": {
+          "chitchat_greeting": 130,
+          "creative_3d": 1,
+          "creative_image": 24,
+          "unknown": 13
+        },
+        "creative_video": {
+          "chitchat_greeting": 119,
+          "creative_audio": 1,
+          "creative_video": 21,
+          "unknown": 23
+        },
+        "general_chat": {
+          "calendar_info": 1,
+          "chitchat_greeting": 221,
+          "general_chat": 1,
+          "unknown": 8,
+          "weather_info": 7
+        },
+        "media_analysis": {
+          "chitchat_greeting": 64,
+          "media_analysis": 11,
+          "unknown": 10
         },
         "weather_info": {
-          "chitchat_greeting": 3
+          "chitchat_greeting": 20,
+          "unknown": 46,
+          "weather_info": 75
         }
       }
     },
     "val": {
       "split": "val",
-      "samples": 1,
-      "accuracy": 0,
-      "macroF1": 0,
-      "microF1": 0,
-      "unknownRate": 0,
+      "samples": 137,
+      "accuracy": 0.1897810218978102,
+      "macroF1": 0.22664319041130637,
+      "microF1": 0.20553359683794464,
+      "unknownRate": 0.15328467153284672,
       "perIntent": {
         "calendar_info": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0,
-          "support": 1,
-          "tp": 0,
+          "precision": 1,
+          "recall": 0.56,
+          "f1": 0.717948717948718,
+          "support": 25,
+          "tp": 14,
           "fp": 0,
-          "fn": 1
+          "fn": 11
         },
         "chitchat_greeting": {
+          "precision": 0.011235955056179775,
+          "recall": 0.5,
+          "f1": 0.021978021978021976,
+          "support": 2,
+          "tp": 1,
+          "fp": 88,
+          "fn": 1
+        },
+        "creative_3d": {
+          "precision": 1,
+          "recall": 0.125,
+          "f1": 0.2222222222222222,
+          "support": 8,
+          "tp": 1,
+          "fp": 0,
+          "fn": 7
+        },
+        "creative_audio": {
+          "precision": 1,
+          "recall": 0.25,
+          "f1": 0.4,
+          "support": 12,
+          "tp": 3,
+          "fp": 0,
+          "fn": 9
+        },
+        "creative_image": {
+          "precision": 1,
+          "recall": 0.05263157894736842,
+          "f1": 0.1,
+          "support": 19,
+          "tp": 1,
+          "fp": 0,
+          "fn": 18
+        },
+        "creative_video": {
+          "precision": 1,
+          "recall": 0.07692307692307693,
+          "f1": 0.14285714285714288,
+          "support": 13,
+          "tp": 1,
+          "fp": 0,
+          "fn": 12
+        },
+        "general_chat": {
           "precision": 0,
           "recall": 0,
           "f1": 0,
-          "support": 0,
+          "support": 32,
           "tp": 0,
           "fp": 1,
-          "fn": 0
+          "fn": 32
         },
-        "weather_info": {
+        "media_analysis": {
           "precision": 0,
           "recall": 0,
           "f1": 0,
-          "support": 0,
+          "support": 9,
           "tp": 0,
           "fp": 0,
-          "fn": 0
+          "fn": 9
+        },
+        "weather_info": {
+          "precision": 0.8333333333333334,
+          "recall": 0.29411764705882354,
+          "f1": 0.4347826086956522,
+          "support": 17,
+          "tp": 5,
+          "fp": 1,
+          "fn": 12
         }
       },
       "confusion": {
         "calendar_info": {
-          "chitchat_greeting": 1
+          "calendar_info": 14,
+          "chitchat_greeting": 4,
+          "unknown": 6,
+          "weather_info": 1
+        },
+        "chitchat_greeting": {
+          "chitchat_greeting": 1,
+          "general_chat": 1
+        },
+        "creative_3d": {
+          "chitchat_greeting": 6,
+          "creative_3d": 1,
+          "unknown": 1
+        },
+        "creative_audio": {
+          "chitchat_greeting": 7,
+          "creative_audio": 3,
+          "unknown": 2
+        },
+        "creative_image": {
+          "chitchat_greeting": 16,
+          "creative_image": 1,
+          "unknown": 2
+        },
+        "creative_video": {
+          "chitchat_greeting": 11,
+          "creative_video": 1,
+          "unknown": 1
+        },
+        "general_chat": {
+          "chitchat_greeting": 32
+        },
+        "media_analysis": {
+          "chitchat_greeting": 9
+        },
+        "weather_info": {
+          "chitchat_greeting": 3,
+          "unknown": 9,
+          "weather_info": 5
         }
       }
     }
   },
   "training": {
     "seed": 42,
-    "totalSampleCount": 12,
-    "trainSampleCount": 10,
-    "valSampleCount": 1,
-    "testSampleCount": 1,
+    "totalSampleCount": 1369,
+    "trainSampleCount": 1095,
+    "valSampleCount": 137,
+    "testSampleCount": 137,
     "calibrated": true,
     "calibratedThresholds": {
       "calendar_info": 0.01,
-      "chitchat_greeting": 0.55,
-      "weather_info": 0.55
+      "chitchat_greeting": 0.8601423732290343,
+      "creative_3d": 0.3,
+      "creative_audio": 0.01,
+      "creative_image": 0.01,
+      "creative_video": 0.01,
+      "general_chat": 0.01,
+      "media_analysis": 0.01,
+      "weather_info": 0.01
     },
     "dataSummary": {
       "calendar_info": {
-        "total": 5,
-        "train": 4,
-        "val": 1,
-        "test": 0
+        "total": 204,
+        "train": 149,
+        "val": 25,
+        "test": 30
       },
       "chitchat_greeting": {
-        "total": 3,
-        "train": 3,
-        "val": 0,
+        "total": 6,
+        "train": 4,
+        "val": 2,
         "test": 0
       },
+      "creative_3d": {
+        "total": 80,
+        "train": 66,
+        "val": 8,
+        "test": 6
+      },
+      "creative_audio": {
+        "total": 100,
+        "train": 80,
+        "val": 12,
+        "test": 8
+      },
+      "creative_image": {
+        "total": 203,
+        "train": 168,
+        "val": 19,
+        "test": 16
+      },
+      "creative_video": {
+        "total": 200,
+        "train": 164,
+        "val": 13,
+        "test": 23
+      },
+      "general_chat": {
+        "total": 300,
+        "train": 238,
+        "val": 32,
+        "test": 30
+      },
+      "media_analysis": {
+        "total": 100,
+        "train": 85,
+        "val": 9,
+        "test": 6
+      },
       "weather_info": {
-        "total": 4,
-        "train": 3,
-        "val": 0,
-        "test": 1
+        "total": 176,
+        "train": 141,
+        "val": 17,
+        "test": 18
       }
     },
     "config": {
@@ -251,7 +547,7 @@
         "seed": 42
       },
       "autoCalibrateThresholds": true,
-      "taxonomyEnabled": true
+      "taxonomyEnabled": false
     }
   },
   "source": {

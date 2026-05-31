@@ -1,10 +1,10 @@
 {
-  "version": "fix.holiday.weather.v2.2026.02.09.bundle.084952",
-  "createdAt": "2026-02-09T08:49:52.874376673Z",
+  "version": "2026.05.31.bundle.143913",
+  "createdAt": "2026-05-31T14:39:13.731637698Z",
   "defaultLanguage": "zh",
   "corpus": {
     "repoUrl": "https://github.com/gunthercox/chatterbot-corpus.git",
-    "commit": "95170ba17a10ec26507560213aa6b07d1403ec73"
+    "commit": "eec45b284424c9784a5baab78368b1a9ff3b656f"
   },
   "trainingParams": {
     "auto_calibrate": "true",
@@ -21,20 +21,20 @@
   },
   "modelSummary": {
     "en": {
-      "version": "fix.holiday.weather.v2.2026.02.09.en.084952",
+      "version": "2026.05.31.en.143913",
       "language": "en",
-      "trainingSampleCount": 1853,
-      "totalSampleCount": 2316,
+      "trainingSampleCount": 2602,
+      "totalSampleCount": 3252,
       "defaultThreshold": 0.55,
-      "macroF1": 0.07382822839856305
+      "macroF1": 0.09660718294051626
     },
     "zh": {
-      "version": "fix.holiday.weather.v2.2026.02.09.zh.084950",
+      "version": "2026.05.31.zh.143911",
       "language": "zh",
-      "trainingSampleCount": 1078,
-      "totalSampleCount": 1347,
+      "trainingSampleCount": 1846,
+      "totalSampleCount": 2308,
       "defaultThreshold": 0.55,
-      "macroF1": 0.2376622718052738
+      "macroF1": 0.22038394953428778
     }
   },
   "models": {
