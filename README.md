@@ -3,7 +3,7 @@
 Lightweight, embeddable intent classification engine for Go.
 
 - Module: `github.com/godeps/intent-nlu`
-- Chinese docs: `README.zh-CN.md`
+- Chinese docs: [README.zh-CN.md](README.zh-CN.md)
 - Core stack:
   - Tokenization: `github.com/go-ego/gse` (Chinese), normalized splitter for non-CJK
   - Classifier: `github.com/jbrukh/bayesian`

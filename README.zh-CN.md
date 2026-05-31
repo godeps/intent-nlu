@@ -3,7 +3,7 @@
 轻量、可嵌入的 Go 意图分类引擎。
 
 - 模块名：`github.com/godeps/intent-nlu`
-- 英文文档：`README.md`
+- 英文文档：[README.md](README.md)
 - 核心技术：
   - 分词：`github.com/go-ego/gse`（中文）+ 非 CJK 轻量分词
   - 分类：`github.com/jbrukh/bayesian`
