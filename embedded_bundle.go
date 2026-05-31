@@ -1,4 +1,4 @@
-package chatnlu
+package intentnlu
 
 import (
 	"crypto/sha256"
@@ -129,7 +129,7 @@ func extractEmbeddedBundleToDir(targetDir string) error {
 func defaultEmbeddedCacheDir() string {
 	userCacheDir, err := os.UserCacheDir()
 	if err == nil && strings.TrimSpace(userCacheDir) != "" {
-		return filepath.Join(userCacheDir, "chat-nlu")
+		return filepath.Join(userCacheDir, "intent-nlu")
 	}
-	return filepath.Join(os.TempDir(), "chat-nlu")
+	return filepath.Join(os.TempDir(), "intent-nlu")
 }

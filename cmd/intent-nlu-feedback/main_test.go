@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	chatnlu "github.com/godeps/intent-nlu"
+	intentnlu "github.com/godeps/intent-nlu"
 )
 
 func TestLoadFeedbackCSVAndMergeSamples(t *testing.T) {
@@ -27,10 +27,10 @@ func TestLoadFeedbackCSVAndMergeSamples(t *testing.T) {
 		t.Fatalf("expected 3 records, got %d", len(records))
 	}
 
-	existing := []chatnlu.Sample{
+	existing := []intentnlu.Sample{
 		{Text: "明天星期几", Intent: "calendar_info"},
 	}
-	incoming := []chatnlu.Sample{
+	incoming := []intentnlu.Sample{
 		{Text: "明天星期几", Intent: "calendar_info"},
 		{Text: "hello", Intent: "chitchat_greeting"},
 	}

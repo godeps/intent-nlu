@@ -1,4 +1,4 @@
-package chatnlu
+package intentnlu
 
 import (
 	"context"

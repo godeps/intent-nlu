@@ -1,4 +1,4 @@
-# Skill Routing Integration — chat-nlu for Saker
+# Skill Routing Integration — intent-nlu for Saker
 
 ## Background
 
@@ -8,7 +8,7 @@ Saker uses a skill system to route user prompts to specialized execution pipelin
 - Synonyms not in the dictionary ("做一条商业短片")
 - Mixed-language or colloquial input ("搞个 promo video")
 
-chat-nlu's Bayesian classifier with gse Chinese segmentation can handle these cases via statistical generalization from training data.
+intent-nlu's Bayesian classifier with gse Chinese segmentation can handle these cases via statistical generalization from training data.
 
 ## Target Architecture
 
@@ -19,7 +19,7 @@ User Prompt
 ┌─────────────────────────────────────────────────┐
 │ HybridPolicy (pkg/runtime/skills/matcher.go)    │
 ├─────────────────────────────────────────────────┤
-│ Layer 1: NLU (chat-nlu Bayesian + gse分词)      │ ← 主路由，覆盖所有表达
+│ Layer 1: NLU (intent-nlu Bayesian + gse分词)     │ ← 主路由，覆盖所有表达
 │    ↓ low confidence (<threshold)                │
 │ Layer 2: Rules (synonym keyword matching)       │ ← 安全网，NLU 退化时兜底
 │    ↓ no match                                   │
@@ -51,7 +51,7 @@ NLU 作为 PRIMARY matcher 处理所有输入（包括精确和模糊表达）�
 - NLU 对"帮我拍个广告"给出 0.82 → 激活（keyword 无法匹配此表达）
 - NLU 模型损坏，对"给我生成一个视频"仅给 0.3 → keyword 以 0.7 兜底
 
-This maps to chat-nlu's existing `HybridPolicy` struct:
+This maps to intent-nlu's existing `HybridPolicy` struct:
 - `Engine.Predict` → Bayesian classification (primary)
 - `DeterministicRule` → keyword/synonym matching (safety net)
 - Fallback → no skill activation
@@ -129,7 +129,7 @@ Each intent covers approximately:
 
 ### Training Pipeline Changes
 
-**`cmd/chat-nlu-train/main.go`**: The `-extra-csv` flag now accepts comma-separated file paths (e.g., `-extra-csv file1.csv,file2.csv`), allowing multiple dataset files to be loaded in a single training run.
+**`cmd/intent-nlu-train/main.go`**: The `-extra-csv` flag now accepts comma-separated file paths (e.g., `-extra-csv file1.csv,file2.csv`), allowing multiple dataset files to be loaded in a single training run.
 
 **`scripts/train_chatterbot_models.sh`**: Automatically discovers and loads both `{lang}_business.csv` and `{lang}_skill_routing.csv` from `datasets/default/`, passing them as a comma-separated list to `-extra-csv`.
 
@@ -193,7 +193,7 @@ package skills
 import (
     "context"
     "fmt"
-    chatnlu "github.com/godeps/intent-nlu"
+    intentnlu "github.com/godeps/intent-nlu"
 )
 
 // intentToSkill maps NLU intents to skill names.
@@ -214,18 +214,18 @@ var skillToIntent = map[string]string{
     "analyze_video":             "media_analysis",
 }
 
-// NLUMatcher uses chat-nlu Bayesian classification for skill matching.
+// NLUMatcher uses intent-nlu Bayesian classification for skill matching.
 // It is the PRIMARY router — scores HIGHER than keyword matches when
 // confidence is strong, giving NLU priority over deterministic rules.
 type NLUMatcher struct {
-    router    *chatnlu.Router
+    router    *intentnlu.Router
     skillName string
     intent    string
     threshold float64 // minimum confidence to activate (default 0.65)
 }
 
 func (m *NLUMatcher) Match(ctx ActivationContext) MatchResult {
-    pred, err := m.router.Predict(context.Background(), ctx.Prompt, chatnlu.PredictOptions{})
+    pred, err := m.router.Predict(context.Background(), ctx.Prompt, intentnlu.PredictOptions{})
     if err != nil {
         return MatchResult{}
     }
@@ -271,10 +271,10 @@ if nluRouter != nil {
 
 ### Model Embedding
 
-chat-nlu uses `//go:embed models/multilingual` to embed trained models into the binary. In Saker, use the same pattern:
+intent-nlu uses `//go:embed models/multilingual` to embed trained models into the binary. In Saker, use the same pattern:
 
 ```go
-router, err := chatnlu.NewRouterFromEmbedded()
+router, err := intentnlu.NewRouterFromEmbedded()
 ```
 
 This ensures zero-dependency deployment (no external model files needed at runtime).
@@ -292,7 +292,7 @@ Deliverables:
 - ✅ `datasets/default/zh_skill_routing.csv` (980 samples)
 - ✅ `datasets/default/en_skill_routing.csv` (983 samples)
 - ✅ Updated `taxonomy.go` with skill routing aliases
-- ✅ Updated `cmd/chat-nlu-train/main.go` (multi-file `-extra-csv`)
+- ✅ Updated `cmd/intent-nlu-train/main.go` (multi-file `-extra-csv`)
 - ✅ Updated `scripts/train_chatterbot_models.sh` (auto-discover skill routing CSVs)
 - ✅ Updated `Makefile` eval target
 
@@ -312,7 +312,7 @@ Deliverables:
 
 ### Phase 3: Integration (pending — Saker side)
 
-1. Add `chat-nlu` to saker's go.mod
+1. Add `intent-nlu` to saker's go.mod
 2. Implement `NLUMatcher` in `pkg/runtime/skills/`
 3. Wire into loader with embedded bundle
 4. Add integration tests
@@ -359,7 +359,7 @@ Deliverables:
 
 ## Monitoring & Feedback Loop
 
-Use chat-nlu's feedback mechanism (`cmd/chat-nlu-feedback/`) to capture:
+Use intent-nlu's feedback mechanism (`cmd/intent-nlu-feedback/`) to capture:
 
 1. Prompts where NLU activated a skill but user rejected the result
 2. Prompts where no skill activated but user manually invoked one

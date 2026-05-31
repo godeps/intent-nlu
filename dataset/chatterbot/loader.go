@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	chatnlu "github.com/godeps/intent-nlu"
+	intentnlu "github.com/godeps/intent-nlu"
 	"gopkg.in/yaml.v3"
 )
 
@@ -62,7 +62,7 @@ func LoadFileIntentMap(path string) (map[string]string, error) {
 }
 
 // LoadSamples loads labeled samples from chatterbot Chinese corpus files.
-func LoadSamples(root string, opts LoaderOptions) ([]chatnlu.Sample, error) {
+func LoadSamples(root string, opts LoaderOptions) ([]intentnlu.Sample, error) {
 	if strings.TrimSpace(root) == "" {
 		return nil, fmt.Errorf("root path is required")
 	}
@@ -80,7 +80,7 @@ func LoadSamples(root string, opts LoaderOptions) ([]chatnlu.Sample, error) {
 	sort.Strings(files)
 
 	unique := make(map[string]struct{})
-	samples := make([]chatnlu.Sample, 0, 1024)
+	samples := make([]intentnlu.Sample, 0, 1024)
 	for _, file := range files {
 		parsed, err := parseCorpusFile(file)
 		if err != nil {
@@ -116,7 +116,7 @@ func LoadSamples(root string, opts LoaderOptions) ([]chatnlu.Sample, error) {
 					continue
 				}
 				unique[key] = struct{}{}
-				samples = append(samples, chatnlu.Sample{Text: text, Intent: intent})
+				samples = append(samples, intentnlu.Sample{Text: text, Intent: intent})
 			}
 		}
 	}

@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	chatnlu "github.com/godeps/intent-nlu"
+	intentnlu "github.com/godeps/intent-nlu"
 	"github.com/godeps/intent-nlu/dataset/chatterbot"
 )
 
@@ -64,7 +64,7 @@ func main() {
 	flag.StringVar(&evalReportPath, "eval-report", "", "optional path to dump evaluation metadata (json)")
 	flag.StringVar(&outDir, "out", "./model", "output model directory")
 	flag.StringVar(&version, "version", "", "model version")
-	flag.StringVar(&unknownIntent, "unknown-intent", chatnlu.DefaultUnknownIntent, "unknown intent label")
+	flag.StringVar(&unknownIntent, "unknown-intent", intentnlu.DefaultUnknownIntent, "unknown intent label")
 	flag.Float64Var(&defaultTh, "threshold", 0.55, "default intent confidence threshold")
 	flag.StringVar(&thresholdsStr, "thresholds", "", "per-intent thresholds: intent=0.6,intent2=0.7")
 	flag.StringVar(&language, "lang", "zh", "training language (zh/en/ja/ko)")
@@ -93,7 +93,7 @@ func main() {
 		log.Fatal("at least one data source is required: -corpus-root or -extra-csv")
 	}
 
-	samples := make([]chatnlu.Sample, 0, 4096)
+	samples := make([]intentnlu.Sample, 0, 4096)
 	if strings.TrimSpace(corpusRoot) != "" {
 		fileIntent, err := loadMapFile(fileMapPath)
 		if err != nil {
@@ -122,7 +122,7 @@ func main() {
 			if csvPath == "" {
 				continue
 			}
-			loaded, err := chatnlu.LoadSamplesCSV(csvPath)
+			loaded, err := intentnlu.LoadSamplesCSV(csvPath)
 			if err != nil {
 				log.Fatalf("load extra csv %s: %v", csvPath, err)
 			}
@@ -136,7 +136,7 @@ func main() {
 				log.Fatalf("create dump samples dir failed: %v", err)
 			}
 		}
-		if err := chatnlu.SaveSamplesCSV(dumpSamplesCSV, samples); err != nil {
+		if err := intentnlu.SaveSamplesCSV(dumpSamplesCSV, samples); err != nil {
 			log.Fatalf("dump training samples failed: %v", err)
 		}
 	}
@@ -150,7 +150,7 @@ func main() {
 		log.Fatalf("load taxonomy aliases failed: %v", err)
 	}
 
-	cfg := chatnlu.DefaultTrainConfig()
+	cfg := intentnlu.DefaultTrainConfig()
 	if strings.TrimSpace(version) != "" {
 		cfg.Version = strings.TrimSpace(version)
 	}
@@ -164,7 +164,7 @@ func main() {
 	cfg.Tokenizer.StripPunct = stripPunct
 	cfg.Tokenizer.MinTokenLen = minTokenLen
 	cfg.Tokenizer.Stopwords = splitCSV(stopwordsStr)
-	cfg.Split = chatnlu.DatasetSplitConfig{
+	cfg.Split = intentnlu.DatasetSplitConfig{
 		Enabled:    splitEnabled,
 		TrainRatio: trainRatio,
 		ValRatio:   valRatio,
@@ -172,11 +172,11 @@ func main() {
 		Seed:       seed,
 	}
 	cfg.AutoCalibrateThresholds = autoCalibrate
-	cfg.Taxonomy = chatnlu.TaxonomyConfig{
+	cfg.Taxonomy = intentnlu.TaxonomyConfig{
 		Enabled: !disableTaxonomy,
 		Aliases: aliases,
 	}
-	cfg.Source = chatnlu.SourceMetadata{
+	cfg.Source = intentnlu.SourceMetadata{
 		Name:     strings.TrimSpace(sourceName),
 		Version:  strings.TrimSpace(sourceVersion),
 		Revision: strings.TrimSpace(sourceRevision),
@@ -184,7 +184,7 @@ func main() {
 		Commit:   strings.TrimSpace(sourceCommit),
 	}
 
-	model, err := chatnlu.Train(samples, cfg)
+	model, err := intentnlu.Train(samples, cfg)
 	if err != nil {
 		log.Fatalf("train failed: %v", err)
 	}

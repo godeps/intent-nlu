@@ -7,7 +7,7 @@ test:
 
 eval:
 	mkdir -p ./datasets/generated/eval ./.cache/eval-model-zh ./.cache/eval-model-en
-	GOWORK=off go run ./cmd/chat-nlu-train \
+	GOWORK=off go run ./cmd/intent-nlu-train \
 		-lang zh \
 		-extra-csv ./datasets/default/zh_business.csv,./datasets/default/zh_skill_routing.csv \
 		-out ./.cache/eval-model-zh \
@@ -24,7 +24,7 @@ eval:
 		-source-name default-business \
 		-source-version repository \
 		-source-revision zh
-	GOWORK=off go run ./cmd/chat-nlu-train \
+	GOWORK=off go run ./cmd/intent-nlu-train \
 		-lang en \
 		-extra-csv ./datasets/default/en_business.csv,./datasets/default/en_skill_routing.csv \
 		-out ./.cache/eval-model-en \

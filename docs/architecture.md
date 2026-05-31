@@ -58,7 +58,7 @@ Fine-grained chitchat classification from chatterbot corpus:
 
 ### 3) Feedback phase
 
-Prediction logs + human labels are fed into `cmd/chat-nlu-feedback`:
+Prediction logs + human labels are fed into `cmd/intent-nlu-feedback`:
 
 - high-quality labels -> business dataset (`datasets/default/*_business.csv`)
 - low-confidence/unknown -> review queue (`datasets/feedback/review`)

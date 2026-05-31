@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	chatnlu "github.com/godeps/intent-nlu"
+	intentnlu "github.com/godeps/intent-nlu"
 )
 
 type feedbackRecord struct {
@@ -35,7 +35,7 @@ func main() {
 	flag.StringVar(&defaultDir, "default-dir", "./datasets/default", "default business dataset directory")
 	flag.StringVar(&reviewDir, "review-dir", "./datasets/feedback/review", "review dataset output directory")
 	flag.Float64Var(&lowConfidence, "low-confidence", 0.6, "confidence threshold for review samples")
-	flag.StringVar(&unknownIntent, "unknown-intent", chatnlu.DefaultUnknownIntent, "unknown intent label")
+	flag.StringVar(&unknownIntent, "unknown-intent", intentnlu.DefaultUnknownIntent, "unknown intent label")
 	flag.Parse()
 
 	if strings.TrimSpace(inputCSV) == "" {
@@ -56,9 +56,9 @@ func main() {
 		log.Fatalf("create review dir failed: %v", err)
 	}
 
-	aliases := chatnlu.DefaultIntentAliases()
+	aliases := intentnlu.DefaultIntentAliases()
 
-	updates := map[string][]chatnlu.Sample{}
+	updates := map[string][]intentnlu.Sample{}
 	reviews := map[string][]feedbackRecord{}
 	for _, rec := range records {
 		text := strings.TrimSpace(rec.Text)
@@ -67,16 +67,16 @@ func main() {
 		}
 		lang := strings.ToLower(strings.TrimSpace(rec.Language))
 		if lang == "" {
-			lang = string(chatnlu.DetectLanguage(text))
+			lang = string(intentnlu.DetectLanguage(text))
 		}
 		if lang == "" {
 			lang = "en"
 		}
 
-		finalIntent := chatnlu.NormalizeIntent(rec.FinalIntent, aliases)
-		predIntent := chatnlu.NormalizeIntent(rec.PredIntent, aliases)
+		finalIntent := intentnlu.NormalizeIntent(rec.FinalIntent, aliases)
+		predIntent := intentnlu.NormalizeIntent(rec.PredIntent, aliases)
 		if finalIntent != "" && finalIntent != unknownIntent {
-			updates[lang] = append(updates[lang], chatnlu.Sample{Text: text, Intent: finalIntent})
+			updates[lang] = append(updates[lang], intentnlu.Sample{Text: text, Intent: finalIntent})
 			continue
 		}
 		if predIntent == "" {
@@ -95,9 +95,9 @@ func main() {
 			continue
 		}
 		path := filepath.Join(defaultDir, lang+"_business.csv")
-		existing, _ := chatnlu.LoadSamplesCSV(path)
+		existing, _ := intentnlu.LoadSamplesCSV(path)
 		merged := mergeSamples(existing, samples)
-		if err := chatnlu.SaveSamplesCSV(path, merged); err != nil {
+		if err := intentnlu.SaveSamplesCSV(path, merged); err != nil {
 			log.Fatalf("save merged dataset failed (%s): %v", path, err)
 		}
 		updatedRows += len(samples)
@@ -181,9 +181,9 @@ func getColumn(row []string, index map[string]int, keys ...string) string {
 	return ""
 }
 
-func mergeSamples(existing []chatnlu.Sample, incoming []chatnlu.Sample) []chatnlu.Sample {
+func mergeSamples(existing []intentnlu.Sample, incoming []intentnlu.Sample) []intentnlu.Sample {
 	seen := map[string]struct{}{}
-	result := make([]chatnlu.Sample, 0, len(existing)+len(incoming))
+	result := make([]intentnlu.Sample, 0, len(existing)+len(incoming))
 	for _, item := range existing {
 		text := strings.TrimSpace(item.Text)
 		intent := strings.TrimSpace(item.Intent)
@@ -195,7 +195,7 @@ func mergeSamples(existing []chatnlu.Sample, incoming []chatnlu.Sample) []chatnl
 			continue
 		}
 		seen[key] = struct{}{}
-		result = append(result, chatnlu.Sample{Text: text, Intent: intent})
+		result = append(result, intentnlu.Sample{Text: text, Intent: intent})
 	}
 	for _, item := range incoming {
 		text := strings.TrimSpace(item.Text)
@@ -208,7 +208,7 @@ func mergeSamples(existing []chatnlu.Sample, incoming []chatnlu.Sample) []chatnl
 			continue
 		}
 		seen[key] = struct{}{}
-		result = append(result, chatnlu.Sample{Text: text, Intent: intent})
+		result = append(result, intentnlu.Sample{Text: text, Intent: intent})
 	}
 	return result
 }

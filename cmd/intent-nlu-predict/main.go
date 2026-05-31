@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	chatnlu "github.com/godeps/intent-nlu"
+	intentnlu "github.com/godeps/intent-nlu"
 )
 
 func main() {
@@ -45,18 +45,18 @@ func main() {
 		log.Fatal("input text is empty")
 	}
 
-	opts := chatnlu.PredictOptions{
+	opts := intentnlu.PredictOptions{
 		TopK:          topK,
 		MinConfidence: minConfidence,
 		LanguageHint:  langHint,
 	}
 
 	var (
-		pred chatnlu.Prediction
+		pred intentnlu.Prediction
 		err  error
 	)
 	if strings.TrimSpace(bundleDir) != "" {
-		router, routerErr := chatnlu.NewRouterFromBundle(bundleDir)
+		router, routerErr := intentnlu.NewRouterFromBundle(bundleDir)
 		if routerErr != nil {
 			log.Fatalf("load router bundle failed: %v", routerErr)
 		}
@@ -66,19 +66,19 @@ func main() {
 		if parseErr != nil {
 			log.Fatalf("parse models failed: %v", parseErr)
 		}
-		router, routerErr := chatnlu.NewRouterFromDirs(models, langHint)
+		router, routerErr := intentnlu.NewRouterFromDirs(models, langHint)
 		if routerErr != nil {
 			log.Fatalf("load router models failed: %v", routerErr)
 		}
 		pred, err = router.Predict(context.Background(), text, opts)
 	} else if strings.TrimSpace(modelDir) != "" {
-		engine, loadErr := chatnlu.NewEngineFromDir(modelDir)
+		engine, loadErr := intentnlu.NewEngineFromDir(modelDir)
 		if loadErr != nil {
 			log.Fatalf("load model failed: %v", loadErr)
 		}
 		pred, err = engine.Predict(context.Background(), text, opts)
 	} else {
-		router, routerErr := chatnlu.NewRouterFromEmbedded()
+		router, routerErr := intentnlu.NewRouterFromEmbedded()
 		if routerErr != nil {
 			log.Fatalf("load embedded default bundle failed: %v", routerErr)
 		}

@@ -56,7 +56,7 @@ if [[ -z "${INPUT}" ]]; then
 fi
 
 cd "${REPO_ROOT}"
-GOWORK=off go run ./cmd/chat-nlu-feedback \
+GOWORK=off go run ./cmd/intent-nlu-feedback \
   -input "${INPUT}" \
   -default-dir "${DEFAULT_DIR}" \
   -review-dir "${REVIEW_DIR}" \

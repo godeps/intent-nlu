@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Trains chat-nlu models from chatterbot-corpus language datasets.
+# Trains intent-nlu models from chatterbot-corpus language datasets.
 # Default languages: zh,en
 # Default outputs are saved inside repository:
 # - datasets/generated/*.csv (effective training data)
@@ -78,7 +78,7 @@ USAGE
 }
 
 log() {
-  printf '[chat-nlu-train] %s\n' "$*"
+  printf '[intent-nlu-train] %s\n' "$*"
 }
 
 ensure_bool() {
@@ -288,7 +288,7 @@ train_one_language() {
   (
     cd "${REPO_ROOT}"
     local cmd=(
-      env GOWORK=off go run ./cmd/chat-nlu-train
+      env GOWORK=off go run ./cmd/intent-nlu-train
       -lang "${lang}"
       -corpus-root "${corpus_dir}"
       -file-map "${map_file}"
@@ -365,7 +365,7 @@ assemble_multilingual_bundle() {
 
   (
     cd "${REPO_ROOT}"
-    GOWORK=off go run ./cmd/chat-nlu-bundle \
+    GOWORK=off go run ./cmd/intent-nlu-bundle \
       -bundle-dir "${BUNDLE_DIR}" \
       -models "${models_spec}" \
       -default-lang "${default_lang}" \

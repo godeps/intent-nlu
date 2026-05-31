@@ -25,10 +25,10 @@
 ```text
 intent-nlu/
   cmd/
-    chat-nlu-train/            # 单语言训练
-    chat-nlu-predict/          # 单模型/多模型/bundle 预测
-    chat-nlu-bundle/           # 多语言 bundle 打包
-    chat-nlu-feedback/         # 反馈数据回流
+    intent-nlu-train/            # 单语言训练
+    intent-nlu-predict/          # 单模型/多模型/bundle 预测
+    intent-nlu-bundle/           # 多语言 bundle 打包
+    intent-nlu-feedback/         # 反馈数据回流
   dataset/chatterbot/          # chatterbot 语料加载器
   datasets/
     default/
@@ -229,12 +229,12 @@ make train
 2. 自动生成文件到意图映射（`chitchat_<file>`）。
 3. 合并业务 CSV（`<lang>_business.csv`）和技能路由 CSV（`<lang>_skill_routing.csv`）。
 4. 执行分割训练、评估和阈值校准。
-5. 通过 `cmd/chat-nlu-bundle` 构建多语言 bundle。
+5. 通过 `cmd/intent-nlu-bundle` 构建多语言 bundle。
 
 ### B）手动训练 CLI
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-train \
+GOWORK=off go run ./cmd/intent-nlu-train \
   -lang zh \
   -corpus-root /path/to/chatterbot_corpus/data/chinese \
   -file-map ./examples/file_intent_map.yaml \
@@ -263,7 +263,7 @@ GOWORK=off go run ./cmd/chat-nlu-train \
 ## Bundle 打包 CLI
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-bundle \
+GOWORK=off go run ./cmd/intent-nlu-bundle \
   -bundle-dir ./models/multilingual \
   -models "zh=./models/model-zh,en=./models/model-en" \
   -default-lang zh \
@@ -278,7 +278,7 @@ GOWORK=off go run ./cmd/chat-nlu-bundle \
 ### 单模型
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -model ./models/model-zh \
   -text "帮我做个产品视频" \
   -lang auto \
@@ -288,7 +288,7 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 ### 多模型映射
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -models "zh=./models/model-zh,en=./models/model-en" \
   -text "create a poster" \
   -lang auto
@@ -297,7 +297,7 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 ### Bundle
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -bundle ./models/multilingual \
   -text "做一个3D模型" \
   -lang auto
@@ -306,7 +306,7 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 ### 不传模型参数（自动使用内嵌默认模型）
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -text "analyze this video" \
   -lang auto
 ```
@@ -316,14 +316,14 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 `intent-nlu` 将默认多语言模型内嵌在包内，依赖方无需携带模型文件。
 
 ```go
-import chatnlu "github.com/godeps/intent-nlu"
+import intentnlu "github.com/godeps/intent-nlu"
 
-router, err := chatnlu.NewRouterFromEmbedded()
+router, err := intentnlu.NewRouterFromEmbedded()
 if err != nil {
     panic(err)
 }
 
-pred, err := router.Predict(context.Background(), "帮我画一张海报", chatnlu.PredictOptions{
+pred, err := router.Predict(context.Background(), "帮我画一张海报", intentnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "zh",
 })
@@ -333,7 +333,7 @@ pred, err := router.Predict(context.Background(), "帮我画一张海报", chatn
 也可以指定解压缓存目录：
 
 ```go
-router, err := chatnlu.NewRouterFromEmbeddedIn("./.cache/intent-nlu")
+router, err := intentnlu.NewRouterFromEmbeddedIn("./.cache/intent-nlu")
 ```
 
 ## 反馈回流
@@ -361,12 +361,12 @@ router, err := chatnlu.NewRouterFromEmbeddedIn("./.cache/intent-nlu")
 ### Engine
 
 ```go
-engine, err := chatnlu.NewEngineFromDir("./models/model-zh")
+engine, err := intentnlu.NewEngineFromDir("./models/model-zh")
 if err != nil {
     panic(err)
 }
 
-pred, err := engine.Predict(context.Background(), "做一段背景音乐", chatnlu.PredictOptions{
+pred, err := engine.Predict(context.Background(), "做一段背景音乐", intentnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "auto",
 })
@@ -376,12 +376,12 @@ pred, err := engine.Predict(context.Background(), "做一段背景音乐", chatn
 ### Router
 
 ```go
-router, err := chatnlu.NewRouterFromBundle("./models/multilingual")
+router, err := intentnlu.NewRouterFromBundle("./models/multilingual")
 if err != nil {
     panic(err)
 }
 
-pred, err := router.Predict(context.Background(), "create a 3D model", chatnlu.PredictOptions{
+pred, err := router.Predict(context.Background(), "create a 3D model", intentnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "auto",
 })
@@ -391,15 +391,15 @@ pred, err := router.Predict(context.Background(), "create a 3D model", chatnlu.P
 ### Hybrid Policy（规则 -> NLU -> 兜底）
 
 ```go
-policy := &chatnlu.HybridPolicy{
+policy := &intentnlu.HybridPolicy{
     Router: router,
-    Rules: []chatnlu.DeterministicRule{
+    Rules: []intentnlu.DeterministicRule{
         {ID: "r1", Intent: "video_production", ContainsAny: []string{"tvc", "宣传片制作"}},
     },
 }
 _ = policy.Prepare() // taxonomy 归一: "video_production" -> "creative_video"
 
-decision, err := policy.Decide(context.Background(), userText, chatnlu.PredictOptions{TopK: 3})
+decision, err := policy.Decide(context.Background(), userText, intentnlu.PredictOptions{TopK: 3})
 // decision.Route: rule | nlu | fallback
 // decision.ShouldCallLLM 表示是否进入 LLM
 ```

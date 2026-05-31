@@ -25,10 +25,10 @@ Lightweight, embeddable intent classification engine for Go.
 ```text
 intent-nlu/
   cmd/
-    chat-nlu-train/            # train one language model
-    chat-nlu-predict/          # predict by single model / model map / bundle
-    chat-nlu-bundle/           # build multilingual bundle from trained models
-    chat-nlu-feedback/         # feedback ingestion and dataset/review update
+    intent-nlu-train/            # train one language model
+    intent-nlu-predict/          # predict by single model / model map / bundle
+    intent-nlu-bundle/           # build multilingual bundle from trained models
+    intent-nlu-feedback/         # feedback ingestion and dataset/review update
   dataset/chatterbot/          # chatterbot corpus loader
   datasets/
     default/
@@ -229,12 +229,12 @@ What it does:
 2. Auto-generate file->intent mapping (`chitchat_<file>`).
 3. Merge business CSV (`<lang>_business.csv`) and skill routing CSV (`<lang>_skill_routing.csv`).
 4. Train models with split/evaluation/calibration.
-5. Build multilingual bundle via `cmd/chat-nlu-bundle`.
+5. Build multilingual bundle via `cmd/intent-nlu-bundle`.
 
 ### B) Manual training CLI
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-train \
+GOWORK=off go run ./cmd/intent-nlu-train \
   -lang zh \
   -corpus-root /path/to/chatterbot_corpus/data/chinese \
   -file-map ./examples/file_intent_map.yaml \
@@ -263,7 +263,7 @@ Important flags:
 ## Bundle Build CLI
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-bundle \
+GOWORK=off go run ./cmd/intent-nlu-bundle \
   -bundle-dir ./models/multilingual \
   -models "zh=./models/model-zh,en=./models/model-en" \
   -default-lang zh \
@@ -278,7 +278,7 @@ GOWORK=off go run ./cmd/chat-nlu-bundle \
 ### Single model
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -model ./models/model-zh \
   -text "帮我做个产品视频" \
   -lang auto \
@@ -288,7 +288,7 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 ### Multi-model map
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -models "zh=./models/model-zh,en=./models/model-en" \
   -text "create a poster" \
   -lang auto
@@ -297,7 +297,7 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 ### Bundle
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -bundle ./models/multilingual \
   -text "做一个3D模型" \
   -lang auto
@@ -306,7 +306,7 @@ GOWORK=off go run ./cmd/chat-nlu-predict \
 ### No model flags (use embedded default bundle)
 
 ```bash
-GOWORK=off go run ./cmd/chat-nlu-predict \
+GOWORK=off go run ./cmd/intent-nlu-predict \
   -text "analyze this video" \
   -lang auto
 ```
@@ -319,14 +319,14 @@ If `-bundle`, `-models`, and `-model` are all omitted, the command loads embedde
 When another Go service imports this module, it can load models without shipping external files.
 
 ```go
-import chatnlu "github.com/godeps/intent-nlu"
+import intentnlu "github.com/godeps/intent-nlu"
 
-router, err := chatnlu.NewRouterFromEmbedded()
+router, err := intentnlu.NewRouterFromEmbedded()
 if err != nil {
     panic(err)
 }
 
-pred, err := router.Predict(context.Background(), "帮我画一张海报", chatnlu.PredictOptions{
+pred, err := router.Predict(context.Background(), "帮我画一张海报", intentnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "zh",
 })
@@ -336,7 +336,7 @@ pred, err := router.Predict(context.Background(), "帮我画一张海报", chatn
 Optional custom extraction cache directory:
 
 ```go
-router, err := chatnlu.NewRouterFromEmbeddedIn("./.cache/intent-nlu")
+router, err := intentnlu.NewRouterFromEmbeddedIn("./.cache/intent-nlu")
 ```
 
 ## Feedback Loop
@@ -364,12 +364,12 @@ Supported CSV headers:
 ### Engine
 
 ```go
-engine, err := chatnlu.NewEngineFromDir("./models/model-zh")
+engine, err := intentnlu.NewEngineFromDir("./models/model-zh")
 if err != nil {
     panic(err)
 }
 
-pred, err := engine.Predict(context.Background(), "做一段背景音乐", chatnlu.PredictOptions{
+pred, err := engine.Predict(context.Background(), "做一段背景音乐", intentnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "auto",
 })
@@ -379,12 +379,12 @@ pred, err := engine.Predict(context.Background(), "做一段背景音乐", chatn
 ### Router
 
 ```go
-router, err := chatnlu.NewRouterFromBundle("./models/multilingual")
+router, err := intentnlu.NewRouterFromBundle("./models/multilingual")
 if err != nil {
     panic(err)
 }
 
-pred, err := router.Predict(context.Background(), "create a 3D model", chatnlu.PredictOptions{
+pred, err := router.Predict(context.Background(), "create a 3D model", intentnlu.PredictOptions{
     TopK:         3,
     LanguageHint: "auto",
 })
@@ -394,15 +394,15 @@ pred, err := router.Predict(context.Background(), "create a 3D model", chatnlu.P
 ### Hybrid Policy (rules -> NLU -> fallback)
 
 ```go
-policy := &chatnlu.HybridPolicy{
+policy := &intentnlu.HybridPolicy{
     Router: router,
-    Rules: []chatnlu.DeterministicRule{
+    Rules: []intentnlu.DeterministicRule{
         {ID: "r1", Intent: "video_production", ContainsAny: []string{"tvc", "宣传片制作"}},
     },
 }
 _ = policy.Prepare() // taxonomy normalizes: "video_production" -> "creative_video"
 
-decision, err := policy.Decide(context.Background(), userText, chatnlu.PredictOptions{TopK: 3})
+decision, err := policy.Decide(context.Background(), userText, intentnlu.PredictOptions{TopK: 3})
 // decision.Route: rule | nlu | fallback
 // decision.ShouldCallLLM tells whether to continue into LLM
 ```

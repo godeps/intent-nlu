@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	chatnlu "github.com/godeps/intent-nlu"
+	intentnlu "github.com/godeps/intent-nlu"
 )
 
 func main() {
@@ -67,7 +67,7 @@ func main() {
 	}
 
 	modelsRelative := make(map[string]string, len(modelMap))
-	modelSummary := make(map[string]chatnlu.BundleModelSummary, len(modelMap))
+	modelSummary := make(map[string]intentnlu.BundleModelSummary, len(modelMap))
 	for lang, srcDir := range modelMap {
 		lang = strings.TrimSpace(strings.ToLower(lang))
 		if lang == "" {
@@ -77,13 +77,13 @@ func main() {
 		if err := os.MkdirAll(dstDir, 0o755); err != nil {
 			log.Fatalf("create model dst dir failed: %v", err)
 		}
-		if err := copyFile(filepath.Join(srcDir, chatnlu.ModelBinaryFile), filepath.Join(dstDir, chatnlu.ModelBinaryFile)); err != nil {
+		if err := copyFile(filepath.Join(srcDir, intentnlu.ModelBinaryFile), filepath.Join(dstDir, intentnlu.ModelBinaryFile)); err != nil {
 			log.Fatalf("copy model binary failed (%s): %v", lang, err)
 		}
-		if err := copyFile(filepath.Join(srcDir, chatnlu.ModelMetaFile), filepath.Join(dstDir, chatnlu.ModelMetaFile)); err != nil {
+		if err := copyFile(filepath.Join(srcDir, intentnlu.ModelMetaFile), filepath.Join(dstDir, intentnlu.ModelMetaFile)); err != nil {
 			log.Fatalf("copy model meta failed (%s): %v", lang, err)
 		}
-		meta, err := loadMeta(filepath.Join(srcDir, chatnlu.ModelMetaFile))
+		meta, err := loadMeta(filepath.Join(srcDir, intentnlu.ModelMetaFile))
 		if err != nil {
 			log.Fatalf("load model meta failed (%s): %v", lang, err)
 		}
@@ -94,7 +94,7 @@ func main() {
 			macroF1 = report.MacroF1
 		}
 		modelsRelative[lang] = filepath.ToSlash(filepath.Join("models", lang))
-		modelSummary[lang] = chatnlu.BundleModelSummary{
+		modelSummary[lang] = intentnlu.BundleModelSummary{
 			Version:             meta.Version,
 			Language:            meta.Language,
 			TrainingSampleCount: meta.TrainingSampleCount,
@@ -104,11 +104,11 @@ func main() {
 		}
 	}
 
-	manifest := chatnlu.BundleManifest{
+	manifest := intentnlu.BundleManifest{
 		Version:         strings.TrimSpace(version),
 		CreatedAt:       time.Now().UTC(),
 		DefaultLanguage: strings.TrimSpace(defaultLang),
-		Corpus: chatnlu.SourceMetadata{
+		Corpus: intentnlu.SourceMetadata{
 			RepoURL: strings.TrimSpace(corpusRepoURL),
 			Commit:  strings.TrimSpace(corpusCommit),
 		},
@@ -116,7 +116,7 @@ func main() {
 		ModelSummary:   modelSummary,
 		Models:         modelsRelative,
 	}
-	if err := chatnlu.SaveBundleManifest(bundleDir, manifest); err != nil {
+	if err := intentnlu.SaveBundleManifest(bundleDir, manifest); err != nil {
 		log.Fatalf("save bundle manifest failed: %v", err)
 	}
 	fmt.Printf("bundle generated\n")
@@ -189,14 +189,14 @@ func copyFile(src, dst string) error {
 	return os.WriteFile(dst, bytes, 0o644)
 }
 
-func loadMeta(path string) (chatnlu.ModelMeta, error) {
+func loadMeta(path string) (intentnlu.ModelMeta, error) {
 	bytes, err := os.ReadFile(path)
 	if err != nil {
-		return chatnlu.ModelMeta{}, err
+		return intentnlu.ModelMeta{}, err
 	}
-	var meta chatnlu.ModelMeta
+	var meta intentnlu.ModelMeta
 	if err := json.Unmarshal(bytes, &meta); err != nil {
-		return chatnlu.ModelMeta{}, err
+		return intentnlu.ModelMeta{}, err
 	}
 	return meta, nil
 }
