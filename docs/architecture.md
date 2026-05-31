@@ -1,8 +1,8 @@
-# chat-nlu Architecture
+# intent-nlu Architecture
 
 ## Overview
 
-`chat-nlu` is a lightweight intent recognition package focused on low-latency pre-LLM routing and reusable deployment.
+`intent-nlu` is a lightweight intent classification engine focused on low-latency pre-LLM routing, skill activation, and reusable deployment.
 
 Core stack:
 
@@ -14,7 +14,7 @@ Core stack:
 
 - `tokenizer.go`: language-aware tokenization and normalization.
 - `language.go`: language normalization and lightweight language detection.
-- `taxonomy.go`: intent alias normalization (taxonomy).
+- `taxonomy.go`: intent alias normalization (taxonomy), including skill routing aliases.
 - `evaluation.go`: deterministic split, threshold calibration, metrics and confusion matrix.
 - `trainer.go`: supervised training and metadata generation.
 - `model.go`: model persistence and loading (`model.gob`, `meta.json`).
@@ -23,20 +23,38 @@ Core stack:
 - `router_bundle.go`: bundle manifest and bundle loader.
 - `embedded_bundle.go`: embedded bundle extraction and router loading for dependency consumers.
 - `hybrid_policy.go`: deterministic rules + NLU + fallback orchestration.
+- `dataset_csv.go`: CSV dataset loading and saving.
 - `dataset/chatterbot/loader.go`: chatterbot corpus loader.
+
+## Intent Categories
+
+### Skill Routing Intents
+Activate specialized execution pipelines in Saker:
+- `creative_video`, `creative_image`, `creative_audio`, `creative_3d` — creative production
+- `media_analysis` — video/image understanding
+- `general_chat` — no skill activation (fallback to LLM)
+
+### Business Intents
+Domain-specific routing:
+- `calendar_info`, `weather_info` — structured data queries
+- `chitchat_greeting` — greeting detection
+
+### Chatterbot Intents
+Fine-grained chitchat classification from chatterbot corpus:
+- 17 `chitchat_*` classes (zh), 21 `chitchat_*` classes (en)
 
 ## Runtime Flow
 
 ### 1) Pre-LLM phase
 
-1. Optional deterministic rule matching.
+1. Optional deterministic rule matching (keywords, regex).
 2. NLU prediction (`Engine` or `Router`).
-3. If matched with confidence, return deterministic route/tool intent.
+3. If matched with confidence above threshold, return deterministic route/skill intent.
 4. If unknown/low confidence, go fallback path (typically call LLM).
 
 ### 2) Fallback/LLM phase
 
-`chat-nlu` does not replace LLM generation; it decides when to skip/route/escalate.
+`intent-nlu` does not replace LLM generation; it decides when to skip/route/escalate.
 
 ### 3) Feedback phase
 
@@ -47,8 +65,8 @@ Prediction logs + human labels are fed into `cmd/chat-nlu-feedback`:
 
 ## Training & Evaluation Flow
 
-1. Load data from chatterbot and/or business CSV.
-2. Optionally apply taxonomy normalization (disabled by default).
+1. Load data from chatterbot corpus and/or CSV files (business + skill routing).
+2. Optionally apply taxonomy normalization (disabled by default during training).
 3. Tokenize samples.
 4. Deterministically split into train/val/test (hash + seed).
 5. Train bayesian classifier on train split.
@@ -59,6 +77,16 @@ Prediction logs + human labels are fed into `cmd/chat-nlu-feedback`:
    - per-intent precision/recall/F1
    - confusion matrix
 8. Save model and metadata.
+
+### Multi-file CSV Support
+
+The `-extra-csv` flag accepts comma-separated file paths, allowing multiple dataset files to be combined in a single training run:
+
+```bash
+-extra-csv ./datasets/default/zh_business.csv,./datasets/default/zh_skill_routing.csv
+```
+
+The training script (`scripts/train_chatterbot_models.sh`) automatically discovers and loads both `{lang}_business.csv` and `{lang}_skill_routing.csv`.
 
 ## Artifacts
 
@@ -94,13 +122,17 @@ Prediction logs + human labels are fed into `cmd/chat-nlu-feedback`:
 1. Prioritizes latency and explainability over deep semantic modeling.
 2. Bayesian model is easy to train/deploy, but needs quality labels for domain intents.
 3. Cross-language routing fallback improves robustness for short/mixed input, with small extra compute.
-4. Taxonomy normalization can reduce intent drift, but default is disabled to preserve fine-grained classes.
+4. Taxonomy normalization can reduce intent drift, but default is disabled during training to preserve fine-grained classes. Aliases are applied at inference time.
+5. Skill routing precision is prioritized over recall — false negatives fall to keyword rules or LLM fallback, while false positives would trigger expensive operations.
 
 ## Integration Pattern
 
 Recommended production chain:
 
-1. `HybridPolicy` (rule first)
-2. NLU inference (`Router`)
-3. If `fallback`, call LLM/tool planner
-4. Capture feedback and retrain periodically
+1. `HybridPolicy` orchestrates all layers
+2. Layer 1: NLU inference (`Router`) — primary, handles paraphrased/colloquial input
+3. Layer 2: Deterministic rules — safety net for keyword matches
+4. Layer 3: Fallback — call LLM/tool planner
+5. Capture feedback and retrain periodically
+
+See `docs/skill-routing-integration.md` for Saker-specific integration details.
