@@ -115,14 +115,14 @@ Default embedded models include business, skill routing, and chitchat intents:
 
 ### Skill Routing Intents
 
-| Intent | Description | Saker Skill | ZH Samples | EN Samples |
-| --- | --- | --- | --- | --- |
-| `creative_video` | Video production, editing, TVC, ads | `kanban-video-orchestrator` | 200 | 200 |
-| `creative_image` | Image generation, poster, illustration | `generate_image` | 200 | 203 |
-| `creative_audio` | Music, sound effects, audio production | `generate_music` | 100 | 100 |
-| `creative_3d` | 3D modeling, rendering | `generate_3d` | 80 | 80 |
-| `media_analysis` | Video/image understanding, description | `analyze_video` | 100 | 100 |
-| `general_chat` | Chitchat, questions, non-creative tasks | (no skill) | 300 | 300 |
+| Intent | Description | ZH Samples | EN Samples |
+| --- | --- | --- | --- |
+| `creative_video` | Video production, editing, TVC, ads | 200 | 200 |
+| `creative_image` | Image generation, poster, illustration | 200 | 203 |
+| `creative_audio` | Music, sound effects, audio production | 100 | 100 |
+| `creative_3d` | 3D modeling, rendering | 80 | 80 |
+| `media_analysis` | Video/image understanding, description | 100 | 100 |
+| `general_chat` | Chitchat, questions, non-creative tasks | 300 | 300 |
 
 ### Business Intents
 
@@ -413,7 +413,6 @@ decision, err := policy.Decide(context.Background(), userText, intentnlu.Predict
 2. Multilingual bundle is a packaging format, not one fused multilingual classifier.
 3. Keep thresholds and split seed stable for comparable offline evaluation.
 4. Generated artifacts can grow quickly; plan storage strategy by environment.
-5. See `docs/skill-routing-integration.md` for Saker integration details and evaluation results.
 
 ## Commands Summary
 

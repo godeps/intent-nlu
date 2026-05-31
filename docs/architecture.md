@@ -29,7 +29,7 @@ Core stack:
 ## Intent Categories
 
 ### Skill Routing Intents
-Activate specialized execution pipelines in Saker:
+Activate specialized execution pipelines:
 - `creative_video`, `creative_image`, `creative_audio`, `creative_3d` — creative production
 - `media_analysis` — video/image understanding
 - `general_chat` — no skill activation (fallback to LLM)
@@ -134,5 +134,3 @@ Recommended production chain:
 3. Layer 2: Deterministic rules — safety net for keyword matches
 4. Layer 3: Fallback — call LLM/tool planner
 5. Capture feedback and retrain periodically
-
-See `docs/skill-routing-integration.md` for Saker-specific integration details.

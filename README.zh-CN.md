@@ -115,14 +115,14 @@ make train
 
 ### 技能路由意图
 
-| 意图 | 说明 | Saker 技能 | 中文样本 | 英文样本 |
-| --- | --- | --- | --- | --- |
-| `creative_video` | 视频制作、剪辑、TVC、广告 | `kanban-video-orchestrator` | 200 | 200 |
-| `creative_image` | 图片生成、海报、插画 | `generate_image` | 200 | 203 |
-| `creative_audio` | 音乐、音效、音频制作 | `generate_music` | 100 | 100 |
-| `creative_3d` | 3D 建模、渲染 | `generate_3d` | 80 | 80 |
-| `media_analysis` | 视频/图片理解、描述 | `analyze_video` | 100 | 100 |
-| `general_chat` | 闲聊、提问、非创意任务 | （无技能） | 300 | 300 |
+| 意图 | 说明 | 中文样本 | 英文样本 |
+| --- | --- | --- | --- |
+| `creative_video` | 视频制作、剪辑、TVC、广告 | 200 | 200 |
+| `creative_image` | 图片生成、海报、插画 | 200 | 203 |
+| `creative_audio` | 音乐、音效、音频制作 | 100 | 100 |
+| `creative_3d` | 3D 建模、渲染 | 80 | 80 |
+| `media_analysis` | 视频/图片理解、描述 | 100 | 100 |
+| `general_chat` | 闲聊、提问、非创意任务 | 300 | 300 |
 
 ### 业务意图
 
@@ -410,7 +410,6 @@ decision, err := policy.Decide(context.Background(), userText, intentnlu.Predict
 2. 多语言 bundle 是"多模型打包"，不是"单模型融合"。
 3. 固定阈值、分割比例和 seed，才能做可比离线评估。
 4. 训练与模型产物会增长较快，建议按环境规划存储策略。
-5. Saker 集成详情和评估结果见 `docs/skill-routing-integration.md`。
 
 ## 常用命令
 
