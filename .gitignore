@@ -33,3 +33,6 @@ go.work.sum
 
 # local cache
 .cache/
+
+# OMC state
+.omc/
