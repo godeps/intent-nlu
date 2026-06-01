@@ -50,12 +50,13 @@ func (p *HybridPolicy) Prepare() error {
 	if strings.TrimSpace(p.UnknownIntent) == "" {
 		p.UnknownIntent = DefaultUnknownIntent
 	}
+	aliases := p.resolveAliases()
 	for i := range p.Rules {
 		p.Rules[i].Intent = strings.TrimSpace(p.Rules[i].Intent)
 		if p.Rules[i].Intent == "" {
 			continue
 		}
-		p.Rules[i].Intent = NormalizeIntent(p.Rules[i].Intent, DefaultIntentAliases())
+		p.Rules[i].Intent = NormalizeIntent(p.Rules[i].Intent, aliases)
 		if strings.TrimSpace(p.Rules[i].Regex) != "" {
 			compiled, err := regexp.Compile(p.Rules[i].Regex)
 			if err != nil {
@@ -131,6 +132,20 @@ func (p *HybridPolicy) Decide(ctx context.Context, text string, opts PredictOpti
 		Prediction:    pred,
 		ShouldCallLLM: true,
 	}, nil
+}
+
+func (p *HybridPolicy) resolveAliases() map[string]string {
+	if p.Router != nil {
+		if aliases := p.Router.Meta().IntentAliases; len(aliases) > 0 {
+			return aliases
+		}
+	}
+	if p.Engine != nil {
+		if aliases := p.Engine.Meta().IntentAliases; len(aliases) > 0 {
+			return aliases
+		}
+	}
+	return defaultIntentAliasesRef()
 }
 
 func normalizePredictLanguage(hint string, detected Language) string {

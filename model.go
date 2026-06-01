@@ -80,7 +80,7 @@ func loadModelFromDir(dir string) (*loadedModel, error) {
 	}
 	taxonomyEnabled := meta.Training.Config.TaxonomyEnabled || len(meta.IntentAliases) > 0
 	if taxonomyEnabled {
-		meta.IntentAliases = mergeIntentAliases(DefaultIntentAliases(), meta.IntentAliases)
+		meta.IntentAliases = mergeIntentAliases(defaultIntentAliasesRef(), meta.IntentAliases)
 		meta.Thresholds = NormalizeThresholds(meta.Thresholds, meta.IntentAliases)
 	} else {
 		meta.IntentAliases = nil

@@ -97,9 +97,13 @@ func extractEmbeddedBundleToDir(targetDir string) error {
 	if err != nil {
 		return fmt.Errorf("create embedded sub fs: %w", err)
 	}
-	if err := os.MkdirAll(targetDir, 0o755); err != nil {
-		return fmt.Errorf("create embedded target dir: %w", err)
+
+	tmpDir := targetDir + ".tmp"
+	_ = os.RemoveAll(tmpDir)
+	if err := os.MkdirAll(tmpDir, 0o755); err != nil {
+		return fmt.Errorf("create embedded tmp dir: %w", err)
 	}
+
 	err = fs.WalkDir(subFS, ".", func(name string, d fs.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
@@ -107,7 +111,7 @@ func extractEmbeddedBundleToDir(targetDir string) error {
 		if name == "." {
 			return nil
 		}
-		dst := filepath.Join(targetDir, filepath.FromSlash(name))
+		dst := filepath.Join(tmpDir, filepath.FromSlash(name))
 		if d.IsDir() {
 			return os.MkdirAll(dst, 0o755)
 		}
@@ -121,7 +125,14 @@ func extractEmbeddedBundleToDir(targetDir string) error {
 		return os.WriteFile(dst, data, 0o644)
 	})
 	if err != nil {
+		_ = os.RemoveAll(tmpDir)
 		return fmt.Errorf("extract embedded bundle: %w", err)
+	}
+
+	_ = os.RemoveAll(targetDir)
+	if err := os.Rename(tmpDir, targetDir); err != nil {
+		_ = os.RemoveAll(tmpDir)
+		return fmt.Errorf("rename embedded bundle dir: %w", err)
 	}
 	return nil
 }

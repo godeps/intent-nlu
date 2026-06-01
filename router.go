@@ -153,6 +153,18 @@ func (r *Router) Predict(ctx context.Context, text string, opts PredictOptions) 
 	return pred, nil
 }
 
+// Meta returns the default engine's model metadata, or empty if no engine is loaded.
+func (r *Router) Meta() ModelMeta {
+	if r == nil {
+		return ModelMeta{}
+	}
+	engine, _ := r.pickEngine(r.defaultLang)
+	if engine == nil {
+		return ModelMeta{}
+	}
+	return engine.Meta()
+}
+
 // Languages returns loaded languages sorted alphabetically.
 func (r *Router) Languages() []string {
 	r.mu.RLock()
@@ -199,28 +211,48 @@ func (r *Router) pickBestLanguageByRawScore(ctx context.Context, text string, op
 	defaultLang := r.defaultLang
 	r.mu.RUnlock()
 
-	bestLang := LanguageAuto
-	bestScore := -1.0
-	for lang, engine := range engines {
-		rawOpts := opts
-		rawOpts.MinConfidence = 0
-		rawOpts.IgnoreThreshold = true
-		pred, err := engine.Predict(ctx, text, rawOpts)
-		if err != nil {
-			continue
-		}
-		score := pred.Confidence
-		if score > bestScore {
-			bestScore = score
-			bestLang = lang
-			continue
-		}
-		if score == bestScore {
-			if lang == defaultLang {
-				bestLang = lang
+	rawOpts := opts
+	rawOpts.MinConfidence = 0
+	rawOpts.IgnoreThreshold = true
+
+	if len(engines) == 1 {
+		for lang, engine := range engines {
+			pred, err := engine.Predict(ctx, text, rawOpts)
+			if err != nil {
+				return LanguageAuto, false
 			}
+			if pred.Confidence <= 0 {
+				return LanguageAuto, false
+			}
+			return lang, true
 		}
 	}
+
+	var (
+		mu        sync.Mutex
+		wg        sync.WaitGroup
+		bestLang  = LanguageAuto
+		bestScore = -1.0
+	)
+	for lang, engine := range engines {
+		wg.Add(1)
+		go func(lang Language, engine *Engine) {
+			defer wg.Done()
+			pred, err := engine.Predict(ctx, text, rawOpts)
+			if err != nil {
+				return
+			}
+			score := pred.Confidence
+			mu.Lock()
+			if score > bestScore || (score == bestScore && lang == defaultLang) {
+				bestScore = score
+				bestLang = lang
+			}
+			mu.Unlock()
+		}(lang, engine)
+	}
+	wg.Wait()
+
 	if bestLang == LanguageAuto {
 		return LanguageAuto, false
 	}

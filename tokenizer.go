@@ -133,7 +133,7 @@ func (t *Tokenizer) Tokenize(text string) []string {
 
 	tokens := make([]string, 0, len(raw))
 	for _, tok := range raw {
-		tok = normalizeText(tok, t.cfg)
+		tok = strings.TrimSpace(tok)
 		if tok == "" {
 			continue
 		}

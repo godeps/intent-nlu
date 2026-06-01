@@ -375,26 +375,27 @@ func evaluateClassifier(
 	}
 	sort.Strings(intents)
 
+	allStats := computeAllConfusionStats(report.Confusion)
 	totalTP := 0
 	totalFP := 0
 	totalFN := 0
 	macroSum := 0.0
 	macroCount := 0
 	for _, intent := range intents {
-		tp, fp, fn, support := confusionStats(report.Confusion, intent)
-		precision, recall, f1 := precisionRecallF1(tp, fp, fn)
+		st := allStats[intent]
+		precision, recall, f1 := precisionRecallF1(st.tp, st.fp, st.fn)
 		report.PerIntent[intent] = ClassMetrics{
 			Precision: precision,
 			Recall:    recall,
 			F1:        f1,
-			Support:   support,
-			TP:        tp,
-			FP:        fp,
-			FN:        fn,
+			Support:   st.support,
+			TP:        st.tp,
+			FP:        st.fp,
+			FN:        st.fn,
 		}
-		totalTP += tp
-		totalFP += fp
-		totalFN += fn
+		totalTP += st.tp
+		totalFP += st.fp
+		totalFN += st.fn
 		macroSum += f1
 		macroCount++
 	}
@@ -407,24 +408,33 @@ func evaluateClassifier(
 	return report
 }
 
-func confusionStats(confusion map[string]map[string]int, intent string) (tp, fp, fn, support int) {
+type intentStats struct {
+	tp, fp, fn, support int
+}
+
+func computeAllConfusionStats(confusion map[string]map[string]int) map[string]intentStats {
+	result := make(map[string]intentStats, len(confusion))
 	for actual, row := range confusion {
 		for predicted, count := range row {
-			if actual == intent {
-				support += count
+			// actual row: support and TP/FN
+			st := result[actual]
+			st.support += count
+			if predicted == actual {
+				st.tp += count
+			} else {
+				st.fn += count
 			}
-			if actual == intent && predicted == intent {
-				tp += count
-			}
-			if actual != intent && predicted == intent {
-				fp += count
-			}
-			if actual == intent && predicted != intent {
-				fn += count
+			result[actual] = st
+
+			// predicted column: FP (only when actual != predicted)
+			if predicted != actual {
+				pst := result[predicted]
+				pst.fp += count
+				result[predicted] = pst
 			}
 		}
 	}
-	return tp, fp, fn, support
+	return result
 }
 
 func precisionRecallF1(tp, fp, fn int) (precision, recall, f1 float64) {

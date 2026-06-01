@@ -93,7 +93,7 @@ type TaxonomyConfig struct {
 func DefaultTaxonomyConfig() TaxonomyConfig {
 	return TaxonomyConfig{
 		Enabled: false,
-		Aliases: DefaultIntentAliases(),
+		Aliases: defaultIntentAliasesRef(),
 	}
 }
 

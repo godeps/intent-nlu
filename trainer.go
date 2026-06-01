@@ -63,7 +63,7 @@ func Train(samples []Sample, cfg TrainConfig) (*TrainedModel, error) {
 
 	var aliases map[string]string
 	if cfg.Taxonomy.Enabled {
-		aliases = mergeIntentAliases(DefaultIntentAliases(), cfg.Taxonomy.Aliases)
+		aliases = mergeIntentAliases(defaultIntentAliasesRef(), cfg.Taxonomy.Aliases)
 	}
 
 	tok, err := NewTokenizer(cfg.Tokenizer)

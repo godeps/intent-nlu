@@ -47,6 +47,28 @@ func LoadSamplesCSV(path string) ([]Sample, error) {
 	return samples, nil
 }
 
+// LoadSamplesCSVWithWarnings loads samples and reports conflicting duplicates
+// (same text mapped to different intents).
+func LoadSamplesCSVWithWarnings(path string) ([]Sample, []string, error) {
+	samples, err := LoadSamplesCSV(path)
+	if err != nil {
+		return nil, nil, err
+	}
+	seen := make(map[string]string, len(samples))
+	var warnings []string
+	for _, s := range samples {
+		key := strings.ToLower(strings.TrimSpace(s.Text))
+		if prev, ok := seen[key]; ok {
+			if !strings.EqualFold(prev, s.Intent) {
+				warnings = append(warnings, fmt.Sprintf("conflicting intents for %q: %q vs %q", s.Text, prev, s.Intent))
+			}
+		} else {
+			seen[key] = s.Intent
+		}
+	}
+	return samples, warnings, nil
+}
+
 // SaveSamplesCSV writes labeled samples into CSV with header text,intent.
 func SaveSamplesCSV(path string, samples []Sample) error {
 	f, err := os.Create(path)

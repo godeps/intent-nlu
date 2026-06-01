@@ -2,55 +2,65 @@ package intentnlu
 
 import "strings"
 
-// DefaultIntentAliases returns stable intent taxonomy aliases.
+var defaultIntentAliases = map[string]string{
+	"unknown":                "unknown",
+	"calendar":               "calendar_info",
+	"date_info":              "calendar_info",
+	"holiday_info":           "calendar_info",
+	"weather":                "weather_info",
+	"forecast":               "weather_info",
+	"weather_forecast":       "weather_info",
+	"greeting":               "chitchat_greeting",
+	"greetings":              "chitchat_greeting",
+	"chitchat_greetings":     "chitchat_greeting",
+	"chitchat_greeting":      "chitchat_greeting",
+	"chitchat_conversations": "chitchat_general",
+	"chitchat_botprofile":    "chitchat_general",
+	"chitchat_emotion":       "chitchat_general",
+	"chitchat_food":          "chitchat_general",
+	"chitchat_gossip":        "chitchat_general",
+	"chitchat_history":       "chitchat_general",
+	"chitchat_humor":         "chitchat_general",
+	"chitchat_literature":    "chitchat_general",
+	"chitchat_money":         "chitchat_general",
+	"chitchat_movies":        "chitchat_general",
+	"chitchat_politics":      "chitchat_general",
+	"chitchat_psychology":    "chitchat_general",
+	"chitchat_science":       "chitchat_general",
+	"chitchat_sports":        "chitchat_general",
+	"chitchat_trivia":        "chitchat_general",
+	"chitchat_ai":            "chitchat_general",
+	"chitchat_coding":        "chitchat_general",
+	"chitchat_computers":     "chitchat_general",
+	"chitchat_health":        "chitchat_general",
+	"chitchat_tech_support":  "chitchat_general",
+	"chat":                   "chitchat_general",
+	"chitchat":               "chitchat_general",
+	"video_production":       "creative_video",
+	"video_editing":          "creative_video",
+	"film_production":        "creative_video",
+	"ad_production":          "creative_video",
+	"image_generation":       "creative_image",
+	"poster_design":          "creative_image",
+	"music_creation":         "creative_audio",
+	"audio_production":       "creative_audio",
+	"3d_modeling":            "creative_3d",
+	"video_analysis":         "media_analysis",
+	"image_analysis":         "media_analysis",
+}
+
+// defaultIntentAliasesRef returns read-only reference to the singleton. Internal use only.
+func defaultIntentAliasesRef() map[string]string {
+	return defaultIntentAliases
+}
+
+// DefaultIntentAliases returns a copy of the stable intent taxonomy aliases.
 func DefaultIntentAliases() map[string]string {
-	aliases := map[string]string{
-		"unknown":                "unknown",
-		"calendar":               "calendar_info",
-		"date_info":              "calendar_info",
-		"holiday_info":           "calendar_info",
-		"weather":                "weather_info",
-		"forecast":               "weather_info",
-		"weather_forecast":       "weather_info",
-		"greeting":               "chitchat_greeting",
-		"greetings":              "chitchat_greeting",
-		"chitchat_greetings":     "chitchat_greeting",
-		"chitchat_greeting":      "chitchat_greeting",
-		"chitchat_conversations": "chitchat_general",
-		"chitchat_botprofile":    "chitchat_general",
-		"chitchat_emotion":       "chitchat_general",
-		"chitchat_food":          "chitchat_general",
-		"chitchat_gossip":        "chitchat_general",
-		"chitchat_history":       "chitchat_general",
-		"chitchat_humor":         "chitchat_general",
-		"chitchat_literature":    "chitchat_general",
-		"chitchat_money":         "chitchat_general",
-		"chitchat_movies":        "chitchat_general",
-		"chitchat_politics":      "chitchat_general",
-		"chitchat_psychology":    "chitchat_general",
-		"chitchat_science":       "chitchat_general",
-		"chitchat_sports":        "chitchat_general",
-		"chitchat_trivia":        "chitchat_general",
-		"chitchat_ai":            "chitchat_general",
-		"chitchat_coding":        "chitchat_general",
-		"chitchat_computers":     "chitchat_general",
-		"chitchat_health":        "chitchat_general",
-		"chitchat_tech_support":  "chitchat_general",
-		"chat":                   "chitchat_general",
-		"chitchat":               "chitchat_general",
-		"video_production":       "creative_video",
-		"video_editing":          "creative_video",
-		"film_production":        "creative_video",
-		"ad_production":          "creative_video",
-		"image_generation":       "creative_image",
-		"poster_design":          "creative_image",
-		"music_creation":         "creative_audio",
-		"audio_production":       "creative_audio",
-		"3d_modeling":            "creative_3d",
-		"video_analysis":         "media_analysis",
-		"image_analysis":         "media_analysis",
+	out := make(map[string]string, len(defaultIntentAliases))
+	for k, v := range defaultIntentAliases {
+		out[k] = v
 	}
-	return aliases
+	return out
 }
 
 // NormalizeIntent normalizes one intent to canonical taxonomy label.

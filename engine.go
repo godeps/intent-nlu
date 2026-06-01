@@ -179,6 +179,37 @@ func (e *Engine) Predict(_ context.Context, text string, opts PredictOptions) (P
 	}, nil
 }
 
+// Meta returns a deep copy of the current model metadata.
+func (e *Engine) Meta() ModelMeta {
+	state := e.state()
+	if state == nil {
+		return ModelMeta{}
+	}
+	meta := state.meta
+	meta.Classes = append([]string(nil), state.meta.Classes...)
+	meta.CanonicalIntents = append([]string(nil), state.meta.CanonicalIntents...)
+	if state.meta.Thresholds != nil {
+		meta.Thresholds = make(map[string]float64, len(state.meta.Thresholds))
+		for k, v := range state.meta.Thresholds {
+			meta.Thresholds[k] = v
+		}
+	}
+	if state.meta.IntentAliases != nil {
+		meta.IntentAliases = make(map[string]string, len(state.meta.IntentAliases))
+		for k, v := range state.meta.IntentAliases {
+			meta.IntentAliases[k] = v
+		}
+	}
+	meta.Tokenizer.Stopwords = append([]string(nil), state.meta.Tokenizer.Stopwords...)
+	meta.Tokenizer.CustomDicts = append([]string(nil), state.meta.Tokenizer.CustomDicts...)
+	meta.Training = cloneTrainingMetadata(state.meta.Training)
+	meta.Source = cloneSourceMetadata(state.meta.Source)
+	if state.meta.Evaluation != nil {
+		meta.Evaluation = cloneEvalReports(state.meta.Evaluation)
+	}
+	return meta
+}
+
 // Language returns current model language.
 func (e *Engine) Language() string {
 	state := e.state()
