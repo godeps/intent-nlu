@@ -1,48 +1,84 @@
 {
-  "version": "2026.05.31.en.153954",
+  "version": "2026.06.09.en.104329",
   "language": "en",
   "unknownIntent": "unknown",
   "defaultThreshold": 0.55,
   "thresholds": {
-    "calendar_info": 0.55,
+    "calendar_info": 0.5,
     "chitchat_general": 0.01,
-    "chitchat_greeting": 0.9790138822089275,
-    "creative_3d": 0.55,
-    "creative_audio": 0.3552391603478511,
+    "chitchat_greeting": 0.9615740684094423,
+    "coding_assist": 0.01,
+    "creative_3d": 0.7,
+    "creative_audio": 0.3380615656976635,
     "creative_image": 0.01,
     "creative_video": 0.01,
-    "general_chat": 0.3,
-    "media_analysis": 0.9,
-    "weather_info": 0.9925701326067364
+    "data_analysis": 0.01,
+    "document_creation": 0.55,
+    "file_operation": 0.5,
+    "general_chat": 0.01,
+    "knowledge_qa": 0.5,
+    "media_analysis": 0.807378490194968,
+    "summarization": 0.01,
+    "task_management": 0.01,
+    "translation": 0.01,
+    "weather_info": 0.9865280131420445,
+    "web_search": 0.01,
+    "workflow_automation": 0.4
   },
   "classes": [
     "calendar_info",
     "chitchat_general",
     "chitchat_greeting",
+    "coding_assist",
     "creative_3d",
     "creative_audio",
     "creative_image",
     "creative_video",
+    "data_analysis",
+    "document_creation",
+    "file_operation",
     "general_chat",
+    "knowledge_qa",
     "media_analysis",
-    "weather_info"
+    "summarization",
+    "task_management",
+    "translation",
+    "weather_info",
+    "web_search",
+    "workflow_automation"
   ],
   "canonicalIntents": [
     "calendar_info",
     "chitchat_general",
     "chitchat_greeting",
+    "coding_assist",
     "creative_3d",
     "creative_audio",
     "creative_image",
     "creative_video",
+    "data_analysis",
+    "document_creation",
+    "file_operation",
     "general_chat",
+    "knowledge_qa",
     "media_analysis",
-    "weather_info"
+    "summarization",
+    "task_management",
+    "translation",
+    "weather_info",
+    "web_search",
+    "workflow_automation"
   ],
   "intentAliases": {
     "3d_modeling": "creative_3d",
     "ad_production": "creative_video",
+    "aggregate": "data_analysis",
+    "analyze_data": "data_analysis",
+    "assign_task": "task_management",
     "audio_production": "creative_audio",
+    "automate": "workflow_automation",
+    "brief": "summarization",
+    "browse": "web_search",
     "calendar": "calendar_info",
     "chat": "chitchat_general",
     "chitchat": "chitchat_general",
@@ -68,22 +104,74 @@
     "chitchat_sports": "chitchat_general",
     "chitchat_tech_support": "chitchat_general",
     "chitchat_trivia": "chitchat_general",
+    "code": "coding_assist",
+    "compile": "coding_assist",
+    "convert_language": "translation",
+    "create_doc": "document_creation",
+    "cron": "workflow_automation",
     "date_info": "calendar_info",
+    "debug": "coding_assist",
+    "develop": "coding_assist",
+    "digest": "summarization",
+    "documentation": "document_creation",
+    "download": "file_operation",
+    "fetch_file": "file_operation",
     "film_production": "creative_video",
+    "find_info": "web_search",
+    "fix_code": "coding_assist",
     "forecast": "weather_info",
+    "google": "web_search",
     "greeting": "chitchat_greeting",
     "greetings": "chitchat_greeting",
+    "guide": "document_creation",
     "holiday_info": "calendar_info",
+    "i18n": "translation",
     "image_analysis": "media_analysis",
     "image_generation": "creative_image",
+    "internet_search": "web_search",
+    "kanban": "task_management",
+    "localize": "translation",
+    "lookup": "web_search",
+    "memory_query": "knowledge_qa",
+    "metrics": "data_analysis",
     "music_creation": "creative_audio",
+    "open_file": "file_operation",
+    "overview": "summarization",
+    "past_decision": "knowledge_qa",
+    "pipeline": "workflow_automation",
     "poster_design": "creative_image",
+    "programming": "coding_assist",
+    "project_management": "task_management",
+    "read_file": "file_operation",
+    "readme": "document_creation",
+    "recall": "knowledge_qa",
+    "recap": "summarization",
+    "recurring_task": "workflow_automation",
+    "remember": "knowledge_qa",
+    "report_data": "data_analysis",
+    "runbook": "document_creation",
+    "save_file": "file_operation",
+    "schedule": "workflow_automation",
+    "script": "coding_assist",
+    "search": "web_search",
+    "statistics": "data_analysis",
+    "summarize": "summarization",
+    "task": "task_management",
+    "ticket": "task_management",
+    "tldr": "summarization",
+    "todo": "task_management",
+    "translate": "translation",
+    "trigger": "workflow_automation",
     "unknown": "unknown",
+    "upload": "file_operation",
     "video_analysis": "media_analysis",
     "video_editing": "creative_video",
     "video_production": "creative_video",
     "weather": "weather_info",
-    "weather_forecast": "weather_info"
+    "weather_forecast": "weather_info",
+    "write_code": "coding_assist",
+    "write_doc": "document_creation",
+    "write_file": "file_operation"
   },
   "tokenizer": {
     "language": "en",
@@ -94,34 +182,34 @@
     "stripPunct": true,
     "collapseSpace": true
   },
-  "trainingSampleCount": 2602,
-  "createdAt": "2026-05-31T15:39:54.867426495Z",
+  "trainingSampleCount": 3768,
+  "createdAt": "2026-06-09T10:43:29.10659405Z",
   "evaluation": {
     "test": {
       "split": "test",
-      "samples": 325,
-      "accuracy": 0.3415384615384615,
-      "macroF1": 0.6363679702650291,
-      "microF1": 0.41495327102803736,
-      "unknownRate": 0.35384615384615387,
+      "samples": 471,
+      "accuracy": 0.45010615711252655,
+      "macroF1": 0.7373563027075648,
+      "microF1": 0.5333333333333332,
+      "unknownRate": 0.31210191082802546,
       "perIntent": {
         "calendar_info": {
-          "precision": 0.9696969696969697,
+          "precision": 0.9714285714285714,
           "recall": 1,
-          "f1": 0.9846153846153847,
-          "support": 32,
-          "tp": 32,
+          "f1": 0.9855072463768115,
+          "support": 34,
+          "tp": 34,
           "fp": 1,
           "fn": 0
         },
         "chitchat_general": {
           "precision": 0.8333333333333334,
-          "recall": 0.05555555555555555,
-          "f1": 0.10416666666666666,
-          "support": 180,
+          "recall": 0.05291005291005291,
+          "f1": 0.09950248756218905,
+          "support": 189,
           "tp": 10,
           "fp": 2,
-          "fn": 170
+          "fn": 179
         },
         "chitchat_greeting": {
           "precision": 0,
@@ -129,16 +217,25 @@
           "f1": 0,
           "support": 2,
           "tp": 0,
-          "fp": 89,
+          "fp": 97,
           "fn": 2
         },
+        "coding_assist": {
+          "precision": 0.9,
+          "recall": 0.6,
+          "f1": 0.7200000000000001,
+          "support": 15,
+          "tp": 9,
+          "fp": 1,
+          "fn": 6
+        },
         "creative_3d": {
-          "precision": 0.5454545454545454,
+          "precision": 0.7777777777777778,
           "recall": 1,
-          "f1": 0.7058823529411764,
-          "support": 6,
-          "tp": 6,
-          "fp": 5,
+          "f1": 0.8750000000000001,
+          "support": 7,
+          "tp": 7,
+          "fp": 2,
           "fn": 0
         },
         "creative_audio": {
@@ -152,10 +249,10 @@
         },
         "creative_image": {
           "precision": 1,
-          "recall": 0.75,
-          "f1": 0.8571428571428571,
-          "support": 16,
-          "tp": 12,
+          "recall": 0.7647058823529411,
+          "f1": 0.8666666666666666,
+          "support": 17,
+          "tp": 13,
           "fp": 0,
           "fn": 4
         },
@@ -168,6 +265,33 @@
           "fp": 0,
           "fn": 3
         },
+        "data_analysis": {
+          "precision": 1,
+          "recall": 0.7777777777777778,
+          "f1": 0.8750000000000001,
+          "support": 18,
+          "tp": 14,
+          "fp": 0,
+          "fn": 4
+        },
+        "document_creation": {
+          "precision": 0.8,
+          "recall": 1,
+          "f1": 0.888888888888889,
+          "support": 12,
+          "tp": 12,
+          "fp": 3,
+          "fn": 0
+        },
+        "file_operation": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "support": 8,
+          "tp": 8,
+          "fp": 0,
+          "fn": 0
+        },
         "general_chat": {
           "precision": 0,
           "recall": 0,
@@ -177,79 +301,178 @@
           "fp": 1,
           "fn": 31
         },
-        "media_analysis": {
+        "knowledge_qa": {
           "precision": 1,
-          "recall": 0.8571428571428571,
-          "f1": 0.923076923076923,
-          "support": 7,
-          "tp": 6,
+          "recall": 0.7777777777777778,
+          "f1": 0.8750000000000001,
+          "support": 9,
+          "tp": 7,
           "fp": 0,
-          "fn": 1
+          "fn": 2
         },
-        "weather_info": {
-          "precision": 0.9411764705882353,
-          "recall": 0.8888888888888888,
-          "f1": 0.9142857142857143,
-          "support": 18,
-          "tp": 16,
+        "media_analysis": {
+          "precision": 0.8571428571428571,
+          "recall": 0.75,
+          "f1": 0.7999999999999999,
+          "support": 8,
+          "tp": 6,
           "fp": 1,
           "fn": 2
+        },
+        "summarization": {
+          "precision": 0.8888888888888888,
+          "recall": 0.7272727272727273,
+          "f1": 0.7999999999999999,
+          "support": 11,
+          "tp": 8,
+          "fp": 1,
+          "fn": 3
+        },
+        "task_management": {
+          "precision": 0.9285714285714286,
+          "recall": 0.9285714285714286,
+          "f1": 0.9285714285714286,
+          "support": 14,
+          "tp": 13,
+          "fp": 1,
+          "fn": 1
+        },
+        "translation": {
+          "precision": 0.875,
+          "recall": 1,
+          "f1": 0.9333333333333333,
+          "support": 7,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0
+        },
+        "weather_info": {
+          "precision": 0.9473684210526315,
+          "recall": 0.9473684210526315,
+          "f1": 0.9473684210526315,
+          "support": 19,
+          "tp": 18,
+          "fp": 1,
+          "fn": 1
+        },
+        "web_search": {
+          "precision": 1,
+          "recall": 0.44,
+          "f1": 0.6111111111111112,
+          "support": 25,
+          "tp": 11,
+          "fp": 0,
+          "fn": 14
+        },
+        "workflow_automation": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "support": 12,
+          "tp": 6,
+          "fp": 0,
+          "fn": 6
         }
       },
       "confusion": {
         "calendar_info": {
-          "calendar_info": 32
+          "calendar_info": 34
         },
         "chitchat_general": {
           "calendar_info": 1,
           "chitchat_general": 10,
-          "chitchat_greeting": 87,
+          "chitchat_greeting": 91,
           "general_chat": 1,
-          "unknown": 81
+          "unknown": 86
         },
         "chitchat_greeting": {
           "chitchat_general": 2
         },
+        "coding_assist": {
+          "coding_assist": 9,
+          "document_creation": 2,
+          "task_management": 1,
+          "unknown": 3
+        },
         "creative_3d": {
-          "creative_3d": 6
+          "creative_3d": 7
         },
         "creative_audio": {
           "creative_audio": 8,
           "unknown": 1
         },
         "creative_image": {
-          "creative_3d": 2,
-          "creative_image": 12,
-          "unknown": 2
+          "creative_3d": 1,
+          "creative_image": 13,
+          "unknown": 3
         },
         "creative_video": {
-          "creative_3d": 2,
+          "creative_3d": 1,
           "creative_video": 21,
-          "unknown": 1
+          "unknown": 2
+        },
+        "data_analysis": {
+          "data_analysis": 14,
+          "media_analysis": 1,
+          "summarization": 1,
+          "unknown": 2
+        },
+        "document_creation": {
+          "document_creation": 12
+        },
+        "file_operation": {
+          "file_operation": 8
         },
         "general_chat": {
-          "chitchat_greeting": 1,
-          "creative_3d": 1,
-          "unknown": 28,
+          "chitchat_greeting": 3,
+          "coding_assist": 1,
+          "translation": 1,
+          "unknown": 25,
           "weather_info": 1
+        },
+        "knowledge_qa": {
+          "knowledge_qa": 7,
+          "unknown": 2
         },
         "media_analysis": {
           "chitchat_greeting": 1,
-          "media_analysis": 6
+          "media_analysis": 6,
+          "unknown": 1
+        },
+        "summarization": {
+          "summarization": 8,
+          "unknown": 3
+        },
+        "task_management": {
+          "task_management": 13,
+          "unknown": 1
+        },
+        "translation": {
+          "translation": 7
         },
         "weather_info": {
-          "unknown": 2,
-          "weather_info": 16
+          "unknown": 1,
+          "weather_info": 18
+        },
+        "web_search": {
+          "chitchat_greeting": 2,
+          "unknown": 12,
+          "web_search": 11
+        },
+        "workflow_automation": {
+          "document_creation": 1,
+          "unknown": 5,
+          "workflow_automation": 6
         }
       }
     },
     "train": {
       "split": "train",
-      "samples": 2602,
-      "accuracy": 0.4215987701767871,
-      "macroF1": 0.7348884525047142,
-      "microF1": 0.4981834695731154,
-      "unknownRate": 0.3074558032282859,
+      "samples": 3768,
+      "accuracy": 0.5509554140127388,
+      "macroF1": 0.8171126507989657,
+      "microF1": 0.6269062358447833,
+      "unknownRate": 0.2423036093418259,
       "perIntent": {
         "calendar_info": {
           "precision": 0.8895705521472392,
@@ -261,30 +484,39 @@
           "fn": 4
         },
         "chitchat_general": {
-          "precision": 0.9638009049773756,
-          "recall": 0.14382174206617152,
-          "f1": 0.2502937720329025,
-          "support": 1481,
-          "tp": 213,
+          "precision": 0.963302752293578,
+          "recall": 0.14266304347826086,
+          "f1": 0.2485207100591716,
+          "support": 1472,
+          "tp": 210,
           "fp": 8,
-          "fn": 1268
+          "fn": 1262
         },
         "chitchat_greeting": {
-          "precision": 0.015037593984962405,
-          "recall": 0.35714285714285715,
-          "f1": 0.02886002886002886,
+          "precision": 0.017699115044247787,
+          "recall": 0.42857142857142855,
+          "f1": 0.0339943342776204,
           "support": 28,
-          "tp": 10,
-          "fp": 655,
-          "fn": 18
+          "tp": 12,
+          "fp": 666,
+          "fn": 16
+        },
+        "coding_assist": {
+          "precision": 0.8363636363636363,
+          "recall": 0.7582417582417582,
+          "f1": 0.7953890489913543,
+          "support": 182,
+          "tp": 138,
+          "fp": 27,
+          "fn": 44
         },
         "creative_3d": {
-          "precision": 0.9565217391304348,
+          "precision": 0.9850746268656716,
           "recall": 1,
-          "f1": 0.9777777777777777,
+          "f1": 0.9924812030075187,
           "support": 66,
           "tp": 66,
-          "fp": 3,
+          "fp": 1,
           "fn": 0
         },
         "creative_audio": {
@@ -314,32 +546,113 @@
           "fp": 3,
           "fn": 15
         },
+        "data_analysis": {
+          "precision": 0.9930555555555556,
+          "recall": 0.9050632911392406,
+          "f1": 0.9470198675496688,
+          "support": 158,
+          "tp": 143,
+          "fp": 1,
+          "fn": 15
+        },
+        "document_creation": {
+          "precision": 0.9166666666666666,
+          "recall": 0.9746835443037974,
+          "f1": 0.9447852760736196,
+          "support": 79,
+          "tp": 77,
+          "fp": 7,
+          "fn": 2
+        },
+        "file_operation": {
+          "precision": 0.9879518072289156,
+          "recall": 1,
+          "f1": 0.993939393939394,
+          "support": 82,
+          "tp": 82,
+          "fp": 1,
+          "fn": 0
+        },
         "general_chat": {
-          "precision": 0.9375,
-          "recall": 0.25210084033613445,
-          "f1": 0.3973509933774834,
-          "support": 238,
-          "tp": 60,
+          "precision": 0.8947368421052632,
+          "recall": 0.14345991561181434,
+          "f1": 0.24727272727272728,
+          "support": 237,
+          "tp": 34,
           "fp": 4,
-          "fn": 178
+          "fn": 203
+        },
+        "knowledge_qa": {
+          "precision": 0.9629629629629629,
+          "recall": 0.9512195121951219,
+          "f1": 0.9570552147239264,
+          "support": 82,
+          "tp": 78,
+          "fp": 3,
+          "fn": 4
         },
         "media_analysis": {
-          "precision": 0.9512195121951219,
-          "recall": 0.9069767441860465,
-          "f1": 0.9285714285714286,
-          "support": 86,
-          "tp": 78,
-          "fp": 4,
-          "fn": 8
+          "precision": 0.9382716049382716,
+          "recall": 0.8941176470588236,
+          "f1": 0.9156626506024096,
+          "support": 85,
+          "tp": 76,
+          "fp": 5,
+          "fn": 9
+        },
+        "summarization": {
+          "precision": 0.9256198347107438,
+          "recall": 0.8888888888888888,
+          "f1": 0.9068825910931174,
+          "support": 126,
+          "tp": 112,
+          "fp": 9,
+          "fn": 14
+        },
+        "task_management": {
+          "precision": 0.9620253164556962,
+          "recall": 0.9382716049382716,
+          "f1": 0.95,
+          "support": 81,
+          "tp": 76,
+          "fp": 3,
+          "fn": 5
+        },
+        "translation": {
+          "precision": 0.9,
+          "recall": 1,
+          "f1": 0.9473684210526316,
+          "support": 81,
+          "tp": 81,
+          "fp": 9,
+          "fn": 0
         },
         "weather_info": {
-          "precision": 0.9857142857142858,
-          "recall": 0.971830985915493,
-          "f1": 0.9787234042553192,
-          "support": 142,
-          "tp": 138,
+          "precision": 0.9858156028368794,
+          "recall": 0.9858156028368794,
+          "f1": 0.9858156028368794,
+          "support": 141,
+          "tp": 139,
           "fp": 2,
-          "fn": 4
+          "fn": 2
+        },
+        "web_search": {
+          "precision": 0.9781021897810219,
+          "recall": 0.6600985221674877,
+          "f1": 0.788235294117647,
+          "support": 203,
+          "tp": 134,
+          "fp": 3,
+          "fn": 69
+        },
+        "workflow_automation": {
+          "precision": 0.9885057471264368,
+          "recall": 0.8269230769230769,
+          "f1": 0.900523560209424,
+          "support": 104,
+          "tp": 86,
+          "fp": 1,
+          "fn": 18
         }
       },
       "confusion": {
@@ -348,19 +661,32 @@
           "unknown": 4
         },
         "chitchat_general": {
-          "calendar_info": 12,
-          "chitchat_general": 213,
-          "chitchat_greeting": 639,
-          "creative_3d": 1,
+          "calendar_info": 10,
+          "chitchat_general": 210,
+          "chitchat_greeting": 640,
+          "coding_assist": 3,
           "creative_audio": 1,
           "creative_image": 1,
+          "file_operation": 1,
           "general_chat": 4,
-          "unknown": 610
+          "knowledge_qa": 3,
+          "summarization": 1,
+          "unknown": 597,
+          "web_search": 1
         },
         "chitchat_greeting": {
           "chitchat_general": 4,
-          "chitchat_greeting": 10,
-          "unknown": 14
+          "chitchat_greeting": 12,
+          "unknown": 12
+        },
+        "coding_assist": {
+          "coding_assist": 138,
+          "creative_audio": 1,
+          "document_creation": 7,
+          "task_management": 1,
+          "translation": 1,
+          "unknown": 33,
+          "workflow_automation": 1
         },
         "creative_3d": {
           "creative_3d": 66
@@ -371,53 +697,102 @@
           "unknown": 1
         },
         "creative_image": {
-          "creative_3d": 2,
+          "creative_3d": 1,
           "creative_audio": 2,
           "creative_image": 161,
-          "unknown": 3
+          "unknown": 4
         },
         "creative_video": {
           "creative_audio": 1,
           "creative_video": 149,
-          "media_analysis": 1,
-          "unknown": 13
+          "media_analysis": 2,
+          "unknown": 12
+        },
+        "data_analysis": {
+          "data_analysis": 143,
+          "summarization": 4,
+          "task_management": 2,
+          "unknown": 9
+        },
+        "document_creation": {
+          "document_creation": 77,
+          "unknown": 2
+        },
+        "file_operation": {
+          "file_operation": 82
         },
         "general_chat": {
           "calendar_info": 5,
           "chitchat_general": 4,
-          "chitchat_greeting": 16,
-          "creative_audio": 3,
+          "chitchat_greeting": 18,
+          "coding_assist": 23,
+          "creative_audio": 2,
           "creative_video": 1,
-          "general_chat": 60,
+          "general_chat": 34,
           "media_analysis": 3,
-          "unknown": 144,
-          "weather_info": 2
+          "summarization": 1,
+          "translation": 8,
+          "unknown": 134,
+          "weather_info": 2,
+          "web_search": 2
+        },
+        "knowledge_qa": {
+          "knowledge_qa": 78,
+          "unknown": 4
         },
         "media_analysis": {
-          "media_analysis": 78,
+          "media_analysis": 76,
+          "summarization": 1,
           "unknown": 8
+        },
+        "summarization": {
+          "coding_assist": 1,
+          "summarization": 112,
+          "unknown": 13
+        },
+        "task_management": {
+          "calendar_info": 1,
+          "summarization": 1,
+          "task_management": 76,
+          "unknown": 3
+        },
+        "translation": {
+          "translation": 81
         },
         "weather_info": {
           "calendar_info": 1,
-          "unknown": 3,
-          "weather_info": 138
+          "unknown": 1,
+          "weather_info": 139
+        },
+        "web_search": {
+          "calendar_info": 1,
+          "chitchat_greeting": 5,
+          "data_analysis": 1,
+          "summarization": 1,
+          "unknown": 61,
+          "web_search": 134
+        },
+        "workflow_automation": {
+          "chitchat_greeting": 3,
+          "unknown": 15,
+          "workflow_automation": 86
         }
       }
     },
     "val": {
       "split": "val",
-      "samples": 325,
-      "accuracy": 0.3046153846153846,
-      "macroF1": 0.6664738751036673,
-      "microF1": 0.3859649122807018,
-      "unknownRate": 0.42153846153846153,
+      "samples": 471,
+      "accuracy": 0.42038216560509556,
+      "macroF1": 0.738534334968448,
+      "microF1": 0.5169712793733682,
+      "unknownRate": 0.37367303609341823,
       "perIntent": {
         "calendar_info": {
           "precision": 1,
-          "recall": 0.9130434782608695,
-          "f1": 0.9545454545454545,
-          "support": 23,
-          "tp": 21,
+          "recall": 0.9047619047619048,
+          "f1": 0.9500000000000001,
+          "support": 21,
+          "tp": 19,
           "fp": 0,
           "fn": 2
         },
@@ -431,20 +806,29 @@
           "fn": 180
         },
         "chitchat_greeting": {
-          "precision": 0.023255813953488372,
+          "precision": 0.022727272727272728,
           "recall": 0.2857142857142857,
-          "f1": 0.04301075268817204,
+          "f1": 0.042105263157894736,
           "support": 7,
           "tp": 2,
-          "fp": 84,
+          "fp": 86,
           "fn": 5
         },
+        "coding_assist": {
+          "precision": 0.9230769230769231,
+          "recall": 0.5454545454545454,
+          "f1": 0.6857142857142856,
+          "support": 22,
+          "tp": 12,
+          "fp": 1,
+          "fn": 10
+        },
         "creative_3d": {
-          "precision": 0.8888888888888888,
+          "precision": 0.875,
           "recall": 1,
-          "f1": 0.9411764705882353,
-          "support": 8,
-          "tp": 8,
+          "f1": 0.9333333333333333,
+          "support": 7,
+          "tp": 7,
           "fp": 1,
           "fn": 0
         },
@@ -459,10 +843,10 @@
         },
         "creative_image": {
           "precision": 1,
-          "recall": 0.8421052631578947,
-          "f1": 0.9142857142857143,
-          "support": 19,
-          "tp": 16,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "support": 18,
+          "tp": 15,
           "fp": 0,
           "fn": 3
         },
@@ -475,23 +859,86 @@
           "fp": 0,
           "fn": 2
         },
-        "general_chat": {
+        "data_analysis": {
           "precision": 1,
-          "recall": 0.03225806451612903,
-          "f1": 0.0625,
-          "support": 31,
-          "tp": 1,
+          "recall": 0.68,
+          "f1": 0.8095238095238095,
+          "support": 25,
+          "tp": 17,
           "fp": 0,
-          "fn": 30
+          "fn": 8
+        },
+        "document_creation": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "support": 3,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0
+        },
+        "file_operation": {
+          "precision": 1,
+          "recall": 0.8,
+          "f1": 0.888888888888889,
+          "support": 10,
+          "tp": 8,
+          "fp": 0,
+          "fn": 2
+        },
+        "general_chat": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 32,
+          "tp": 0,
+          "fp": 1,
+          "fn": 32
+        },
+        "knowledge_qa": {
+          "precision": 1,
+          "recall": 0.6363636363636364,
+          "f1": 0.7777777777777778,
+          "support": 11,
+          "tp": 7,
+          "fp": 0,
+          "fn": 4
         },
         "media_analysis": {
           "precision": 1,
-          "recall": 0.7142857142857143,
-          "f1": 0.8333333333333333,
+          "recall": 0.8571428571428571,
+          "f1": 0.923076923076923,
           "support": 7,
-          "tp": 5,
+          "tp": 6,
           "fp": 0,
-          "fn": 2
+          "fn": 1
+        },
+        "summarization": {
+          "precision": 0.9090909090909091,
+          "recall": 0.8695652173913043,
+          "f1": 0.888888888888889,
+          "support": 23,
+          "tp": 20,
+          "fp": 2,
+          "fn": 3
+        },
+        "task_management": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1,
+          "support": 7,
+          "tp": 7,
+          "fp": 0,
+          "fn": 0
+        },
+        "translation": {
+          "precision": 0.9333333333333333,
+          "recall": 1,
+          "f1": 0.9655172413793104,
+          "support": 14,
+          "tp": 14,
+          "fp": 1,
+          "fn": 0
         },
         "weather_info": {
           "precision": 1,
@@ -501,32 +948,55 @@
           "tp": 16,
           "fp": 0,
           "fn": 0
+        },
+        "web_search": {
+          "precision": 0.9230769230769231,
+          "recall": 0.5714285714285714,
+          "f1": 0.7058823529411765,
+          "support": 21,
+          "tp": 12,
+          "fp": 1,
+          "fn": 9
+        },
+        "workflow_automation": {
+          "precision": 1,
+          "recall": 0.23076923076923078,
+          "f1": 0.375,
+          "support": 13,
+          "tp": 3,
+          "fp": 0,
+          "fn": 10
         }
       },
       "confusion": {
         "calendar_info": {
-          "calendar_info": 21,
+          "calendar_info": 19,
           "unknown": 2
         },
         "chitchat_general": {
           "chitchat_general": 11,
           "chitchat_greeting": 79,
-          "unknown": 101
+          "general_chat": 1,
+          "unknown": 100
         },
         "chitchat_greeting": {
           "chitchat_general": 3,
           "chitchat_greeting": 2,
           "unknown": 2
         },
+        "coding_assist": {
+          "coding_assist": 12,
+          "unknown": 10
+        },
         "creative_3d": {
-          "creative_3d": 8
+          "creative_3d": 7
         },
         "creative_audio": {
           "creative_audio": 9,
           "unknown": 2
         },
         "creative_image": {
-          "creative_image": 16,
+          "creative_image": 15,
           "unknown": 3
         },
         "creative_video": {
@@ -534,54 +1004,102 @@
           "creative_video": 10,
           "unknown": 1
         },
+        "data_analysis": {
+          "chitchat_greeting": 1,
+          "data_analysis": 17,
+          "summarization": 1,
+          "unknown": 6
+        },
+        "document_creation": {
+          "document_creation": 3
+        },
+        "file_operation": {
+          "file_operation": 8,
+          "unknown": 2
+        },
         "general_chat": {
           "chitchat_general": 1,
           "chitchat_greeting": 4,
-          "general_chat": 1,
-          "unknown": 25
+          "coding_assist": 1,
+          "summarization": 1,
+          "translation": 1,
+          "unknown": 23,
+          "web_search": 1
+        },
+        "knowledge_qa": {
+          "knowledge_qa": 7,
+          "unknown": 4
         },
         "media_analysis": {
-          "chitchat_greeting": 1,
-          "media_analysis": 5,
+          "media_analysis": 6,
           "unknown": 1
+        },
+        "summarization": {
+          "summarization": 20,
+          "unknown": 3
+        },
+        "task_management": {
+          "task_management": 7
+        },
+        "translation": {
+          "translation": 14
         },
         "weather_info": {
           "weather_info": 16
+        },
+        "web_search": {
+          "chitchat_greeting": 2,
+          "unknown": 7,
+          "web_search": 12
+        },
+        "workflow_automation": {
+          "unknown": 10,
+          "workflow_automation": 3
         }
       }
     }
   },
   "training": {
     "seed": 42,
-    "totalSampleCount": 3252,
-    "trainSampleCount": 2602,
-    "valSampleCount": 325,
-    "testSampleCount": 325,
+    "totalSampleCount": 4710,
+    "trainSampleCount": 3768,
+    "valSampleCount": 471,
+    "testSampleCount": 471,
     "calibrated": true,
     "calibratedThresholds": {
-      "calendar_info": 0.55,
+      "calendar_info": 0.5,
       "chitchat_general": 0.01,
-      "chitchat_greeting": 0.9790138822089275,
-      "creative_3d": 0.55,
-      "creative_audio": 0.3552391603478511,
+      "chitchat_greeting": 0.9615740684094423,
+      "coding_assist": 0.01,
+      "creative_3d": 0.7,
+      "creative_audio": 0.3380615656976635,
       "creative_image": 0.01,
       "creative_video": 0.01,
-      "general_chat": 0.3,
-      "media_analysis": 0.9,
-      "weather_info": 0.9925701326067364
+      "data_analysis": 0.01,
+      "document_creation": 0.55,
+      "file_operation": 0.5,
+      "general_chat": 0.01,
+      "knowledge_qa": 0.5,
+      "media_analysis": 0.807378490194968,
+      "summarization": 0.01,
+      "task_management": 0.01,
+      "translation": 0.01,
+      "weather_info": 0.9865280131420445,
+      "web_search": 0.01,
+      "workflow_automation": 0.4
     },
     "dataSummary": {
       "calendar_info": {
         "total": 204,
         "train": 149,
-        "val": 23,
-        "test": 32
+        "val": 21,
+        "test": 34
       },
       "chitchat_general": {
         "total": 1852,
-        "train": 1481,
+        "train": 1472,
         "val": 191,
-        "test": 180
+        "test": 189
       },
       "chitchat_greeting": {
         "total": 37,
@@ -589,11 +1107,17 @@
         "val": 7,
         "test": 2
       },
+      "coding_assist": {
+        "total": 219,
+        "train": 182,
+        "val": 22,
+        "test": 15
+      },
       "creative_3d": {
         "total": 80,
         "train": 66,
-        "val": 8,
-        "test": 6
+        "val": 7,
+        "test": 7
       },
       "creative_audio": {
         "total": 100,
@@ -604,8 +1128,8 @@
       "creative_image": {
         "total": 203,
         "train": 168,
-        "val": 19,
-        "test": 16
+        "val": 18,
+        "test": 17
       },
       "creative_video": {
         "total": 200,
@@ -613,23 +1137,77 @@
         "val": 12,
         "test": 24
       },
+      "data_analysis": {
+        "total": 201,
+        "train": 158,
+        "val": 25,
+        "test": 18
+      },
+      "document_creation": {
+        "total": 94,
+        "train": 79,
+        "val": 3,
+        "test": 12
+      },
+      "file_operation": {
+        "total": 100,
+        "train": 82,
+        "val": 10,
+        "test": 8
+      },
       "general_chat": {
         "total": 300,
-        "train": 238,
-        "val": 31,
+        "train": 237,
+        "val": 32,
         "test": 31
+      },
+      "knowledge_qa": {
+        "total": 102,
+        "train": 82,
+        "val": 11,
+        "test": 9
       },
       "media_analysis": {
         "total": 100,
-        "train": 86,
+        "train": 85,
         "val": 7,
+        "test": 8
+      },
+      "summarization": {
+        "total": 160,
+        "train": 126,
+        "val": 23,
+        "test": 11
+      },
+      "task_management": {
+        "total": 102,
+        "train": 81,
+        "val": 7,
+        "test": 14
+      },
+      "translation": {
+        "total": 102,
+        "train": 81,
+        "val": 14,
         "test": 7
       },
       "weather_info": {
         "total": 176,
-        "train": 142,
+        "train": 141,
         "val": 16,
-        "test": 18
+        "test": 19
+      },
+      "web_search": {
+        "total": 249,
+        "train": 203,
+        "val": 21,
+        "test": 25
+      },
+      "workflow_automation": {
+        "total": 129,
+        "train": 104,
+        "val": 13,
+        "test": 12
       }
     },
     "config": {

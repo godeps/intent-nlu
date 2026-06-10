@@ -12,13 +12,14 @@
 
 1. LLM 前的低延迟意图识别（~1ms/次）。
 2. 创意技能路由（视频、图片、音频、3D、分析）。
-3. 可复现的 train/val/test 评估流程。
-4. 按意图阈值自动校准（可选）。
-5. 意图别名归一（taxonomy）。
-6. 多语言路由（`zh`、`en`，可扩展）。
-7. 混合策略（`rule -> NLU -> fallback/LLM`）。
-8. 反馈数据回流（active learning）。
-9. 模型和 bundle 级可追溯元数据。
+3. 工具路由（搜索、编程、任务、文件、数据分析、文档、翻译、总结等）。
+4. 可复现的 train/val/test 评估流程。
+5. 按意图阈值自动校准（可选）。
+6. 意图别名归一（taxonomy）。
+7. 多语言路由（`zh`、`en`，可扩展）。
+8. 混合策略（`rule -> NLU -> fallback/LLM`）。
+9. 反馈数据回流（active learning）。
+10. 模型和 bundle 级可追溯元数据。
 
 ## 目录结构
 
@@ -36,6 +37,12 @@ intent-nlu/
       en_business.csv
       zh_skill_routing.csv     # 技能路由意图（创意、分析、闲聊）
       en_skill_routing.csv
+      zh_tools_routing.csv     # 工具路由意图（搜索、编程、任务、文件等）
+      en_tools_routing.csv
+      zh_tools_boost.csv       # 工具意图短句补充数据
+      en_tools_boost.csv
+      zh_tools_boost2.csv      # 薄弱意图针对性补强（调试、分析、搜索）
+      en_tools_boost2.csv
     generated/
       *_train.csv
       *_file_map.yaml
@@ -107,10 +114,10 @@ make train
 
 ## 意图分类
 
-当前默认内嵌模型包含业务、技能路由和闲聊意图：
+当前默认内嵌模型包含业务、技能路由、工具路由和闲聊意图：
 
-- `zh`：26 类
-- `en`：30 类
+- `zh`：20 个规范类
+- `en`：20 个规范类
 - 兜底：`unknown`
 
 ### 技能路由意图
@@ -123,6 +130,23 @@ make train
 | `creative_3d` | 3D 建模、渲染 | 80 | 80 |
 | `media_analysis` | 视频/图片理解、描述 | 100 | 100 |
 | `general_chat` | 闲聊、提问、非创意任务 | 300 | 300 |
+
+### 工具路由意图
+
+将用户意图映射到 saker 内置工具和操作技能：
+
+| 意图 | 说明 | 对应工具 | ZH F1 | EN F1 |
+| --- | --- | --- | --- | --- |
+| `web_search` | 搜索网页、查文档、找资料 | web_search, web_fetch, browser | 0.57 | 0.61 |
+| `coding_assist` | 写代码、调试、运行、修bug | bash, edit, read, write, grep, glob | 0.69 | 0.72 |
+| `task_management` | 创建/查看/更新任务、看板 | task_*, kanban_* | 0.90 | 0.93 |
+| `file_operation` | 下载、读取、保存文件 | fetch_file, read, write | 0.88 | 1.00 |
+| `knowledge_qa` | 回忆之前的决定、记忆查询 | memory_read, recall_context | 0.96 | 0.88 |
+| `workflow_automation` | 设置定时任务、自动化流程 | workflow, cron, loop | 0.53 | 0.67 |
+| `data_analysis` | 分析指标、计算统计、找规律 | bash, canvas_table_write | 0.78 | 0.88 |
+| `document_creation` | 写文档、README、指南、报告 | canvas_create_node, write | 0.71 | 0.89 |
+| `translation` | 文本翻译（多语言） | —（常见用户需求） | 0.86 | 0.93 |
+| `summarization` | 总结日志、报告、讨论 | video_summarizer | 0.67 | 0.80 |
 
 ### 业务意图
 
@@ -163,6 +187,7 @@ make train
 在推理时通过 `NormalizeIntent()` 应用：
 
 ```go
+// 创意路由
 "video_production"  -> "creative_video"
 "video_editing"     -> "creative_video"
 "film_production"   -> "creative_video"
@@ -174,14 +199,48 @@ make train
 "3d_modeling"       -> "creative_3d"
 "video_analysis"    -> "media_analysis"
 "image_analysis"    -> "media_analysis"
+
+// 工具路由
+"search"            -> "web_search"
+"internet_search"   -> "web_search"
+"lookup"            -> "web_search"
+"google"            -> "web_search"
+"code"              -> "coding_assist"
+"programming"       -> "coding_assist"
+"debug"             -> "coding_assist"
+"fix_code"          -> "coding_assist"
+"write_code"        -> "coding_assist"
+"task"              -> "task_management"
+"todo"              -> "task_management"
+"kanban"            -> "task_management"
+"download"          -> "file_operation"
+"upload"            -> "file_operation"
+"read_file"         -> "file_operation"
+"save_file"         -> "file_operation"
+"recall"            -> "knowledge_qa"
+"remember"          -> "knowledge_qa"
+"schedule"          -> "workflow_automation"
+"cron"              -> "workflow_automation"
+"automate"          -> "workflow_automation"
+"analyze_data"      -> "data_analysis"
+"statistics"        -> "data_analysis"
+"metrics"           -> "data_analysis"
+"create_doc"        -> "document_creation"
+"write_doc"         -> "document_creation"
+"documentation"     -> "document_creation"
+"translate"         -> "translation"
+"localize"          -> "translation"
+"summarize"         -> "summarization"
+"tldr"              -> "summarization"
+"digest"            -> "summarization"
 ```
 
 ### 支持语言
 
 | 语言 | 代码 | 默认内嵌模型 | 自动识别 | 说明 |
 | --- | --- | --- | --- | --- |
-| 中文 | `zh` | 是 | 是 | `gse` 分词，26 类 |
-| 英文 | `en` | 是 | 是 | 轻量分词，30 类 |
+| 中文 | `zh` | 是 | 是 | `gse` 分词，20 个规范类 |
+| 英文 | `en` | 是 | 是 | 轻量分词，20 个规范类 |
 | 日文 | `ja` | 否（需自行训练） | 是 | 支持语言识别 |
 | 韩文 | `ko` | 否（需自行训练） | 是 | 支持语言识别 |
 
@@ -227,7 +286,7 @@ make train
 
 1. 拉取/更新 `chatterbot-corpus`。
 2. 自动生成文件到意图映射（`chitchat_<file>`）。
-3. 合并业务 CSV（`<lang>_business.csv`）和技能路由 CSV（`<lang>_skill_routing.csv`）。
+3. 自动发现并合并 `datasets/default/<lang>_*.csv` 所有数据文件（业务、技能路由、工具路由、补强数据）。
 4. 执行分割训练、评估和阈值校准。
 5. 通过 `cmd/intent-nlu-bundle` 构建多语言 bundle。
 

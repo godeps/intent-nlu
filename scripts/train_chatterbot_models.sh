@@ -272,13 +272,12 @@ train_one_language() {
   local version="${VERSION_PREFIX}.${lang}.$(date -u +%H%M%S)"
   local model_dir="${OUTPUT_DIR}/model-${lang}"
   local extra_csv=""
-  for csv_file in "${DEFAULT_EXTRA_DIR}/${lang}_business.csv" "${DEFAULT_EXTRA_DIR}/${lang}_skill_routing.csv"; do
-    if [[ -f "${csv_file}" ]]; then
-      [[ -n "${extra_csv}" ]] && extra_csv="${extra_csv},"
-      extra_csv="${extra_csv}${csv_file}"
-      log "using dataset: ${csv_file}"
-    fi
-  done
+  while IFS= read -r -d '' csv_file; do
+    [[ -n "${extra_csv}" ]] && extra_csv="${extra_csv},"
+    extra_csv="${extra_csv}${csv_file}"
+    log "using dataset: ${csv_file}"
+  done < <(find "${DEFAULT_EXTRA_DIR}" -maxdepth 1 -name "${lang}_*.csv" -type f -print0 | sort -z)
+
 
   log "training lang=${lang} corpus=${corpus_dir} out=${model_dir}"
   if [[ -z "${extra_csv}" ]]; then

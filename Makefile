@@ -9,7 +9,7 @@ eval:
 	mkdir -p ./datasets/generated/eval ./.cache/eval-model-zh ./.cache/eval-model-en
 	GOWORK=off go run ./cmd/intent-nlu-train \
 		-lang zh \
-		-extra-csv ./datasets/default/zh_business.csv,./datasets/default/zh_skill_routing.csv \
+		-extra-csv ./datasets/default/zh_business.csv,./datasets/default/zh_skill_routing.csv,./datasets/default/zh_tools_routing.csv \
 		-out ./.cache/eval-model-zh \
 		-version eval.zh.seed42 \
 		-threshold 0.55 \
@@ -26,7 +26,7 @@ eval:
 		-source-revision zh
 	GOWORK=off go run ./cmd/intent-nlu-train \
 		-lang en \
-		-extra-csv ./datasets/default/en_business.csv,./datasets/default/en_skill_routing.csv \
+		-extra-csv ./datasets/default/en_business.csv,./datasets/default/en_skill_routing.csv,./datasets/default/en_tools_routing.csv \
 		-out ./.cache/eval-model-en \
 		-version eval.en.seed42 \
 		-threshold 0.55 \

@@ -12,13 +12,14 @@ Lightweight, embeddable intent classification engine for Go.
 
 1. Low-latency pre-LLM intent recognition (~1ms/request).
 2. Skill routing for creative pipelines (video, image, audio, 3D, analysis).
-3. Deterministic train/val/test evaluation pipeline.
-4. Per-intent threshold calibration (optional).
-5. Intent taxonomy normalization (aliases -> canonical intents).
-6. Multi-language routing (`zh`, `en`, extensible).
-7. Hybrid policy (`rules -> NLU -> fallback/LLM`).
-8. Data feedback loop for active dataset improvement.
-9. Reproducibility metadata in model meta and bundle manifest.
+3. Tool routing for operational intents (search, code, tasks, files, data, docs, etc.).
+4. Deterministic train/val/test evaluation pipeline.
+5. Per-intent threshold calibration (optional).
+6. Intent taxonomy normalization (aliases -> canonical intents).
+7. Multi-language routing (`zh`, `en`, extensible).
+8. Hybrid policy (`rules -> NLU -> fallback/LLM`).
+9. Data feedback loop for active dataset improvement.
+10. Reproducibility metadata in model meta and bundle manifest.
 
 ## Repository Layout
 
@@ -36,6 +37,12 @@ intent-nlu/
       en_business.csv
       zh_skill_routing.csv     # skill routing intents (creative, analysis, chat)
       en_skill_routing.csv
+      zh_tools_routing.csv     # tool routing intents (search, code, tasks, files, etc.)
+      en_tools_routing.csv
+      zh_tools_boost.csv       # supplemental short-phrase samples for tool intents
+      en_tools_boost.csv
+      zh_tools_boost2.csv      # targeted samples for weak intents (debug, analyze, search)
+      en_tools_boost2.csv
     generated/
       *_train.csv              # effective training samples
       *_file_map.yaml          # auto-generated chatterbot mappings
@@ -107,10 +114,10 @@ Outputs:
 
 ## Intent Classes
 
-Default embedded models include business, skill routing, and chitchat intents:
+Default embedded models include business, skill routing, tool routing, and chitchat intents:
 
-- `zh`: 26 classes
-- `en`: 30 classes
+- `zh`: 20 canonical classes
+- `en`: 20 canonical classes
 - fallback: `unknown`
 
 ### Skill Routing Intents
@@ -123,6 +130,23 @@ Default embedded models include business, skill routing, and chitchat intents:
 | `creative_3d` | 3D modeling, rendering | 80 | 80 |
 | `media_analysis` | Video/image understanding, description | 100 | 100 |
 | `general_chat` | Chitchat, questions, non-creative tasks | 300 | 300 |
+
+### Tool Routing Intents
+
+Map user intent to saker builtin tools and operational skills:
+
+| Intent | Description | Saker Tools | ZH F1 | EN F1 |
+| --- | --- | --- | --- | --- |
+| `web_search` | Search the web, look up docs, find info | web_search, web_fetch, browser | 0.57 | 0.61 |
+| `coding_assist` | Write/debug/run code, fix bugs, tests | bash, edit, read, write, grep, glob | 0.69 | 0.72 |
+| `task_management` | Create/list/update tasks, kanban board | task_*, kanban_* | 0.90 | 0.93 |
+| `file_operation` | Download, read, write, save files | fetch_file, read, write | 0.88 | 1.00 |
+| `knowledge_qa` | Recall past decisions, remember context | memory_read, recall_context | 0.96 | 0.88 |
+| `workflow_automation` | Schedule cron jobs, automate pipelines | workflow, cron, loop | 0.53 | 0.67 |
+| `data_analysis` | Analyze metrics, compute stats, find patterns | bash, canvas_table_write | 0.78 | 0.88 |
+| `document_creation` | Write docs, README, guides, reports | canvas_create_node, write | 0.71 | 0.89 |
+| `translation` | Translate text between languages | — (common user need) | 0.86 | 0.93 |
+| `summarization` | Summarize logs, reports, discussions | video_summarizer | 0.67 | 0.80 |
 
 ### Business Intents
 
@@ -163,6 +187,7 @@ Default embedded models include business, skill routing, and chitchat intents:
 Applied at inference time via `NormalizeIntent()`:
 
 ```go
+// Creative routing
 "video_production"  -> "creative_video"
 "video_editing"     -> "creative_video"
 "film_production"   -> "creative_video"
@@ -174,14 +199,48 @@ Applied at inference time via `NormalizeIntent()`:
 "3d_modeling"       -> "creative_3d"
 "video_analysis"    -> "media_analysis"
 "image_analysis"    -> "media_analysis"
+
+// Tool routing
+"search"            -> "web_search"
+"internet_search"   -> "web_search"
+"lookup"            -> "web_search"
+"google"            -> "web_search"
+"code"              -> "coding_assist"
+"programming"       -> "coding_assist"
+"debug"             -> "coding_assist"
+"fix_code"          -> "coding_assist"
+"write_code"        -> "coding_assist"
+"task"              -> "task_management"
+"todo"              -> "task_management"
+"kanban"            -> "task_management"
+"download"          -> "file_operation"
+"upload"            -> "file_operation"
+"read_file"         -> "file_operation"
+"save_file"         -> "file_operation"
+"recall"            -> "knowledge_qa"
+"remember"          -> "knowledge_qa"
+"schedule"          -> "workflow_automation"
+"cron"              -> "workflow_automation"
+"automate"          -> "workflow_automation"
+"analyze_data"      -> "data_analysis"
+"statistics"        -> "data_analysis"
+"metrics"           -> "data_analysis"
+"create_doc"        -> "document_creation"
+"write_doc"         -> "document_creation"
+"documentation"     -> "document_creation"
+"translate"         -> "translation"
+"localize"          -> "translation"
+"summarize"         -> "summarization"
+"tldr"              -> "summarization"
+"digest"            -> "summarization"
 ```
 
 ### Supported Languages
 
 | Language | Code | Default Embedded Model | Auto Detect | Notes |
 | --- | --- | --- | --- | --- |
-| Chinese | `zh` | Yes | Yes | `gse` tokenizer, 26 classes |
-| English | `en` | Yes | Yes | normalized tokenizer, 30 classes |
+| Chinese | `zh` | Yes | Yes | `gse` tokenizer, 20 canonical classes |
+| English | `en` | Yes | Yes | normalized tokenizer, 20 canonical classes |
 | Japanese | `ja` | No (train yourself) | Yes | language detection supported |
 | Korean | `ko` | No (train yourself) | Yes | language detection supported |
 
@@ -227,7 +286,7 @@ What it does:
 
 1. Clone/update `chatterbot-corpus`.
 2. Auto-generate file->intent mapping (`chitchat_<file>`).
-3. Merge business CSV (`<lang>_business.csv`) and skill routing CSV (`<lang>_skill_routing.csv`).
+3. Auto-discover and merge all `datasets/default/<lang>_*.csv` files (business, skill routing, tool routing, boost data).
 4. Train models with split/evaluation/calibration.
 5. Build multilingual bundle via `cmd/intent-nlu-bundle`.
 

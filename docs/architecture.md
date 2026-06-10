@@ -34,6 +34,19 @@ Activate specialized execution pipelines:
 - `media_analysis` — video/image understanding
 - `general_chat` — no skill activation (fallback to LLM)
 
+### Tool Routing Intents
+Route user requests to saker builtin tools:
+- `web_search` — web search, documentation lookup (tools: web_search, web_fetch, browser)
+- `coding_assist` — code writing, debugging, testing, execution (tools: bash, edit, read, write, grep, glob)
+- `task_management` — task/kanban CRUD operations (tools: task_*, kanban_*)
+- `file_operation` — file download, read, write, save (tools: fetch_file, read, write)
+- `knowledge_qa` — recall past decisions, memory queries (tools: memory_read, recall_context)
+- `workflow_automation` — cron jobs, pipeline automation, scheduling (tools: workflow, cron, loop)
+- `data_analysis` — metrics analysis, log analysis, statistics (tools: bash, canvas_table_write)
+- `document_creation` — writing docs, guides, reports (tools: canvas_create_node, write, craft_knowledge)
+- `translation` — text translation between languages
+- `summarization` — summarize logs, reports, discussions (tools: video_summarizer)
+
 ### Business Intents
 Domain-specific routing:
 - `calendar_info`, `weather_info` — structured data queries
@@ -42,6 +55,7 @@ Domain-specific routing:
 ### Chatterbot Intents
 Fine-grained chitchat classification from chatterbot corpus:
 - 17 `chitchat_*` classes (zh), 21 `chitchat_*` classes (en)
+- All normalized to `chitchat_general` via taxonomy at inference time
 
 ## Runtime Flow
 
@@ -83,10 +97,15 @@ Prediction logs + human labels are fed into `cmd/intent-nlu-feedback`:
 The `-extra-csv` flag accepts comma-separated file paths, allowing multiple dataset files to be combined in a single training run:
 
 ```bash
--extra-csv ./datasets/default/zh_business.csv,./datasets/default/zh_skill_routing.csv
+-extra-csv ./datasets/default/zh_business.csv,./datasets/default/zh_skill_routing.csv,./datasets/default/zh_tools_routing.csv
 ```
 
-The training script (`scripts/train_chatterbot_models.sh`) automatically discovers and loads both `{lang}_business.csv` and `{lang}_skill_routing.csv`.
+The training script (`scripts/train_chatterbot_models.sh`) automatically discovers and loads all `{lang}_*.csv` files from the `datasets/default/` directory, including:
+- `{lang}_business.csv` — business intents (calendar, weather, greeting)
+- `{lang}_skill_routing.csv` — skill routing intents (creative, analysis, chat)
+- `{lang}_tools_routing.csv` — tool routing intents (search, code, tasks, files, etc.)
+- `{lang}_tools_boost.csv` — supplemental short-phrase samples
+- `{lang}_tools_boost2.csv` — targeted samples for weak intents
 
 ## Artifacts
 
@@ -123,7 +142,8 @@ The training script (`scripts/train_chatterbot_models.sh`) automatically discove
 2. Bayesian model is easy to train/deploy, but needs quality labels for domain intents.
 3. Cross-language routing fallback improves robustness for short/mixed input, with small extra compute.
 4. Taxonomy normalization can reduce intent drift, but default is disabled during training to preserve fine-grained classes. Aliases are applied at inference time.
-5. Skill routing precision is prioritized over recall — false negatives fall to keyword rules or LLM fallback, while false positives would trigger expensive operations.
+5. Skill/tool routing precision is prioritized over recall — false negatives fall to keyword rules or LLM fallback, while false positives would trigger expensive operations.
+6. Tool routing intents have near-perfect precision (0.9-1.0) but moderate recall (0.4-0.7 for some classes). This is by design: the NLU works alongside keyword matchers in the skill activation system (`NLUMatcher` score formula: `0.50 + 0.35 * confidence`), so missed NLU predictions are caught by keyword matching.
 
 ## Integration Pattern
 

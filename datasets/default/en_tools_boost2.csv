@@ -1,0 +1,141 @@
+text,intent
+search how to handle errors in Go,web_search
+search how to connect to database in Python,web_search
+search how to configure Redis cluster,web_search
+search how to limit Docker memory,web_search
+search how to do load balancing with Nginx,web_search
+search how to check port usage on Linux,web_search
+search how to revert a git commit,web_search
+search how to optimize MySQL indexes,web_search
+search how to guarantee message ordering in Kafka,web_search
+search how to configure resource limits in K8s,web_search
+look up how to write regex,web_search
+look up how to use SSH tunneling,web_search
+look up how to configure HTTPS certificates,web_search
+look up how to send POST with curl,web_search
+look up how to configure firewall rules,web_search
+look up how to create a systemd service,web_search
+look up how to process text with awk,web_search
+look up how to configure DNS records,web_search
+look up how to write a Makefile,web_search
+look up how to capture packets with tcpdump,web_search
+find how to solve this error,web_search
+find how to use this library,web_search
+find the parameters for this command,web_search
+find what this config option means,web_search
+find the documentation for this API,web_search
+find what causes this exception,web_search
+find how to use this method,web_search
+find the spec for this format,web_search
+find the docs for this protocol,web_search
+find a tutorial for this tool,web_search
+search online for how to fix this,web_search
+search online for existing solutions,web_search
+search online for similar implementations,web_search
+search online for alternatives to this,web_search
+search online for related discussions,web_search
+look online for how to configure this,web_search
+look online for best approaches,web_search
+look online for this concept explained,web_search
+look online for the latest version,web_search
+look online for compatibility information,web_search
+analyze the server logs for error patterns,data_analysis
+analyze the data distribution,data_analysis
+analyze the API call latency,data_analysis
+analyze the system resource usage trends,data_analysis
+analyze the user behavior data,data_analysis
+analyze the error log patterns,data_analysis
+analyze the network traffic changes,data_analysis
+analyze these request response times,data_analysis
+analyze the database query performance,data_analysis
+analyze the container resource consumption,data_analysis
+analyze these monitoring metrics,data_analysis
+analyze the service availability,data_analysis
+analyze the message queue backlog,data_analysis
+analyze the disk IO usage patterns,data_analysis
+analyze the CPU usage trends,data_analysis
+analyze these logs to find the cause,data_analysis
+analyze the alert frequency,data_analysis
+analyze performance changes after deployment,data_analysis
+analyze the memory usage peaks,data_analysis
+analyze the connection count changes,data_analysis
+count the error rate per endpoint,data_analysis
+count the daily request volume,data_analysis
+count the response time per service,data_analysis
+count the failed task numbers,data_analysis
+count the proportion of status codes,data_analysis
+count the hourly traffic,data_analysis
+count the visits by region,data_analysis
+count the usage by client,data_analysis
+count the average processing time,data_analysis
+count the coverage by module,data_analysis
+calculate the system availability percentage,data_analysis
+calculate the mean time to recovery,data_analysis
+calculate the average cost per request,data_analysis
+calculate the data growth speed,data_analysis
+calculate the cache hit rate,data_analysis
+check if there is a pattern in the data,data_analysis
+check which time periods have the most errors,data_analysis
+check which endpoints are slowest,data_analysis
+check if resource usage is abnormal,data_analysis
+check if traffic has periodicity,data_analysis
+schedule daily cleanup at midnight,workflow_automation
+check service status every 5 minutes,workflow_automation
+set up automatic deployment,workflow_automation
+sync data automatically every day,workflow_automation
+generate report automatically every Monday,workflow_automation
+trigger build when files change,workflow_automation
+check certificate status every hour,workflow_automation
+alert automatically when error rate is too high,workflow_automation
+rotate log files daily,workflow_automation
+rotate keys automatically every month,workflow_automation
+run tests automatically after code push,workflow_automation
+backup config automatically every day,workflow_automation
+auto-scale when CPU exceeds 80 percent,workflow_automation
+clean temp files every 6 hours,workflow_automation
+notify team after deployment completes,workflow_automation
+check dependency vulnerabilities daily,workflow_automation
+run performance tests every night,workflow_automation
+trigger deployment after PR merge,workflow_automation
+clean expired data weekly,workflow_automation
+set up scheduled disk space check,workflow_automation
+send stats email daily,workflow_automation
+update docs after each release,workflow_automation
+auto-reconnect on database connection failure,workflow_automation
+check SSL certificate expiry daily,workflow_automation
+auto-restart service on memory limit,workflow_automation
+poll queue status every minute,workflow_automation
+auto-rollback failed deployments,workflow_automation
+clean Docker images daily,workflow_automation
+rate-limit on abnormal traffic automatically,workflow_automation
+compress and archive old logs nightly,workflow_automation
+help me debug this,coding_assist
+help me fix this error,coding_assist
+help me write this function,coding_assist
+help me implement this,coding_assist
+help me refactor this code,coding_assist
+help me optimize this,coding_assist
+help me resolve this issue,coding_assist
+help me fix the build,coding_assist
+help me debug the crash,coding_assist
+help me write a test,coding_assist
+help me fix this bug,coding_assist
+help me create this module,coding_assist
+help me debug this failure,coding_assist
+help me write the handler,coding_assist
+help me fix the test,coding_assist
+help me implement the feature,coding_assist
+help me debug the memory leak,coding_assist
+help me fix the timeout,coding_assist
+help me write the migration,coding_assist
+help me debug this segfault,coding_assist
+help me fix this crash,coding_assist
+help me write the parser,coding_assist
+help me debug the deadlock,coding_assist
+help me fix this race condition,coding_assist
+help me implement error handling,coding_assist
+help me debug this panic,coding_assist
+help me fix the performance,coding_assist
+help me write the validator,coding_assist
+help me debug this exception,coding_assist
+help me fix this null pointer,coding_assist

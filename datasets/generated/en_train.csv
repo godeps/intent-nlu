@@ -4523,3 +4523,1461 @@ identify the background location in this photo,media_analysis
 check this image for accessibility contrast issues,media_analysis
 analyze the thumbnail click-through appeal of this image,media_analysis
 review the pacing and rhythm of this video edit,media_analysis
+search for this online,web_search
+look this up for me,web_search
+find this on the web,web_search
+google this,web_search
+search the internet,web_search
+look it up online,web_search
+find out about this,web_search
+search for documentation,web_search
+look up the docs,web_search
+find the reference,web_search
+search how to do this,web_search
+look up this error,web_search
+find an article about this,web_search
+search for a solution,web_search
+look up the answer,web_search
+find examples online,web_search
+search for tutorials,web_search
+look up best practices,web_search
+find the specification,web_search
+search for alternatives,web_search
+look up the API reference,web_search
+find recent news about this,web_search
+search for benchmarks,web_search
+look up compatibility info,web_search
+find a guide for this,web_search
+search for release notes,web_search
+look up pricing information,web_search
+find the changelog,web_search
+search for known issues,web_search
+look up supported versions,web_search
+find the migration guide,web_search
+search for performance tips,web_search
+look up configuration options,web_search
+find security advisories,web_search
+search for community discussions,web_search
+look up troubleshooting steps,web_search
+find related libraries,web_search
+search for code examples,web_search
+look up the license,web_search
+find system requirements,web_search
+search for plugins,web_search
+look up platform support,web_search
+find upgrade instructions,web_search
+search for workarounds,web_search
+look up deprecation notices,web_search
+find comparison charts,web_search
+search for integration guides,web_search
+look up error codes,web_search
+find deployment docs,web_search
+search for architecture patterns,web_search
+what does this error mean,web_search
+where can I find docs for this,web_search
+is there a guide for this,web_search
+what is the latest version of,web_search
+how do other people solve this,web_search
+what are the options for,web_search
+where is the official documentation,web_search
+can you find info about,web_search
+what does the spec say about,web_search
+any articles on this topic,web_search
+code this function,coding_assist
+fix this bug,coding_assist
+debug this error,coding_assist
+write this code,coding_assist
+implement this feature,coding_assist
+refactor this,coding_assist
+optimize this function,coding_assist
+add error handling here,coding_assist
+create this class,coding_assist
+build this module,coding_assist
+fix the test,coding_assist
+run the tests,coding_assist
+compile this,coding_assist
+execute this script,coding_assist
+write a test for this,coding_assist
+add logging here,coding_assist
+fix the type error,coding_assist
+resolve this import error,coding_assist
+make this function async,coding_assist
+add validation logic,coding_assist
+fix the null check,coding_assist
+handle this edge case,coding_assist
+extract this into a function,coding_assist
+simplify this code,coding_assist
+add retry logic,coding_assist
+fix the race condition,coding_assist
+implement the interface,coding_assist
+write the migration,coding_assist
+create the endpoint,coding_assist
+add the middleware,coding_assist
+fix the memory leak,coding_assist
+write a helper function,coding_assist
+add input validation,coding_assist
+fix the infinite loop,coding_assist
+implement caching here,coding_assist
+add timeout handling,coding_assist
+fix the encoding issue,coding_assist
+write the parser,coding_assist
+create the schema,coding_assist
+add pagination support,coding_assist
+fix the deadlock,coding_assist
+implement the queue,coding_assist
+write the serializer,coding_assist
+fix the segfault,coding_assist
+add authentication,coding_assist
+implement rate limiting,coding_assist
+fix this crash,coding_assist
+write the config loader,coding_assist
+add connection pooling,coding_assist
+fix the timeout,coding_assist
+implement the scheduler,coding_assist
+write a benchmark,coding_assist
+fix the performance issue,coding_assist
+add batch processing,coding_assist
+implement the cache,coding_assist
+write the validator,coding_assist
+fix the flaky test,coding_assist
+add health check,coding_assist
+implement graceful shutdown,coding_assist
+write the converter,coding_assist
+fix the data corruption,coding_assist
+add metrics collection,coding_assist
+analyze this data,data_analysis
+show me the statistics,data_analysis
+what are the metrics,data_analysis
+count the occurrences,data_analysis
+calculate the average,data_analysis
+find the outliers,data_analysis
+compute the percentile,data_analysis
+aggregate the results,data_analysis
+show trends over time,data_analysis
+find the distribution,data_analysis
+calculate the rate,data_analysis
+what is the error rate,data_analysis
+show usage patterns,data_analysis
+count failures by type,data_analysis
+compute throughput,data_analysis
+find peak times,data_analysis
+show the breakdown,data_analysis
+calculate uptime,data_analysis
+find correlations,data_analysis
+analyze performance,data_analysis
+show resource usage,data_analysis
+count requests per second,data_analysis
+find the bottleneck,data_analysis
+compute latency stats,data_analysis
+show error distribution,data_analysis
+analyze traffic patterns,data_analysis
+count active users,data_analysis
+find top consumers,data_analysis
+calculate growth rate,data_analysis
+show the comparison,data_analysis
+analyze response times,data_analysis
+count by category,data_analysis
+find the anomalies,data_analysis
+compute the ratio,data_analysis
+show daily stats,data_analysis
+analyze the logs,data_analysis
+count events per hour,data_analysis
+find trends in errors,data_analysis
+calculate cost per unit,data_analysis
+show capacity usage,data_analysis
+analyze the timeline,data_analysis
+count unique values,data_analysis
+find slow queries,data_analysis
+compute success rate,data_analysis
+show weekly comparison,data_analysis
+analyze memory patterns,data_analysis
+count retries by service,data_analysis
+find resource hogs,data_analysis
+calculate bandwidth usage,data_analysis
+show the histogram,data_analysis
+analyze failure modes,data_analysis
+count by status code,data_analysis
+find the median,data_analysis
+compute variance,data_analysis
+show cluster stats,data_analysis
+analyze build times,data_analysis
+count deployments,data_analysis
+find regression points,data_analysis
+calculate efficiency,data_analysis
+show queue depth,data_analysis
+analyze disk usage,data_analysis
+count timeouts,data_analysis
+find utilization gaps,data_analysis
+summarize this,summarization
+give me a summary,summarization
+what is the gist,summarization
+TLDR please,summarization
+brief me on this,summarization
+summarize the changes,summarization
+give me the highlights,summarization
+what happened in short,summarization
+condense this for me,summarization
+give me key points,summarization
+summarize the output,summarization
+what are the main takeaways,summarization
+brief overview please,summarization
+sum it up,summarization
+give me the bottom line,summarization
+summarize the discussion,summarization
+what is the conclusion,summarization
+recap this for me,summarization
+give me the essentials,summarization
+what is important here,summarization
+summarize the findings,summarization
+give me a quick rundown,summarization
+what changed,summarization
+condensed version please,summarization
+give me bullet points,summarization
+summarize the report,summarization
+what are the key facts,summarization
+brief summary please,summarization
+give me the short version,summarization
+what is the outcome,summarization
+summarize the results,summarization
+give me the digest,summarization
+what is the verdict,summarization
+recap the main points,summarization
+give me the executive summary,summarization
+summarize the conversation,summarization
+what are the action items,summarization
+brief me on the status,summarization
+give me the overview,summarization
+what is the upshot,summarization
+summarize this thread,summarization
+give me key findings,summarization
+what is the summary,summarization
+condense the discussion,summarization
+give me the punch line,summarization
+summarize the incident,summarization
+what is the core message,summarization
+brief recap please,summarization
+give me a snapshot,summarization
+what are the learnings,summarization
+summarize the analysis,summarization
+give me main conclusions,summarization
+what is the TL;DR,summarization
+recap the events,summarization
+give me the skinny,summarization
+summarize the metrics,summarization
+what stood out,summarization
+brief the team on this,summarization
+give me the abstract,summarization
+what is the net result,summarization
+summarize the review,summarization
+search how to handle errors in Go,web_search
+search how to connect to database in Python,web_search
+search how to configure Redis cluster,web_search
+search how to limit Docker memory,web_search
+search how to do load balancing with Nginx,web_search
+search how to check port usage on Linux,web_search
+search how to revert a git commit,web_search
+search how to optimize MySQL indexes,web_search
+search how to guarantee message ordering in Kafka,web_search
+search how to configure resource limits in K8s,web_search
+look up how to write regex,web_search
+look up how to use SSH tunneling,web_search
+look up how to configure HTTPS certificates,web_search
+look up how to send POST with curl,web_search
+look up how to configure firewall rules,web_search
+look up how to create a systemd service,web_search
+look up how to process text with awk,web_search
+look up how to configure DNS records,web_search
+look up how to write a Makefile,web_search
+look up how to capture packets with tcpdump,web_search
+find how to solve this error,web_search
+find how to use this library,web_search
+find the parameters for this command,web_search
+find what this config option means,web_search
+find the documentation for this API,web_search
+find what causes this exception,web_search
+find how to use this method,web_search
+find the spec for this format,web_search
+find the docs for this protocol,web_search
+find a tutorial for this tool,web_search
+search online for how to fix this,web_search
+search online for existing solutions,web_search
+search online for similar implementations,web_search
+search online for alternatives to this,web_search
+search online for related discussions,web_search
+look online for how to configure this,web_search
+look online for best approaches,web_search
+look online for this concept explained,web_search
+look online for the latest version,web_search
+look online for compatibility information,web_search
+analyze the server logs for error patterns,data_analysis
+analyze the data distribution,data_analysis
+analyze the API call latency,data_analysis
+analyze the system resource usage trends,data_analysis
+analyze the user behavior data,data_analysis
+analyze the error log patterns,data_analysis
+analyze the network traffic changes,data_analysis
+analyze these request response times,data_analysis
+analyze the database query performance,data_analysis
+analyze the container resource consumption,data_analysis
+analyze these monitoring metrics,data_analysis
+analyze the service availability,data_analysis
+analyze the message queue backlog,data_analysis
+analyze the disk IO usage patterns,data_analysis
+analyze the CPU usage trends,data_analysis
+analyze these logs to find the cause,data_analysis
+analyze the alert frequency,data_analysis
+analyze performance changes after deployment,data_analysis
+analyze the memory usage peaks,data_analysis
+analyze the connection count changes,data_analysis
+count the error rate per endpoint,data_analysis
+count the daily request volume,data_analysis
+count the response time per service,data_analysis
+count the failed task numbers,data_analysis
+count the proportion of status codes,data_analysis
+count the hourly traffic,data_analysis
+count the visits by region,data_analysis
+count the usage by client,data_analysis
+count the average processing time,data_analysis
+count the coverage by module,data_analysis
+calculate the system availability percentage,data_analysis
+calculate the mean time to recovery,data_analysis
+calculate the average cost per request,data_analysis
+calculate the data growth speed,data_analysis
+calculate the cache hit rate,data_analysis
+check if there is a pattern in the data,data_analysis
+check which time periods have the most errors,data_analysis
+check which endpoints are slowest,data_analysis
+check if resource usage is abnormal,data_analysis
+check if traffic has periodicity,data_analysis
+schedule daily cleanup at midnight,workflow_automation
+check service status every 5 minutes,workflow_automation
+set up automatic deployment,workflow_automation
+sync data automatically every day,workflow_automation
+generate report automatically every Monday,workflow_automation
+trigger build when files change,workflow_automation
+check certificate status every hour,workflow_automation
+alert automatically when error rate is too high,workflow_automation
+rotate log files daily,workflow_automation
+rotate keys automatically every month,workflow_automation
+run tests automatically after code push,workflow_automation
+backup config automatically every day,workflow_automation
+auto-scale when CPU exceeds 80 percent,workflow_automation
+clean temp files every 6 hours,workflow_automation
+notify team after deployment completes,workflow_automation
+check dependency vulnerabilities daily,workflow_automation
+run performance tests every night,workflow_automation
+trigger deployment after PR merge,workflow_automation
+clean expired data weekly,workflow_automation
+set up scheduled disk space check,workflow_automation
+send stats email daily,workflow_automation
+update docs after each release,workflow_automation
+auto-reconnect on database connection failure,workflow_automation
+check SSL certificate expiry daily,workflow_automation
+auto-restart service on memory limit,workflow_automation
+poll queue status every minute,workflow_automation
+auto-rollback failed deployments,workflow_automation
+clean Docker images daily,workflow_automation
+rate-limit on abnormal traffic automatically,workflow_automation
+compress and archive old logs nightly,workflow_automation
+help me debug this,coding_assist
+help me fix this error,coding_assist
+help me write this function,coding_assist
+help me implement this,coding_assist
+help me refactor this code,coding_assist
+help me optimize this,coding_assist
+help me resolve this issue,coding_assist
+help me fix the build,coding_assist
+help me debug the crash,coding_assist
+help me write a test,coding_assist
+help me fix this bug,coding_assist
+help me create this module,coding_assist
+help me debug this failure,coding_assist
+help me write the handler,coding_assist
+help me fix the test,coding_assist
+help me implement the feature,coding_assist
+help me debug the memory leak,coding_assist
+help me fix the timeout,coding_assist
+help me write the migration,coding_assist
+help me debug this segfault,coding_assist
+help me fix this crash,coding_assist
+help me write the parser,coding_assist
+help me debug the deadlock,coding_assist
+help me fix this race condition,coding_assist
+help me implement error handling,coding_assist
+help me debug this panic,coding_assist
+help me fix the performance,coding_assist
+help me write the validator,coding_assist
+help me debug this exception,coding_assist
+help me fix this null pointer,coding_assist
+search for the latest Python 3.12 features,web_search
+look up how to configure nginx reverse proxy,web_search
+find information about Kubernetes pod scheduling,web_search
+google the error message connection refused,web_search
+search the web for React 19 release notes,web_search
+look up the official Docker documentation,web_search
+find articles about microservices best practices,web_search
+search for how to fix a memory leak in Go,web_search
+can you look up the AWS Lambda pricing,web_search
+find me some resources on machine learning with PyTorch,web_search
+search online for PostgreSQL performance tuning tips,web_search
+look up what this HTTP 429 status code means,web_search
+find the documentation for the Redis SCAN command,web_search
+search for comparisons between gRPC and REST,web_search
+look up how to set up GitHub Actions for Go projects,web_search
+find information about the new CSS container queries,web_search
+search for tutorials on building a GraphQL API,web_search
+can you find the changelog for Node.js 20,web_search
+look up best practices for database indexing,web_search
+search for how to implement OAuth2 in Python,web_search
+find the official Terraform provider documentation,web_search
+search the internet for WebSocket vs Server-Sent Events,web_search
+look up the differences between HTTP/2 and HTTP/3,web_search
+find examples of Rust error handling patterns,web_search
+search for how to optimize webpack bundle size,web_search
+look up what CVE-2024-1234 is about,web_search
+find information about zero-trust security architecture,web_search
+search for best practices in API rate limiting,web_search
+look up the latest TypeScript compiler options,web_search
+find resources about event-driven architecture,web_search
+search for how to implement circuit breaker pattern,web_search
+look up Prometheus alerting rules documentation,web_search
+find tutorials on Kubernetes operator development,web_search
+search for comparing Kafka vs RabbitMQ vs NATS,web_search
+look up how to set up a CI/CD pipeline with GitLab,web_search
+find the MDN documentation for Fetch API,web_search
+search for how to write custom ESLint rules,web_search
+look up what the SOLID principles are,web_search
+find information about distributed consensus algorithms,web_search
+search for how to implement blue-green deployment,web_search
+look up the Next.js 14 app router documentation,web_search
+find resources about WebAssembly use cases,web_search
+search for how to do database migration safely,web_search
+look up OpenTelemetry instrumentation guide,web_search
+find the spec for JSON Schema draft 2020-12,web_search
+search for how to handle CORS properly,web_search
+look up what content-addressed storage means,web_search
+find examples of clean architecture in Go,web_search
+search for modern CSS layout techniques,web_search
+look up how to secure a REST API,web_search
+find information on eBPF networking,web_search
+search for Ansible playbook best practices,web_search
+look up how to configure Caddy as a reverse proxy,web_search
+find the release notes for Vim 9,web_search
+search for how to implement server-side rendering,web_search
+look up tips for optimizing SQL queries,web_search
+find documentation on Envoy proxy configuration,web_search
+search for how to write Dockerfile for multi-stage build,web_search
+look up common Kubernetes networking issues,web_search
+search for what is the CAP theorem,web_search
+find recent benchmarks for different web frameworks,web_search
+search for how to implement feature flags,web_search
+look up the OpenAPI 3.1 specification,web_search
+search for how to debug memory leaks in Node.js,web_search
+find best practices for logging in microservices,web_search
+look up how to use Protocol Buffers with Go,web_search
+search for what causes TCP connection resets,web_search
+find the Vue 3 composition API documentation,web_search
+look up how to set up Tailwind CSS with Vite,web_search
+search for comparing different state management libraries,web_search
+find information about container runtime interfaces,web_search
+search for how to implement graceful shutdown in Go,web_search
+look up the Elasticsearch query DSL reference,web_search
+find articles about scaling WebSocket connections,web_search
+search for Git rebase vs merge best practices,web_search
+look up how to implement retry with exponential backoff,web_search
+search for how to monitor application performance,web_search
+find the Flutter widget catalog documentation,web_search
+look up what causes Go goroutine leaks,web_search
+search for comparing ORM libraries for Python,web_search
+find documentation on Linux cgroups v2,web_search
+look up security headers for web applications,web_search
+search for how to write integration tests,web_search
+find recent articles about AI code generation tools,web_search
+search for how to set up mTLS between services,web_search
+look up the Deno runtime documentation,web_search
+search for what is service mesh and when to use it,web_search
+find the Svelte 5 runes documentation,web_search
+look up how to implement pagination efficiently,web_search
+search for comparing time-series databases,web_search
+find information about write-ahead logging,web_search
+look up how to configure Prometheus with Grafana,web_search
+search for what is the actor model in concurrent programming,web_search
+find resources on how to design RESTful APIs,web_search
+look up how to do load testing with k6,web_search
+search for comparing container orchestration platforms,web_search
+find the SQLite documentation on WAL mode,web_search
+search for how to implement cursor-based pagination,web_search
+look up Zig programming language documentation,web_search
+find best practices for secret management in cloud,web_search
+search for how to handle database connection pooling,web_search
+look up what idempotency means in API design,web_search
+find tutorials on building CLI tools with Cobra,web_search
+search for comparing message queue implementations,web_search
+look up how to implement canary deployments,web_search
+find the Bun runtime API documentation,web_search
+search for what is domain-driven design,web_search
+look up how to use Linux namespaces,web_search
+find information about HTTP caching strategies,web_search
+search for how to implement real-time notifications,web_search
+look up the SvelteKit documentation,web_search
+find resources on database sharding strategies,web_search
+search for how to implement SSO with SAML,web_search
+look up what is eventual consistency,web_search
+find the Astro framework documentation,web_search
+search for how to profile CPU usage in production,web_search
+look up comparing edge computing platforms,web_search
+find information about content delivery networks,web_search
+search for how to implement webhook retry logic,web_search
+look up how to configure Linux firewall rules,web_search
+find the Remix framework documentation,web_search
+search for comparing NoSQL database types,web_search
+look up what is the saga pattern for distributed transactions,web_search
+find best practices for Docker image security,web_search
+search for how to implement API versioning,web_search
+look up the Hono framework documentation,web_search
+find information about DNS over HTTPS,web_search
+search for how to write performant regular expressions,web_search
+look up what is OpenID Connect,web_search
+find resources on building event sourcing systems,web_search
+search for comparing reverse proxy solutions,web_search
+look up how to implement distributed tracing,web_search
+find the htmx documentation and examples,web_search
+search for what causes OOM kills in Kubernetes,web_search
+look up how to implement rate limiting with Redis,web_search
+find articles about polyglot persistence,web_search
+search for how to secure SSH keys properly,web_search
+look up comparing build tools for JavaScript,web_search
+find the Turso database documentation,web_search
+search for what is CQRS pattern,web_search
+look up how to monitor Kubernetes clusters,web_search
+find resources on API gateway patterns,web_search
+search for how to implement end-to-end encryption,web_search
+look up the Drizzle ORM documentation,web_search
+find information about Linux io_uring,web_search
+search for comparing authentication strategies,web_search
+look up how to do zero-downtime deployments,web_search
+find the Effect-TS documentation,web_search
+search for best practices for monorepo management,web_search
+write a Python function to parse JSON from a file,coding_assist
+help me debug this segmentation fault,coding_assist
+write a bash script to backup my database,coding_assist
+create a Go struct for handling HTTP requests,coding_assist
+fix the race condition in this concurrent code,coding_assist
+write a SQL query to find duplicate records,coding_assist
+help me refactor this function to reduce complexity,coding_assist
+create a unit test for the login handler,coding_assist
+write a regex to validate email addresses,coding_assist
+help me implement a binary search tree in Python,coding_assist
+write a Dockerfile for my Node.js application,coding_assist
+fix the memory leak in this C++ code,coding_assist
+create a REST API endpoint for user registration,coding_assist
+write a shell script to monitor disk usage,coding_assist
+help me implement retry logic with exponential backoff,coding_assist
+write a function to convert CSV to JSON,coding_assist
+fix the deadlock in this database transaction,coding_assist
+create a middleware for request logging,coding_assist
+write a TypeScript interface for this API response,coding_assist
+help me optimize this slow database query,coding_assist
+write a Makefile for this Go project,coding_assist
+fix the CORS issue in my Express server,coding_assist
+create a worker pool implementation in Go,coding_assist
+write a function to validate credit card numbers,coding_assist
+help me implement a rate limiter,coding_assist
+write a GitHub Actions workflow for CI/CD,coding_assist
+fix this off-by-one error in the loop,coding_assist
+create a connection pool for PostgreSQL,coding_assist
+write a decorator for caching function results,coding_assist
+help me implement pagination for this API,coding_assist
+write a script to migrate data between databases,coding_assist
+fix the null pointer exception in this code,coding_assist
+create a custom error type with stack traces,coding_assist
+write a function to recursively flatten nested arrays,coding_assist
+help me implement a pub/sub message broker,coding_assist
+write a configuration parser for YAML files,coding_assist
+fix the timezone conversion bug,coding_assist
+create an authentication middleware with JWT,coding_assist
+write a load test script using k6,coding_assist
+help me implement graceful shutdown,coding_assist
+write a function to sanitize HTML input,coding_assist
+fix the encoding issue with Unicode characters,coding_assist
+create a circuit breaker wrapper,coding_assist
+write a script to generate API documentation,coding_assist
+help me implement WebSocket reconnection logic,coding_assist
+write a custom logger with structured output,coding_assist
+fix the race condition in the cache implementation,coding_assist
+create a state machine for order processing,coding_assist
+write a function to merge two sorted arrays,coding_assist
+help me implement a bloom filter,coding_assist
+write a test helper for mocking HTTP responses,coding_assist
+fix this infinite loop in the recursive function,coding_assist
+create a command-line argument parser,coding_assist
+write a function to generate unique IDs,coding_assist
+help me implement database connection retry,coding_assist
+write a cron expression parser,coding_assist
+fix the goroutine leak in this code,coding_assist
+create a plugin architecture for my application,coding_assist
+write a function to calculate file checksums,coding_assist
+help me implement an LRU cache,coding_assist
+write a migration script for schema changes,coding_assist
+fix the panic in this error handling code,coding_assist
+create a health check endpoint,coding_assist
+write a function to detect circular references,coding_assist
+help me implement request deduplication,coding_assist
+write a stream processing pipeline,coding_assist
+fix the data race flagged by the race detector,coding_assist
+create a retry decorator with configurable policy,coding_assist
+write a function to diff two JSON objects,coding_assist
+help me implement a job scheduler,coding_assist
+write a template engine for email notifications,coding_assist
+fix the stack overflow in this recursive function,coding_assist
+create a metrics collector for monitoring,coding_assist
+write a function to validate JSON Schema,coding_assist
+help me implement feature flags,coding_assist
+write a database seeder for test data,coding_assist
+fix the dangling pointer issue,coding_assist
+create a pub/sub event bus,coding_assist
+write a function to generate random test data,coding_assist
+help me implement an API gateway router,coding_assist
+write a log aggregation pipeline,coding_assist
+fix the buffer overflow vulnerability,coding_assist
+create a file watcher for hot reloading,coding_assist
+write a function to parse command output,coding_assist
+help me implement database connection pool management,coding_assist
+write an integration test for the payment flow,coding_assist
+fix the flaky test that randomly fails,coding_assist
+create a background job processor,coding_assist
+write a function to handle multipart file uploads,coding_assist
+help me implement request throttling,coding_assist
+write a CLI tool to manage deployments,coding_assist
+fix the timeout issue in the HTTP client,coding_assist
+create a dependency injection container,coding_assist
+write a function to compress and archive files,coding_assist
+help me implement a simple key-value store,coding_assist
+write test fixtures for the user module,coding_assist
+fix the permission denied error in this code,coding_assist
+create a wrapper for external API calls,coding_assist
+write a function to batch process records,coding_assist
+help me implement idempotent API endpoints,coding_assist
+write a database query builder,coding_assist
+fix the inconsistent state after crash recovery,coding_assist
+create a middleware chain for request processing,coding_assist
+write a function to parse and validate URLs,coding_assist
+help me implement event sourcing,coding_assist
+write a smoke test for deployment verification,coding_assist
+fix the connection timeout configuration,coding_assist
+create a task queue with priority support,coding_assist
+write a function to handle graceful degradation,coding_assist
+help me implement structured error responses,coding_assist
+write a data validation layer,coding_assist
+fix the serialization issue with nested objects,coding_assist
+create a service discovery client,coding_assist
+write a function to generate presigned URLs,coding_assist
+help me implement database transaction management,coding_assist
+run the tests and show me the output,coding_assist
+execute this command and check if it works,coding_assist
+build the project and fix any compilation errors,coding_assist
+help me set up the development environment,coding_assist
+install the required dependencies for this project,coding_assist
+run the linter and fix all warnings,coding_assist
+compile this program with optimizations enabled,coding_assist
+help me configure the test database,coding_assist
+start the development server on port 8080,coding_assist
+deploy this application to staging,coding_assist
+run the benchmark suite,coding_assist
+set up Docker compose for local development,coding_assist
+create a new task to fix the login bug,task_management
+show me all pending tasks,task_management
+mark the authentication task as complete,task_management
+what tasks are assigned to me,task_management
+create a task for implementing the search feature,task_management
+list all blocked tasks,task_management
+update task priority to high,task_management
+show the task board status,task_management
+add a comment to the deployment task,task_management
+move task to in-progress,task_management
+create subtasks for the refactoring work,task_management
+show me overdue tasks,task_management
+assign this task to the backend team,task_management
+block the deploy task until tests pass,task_management
+unblock the release task,task_management
+what is the status of the migration task,task_management
+create a task to upgrade dependencies,task_management
+show tasks due this week,task_management
+mark all completed tasks as done,task_management
+add a task for code review,task_management
+how many tasks are left in this sprint,task_management
+create a bug report task,task_management
+link this task to the parent epic,task_management
+show me tasks with high priority,task_management
+update the task description,task_management
+set task deadline to next Friday,task_management
+who is working on the API redesign,task_management
+create a task to investigate the performance issue,task_management
+move all testing tasks to done,task_management
+show task dependencies,task_management
+add a task for writing documentation,task_management
+what tasks are blocking the release,task_management
+create a task for security audit,task_management
+reschedule the review task to tomorrow,task_management
+show me recently completed tasks,task_management
+create a task to set up monitoring,task_management
+list tasks by creation date,task_management
+assign the database task to John,task_management
+close the duplicate task,task_management
+show the kanban board,task_management
+create a task for optimizing the build pipeline,task_management
+what is the next task I should work on,task_management
+update task estimate to 3 hours,task_management
+show tasks in the backlog,task_management
+create a task for API versioning,task_management
+mark the testing task as blocked,task_management
+show me tasks tagged with infrastructure,task_management
+create a recurring task for weekly review,task_management
+archive completed tasks from last month,task_management
+show task progress for the current sprint,task_management
+create a task for load testing,task_management
+reopen the closed task,task_management
+show me all tasks created today,task_management
+split this task into smaller pieces,task_management
+add acceptance criteria to the task,task_management
+show unassigned tasks,task_management
+create a task to fix the CI pipeline,task_management
+what percentage of tasks are done,task_management
+update the task status to review,task_management
+show tasks sorted by priority,task_management
+create a task for database backup automation,task_management
+add a task dependency,task_management
+show me my task history,task_management
+estimate remaining effort for this milestone,task_management
+create a task for setting up alerts,task_management
+mark task as needs-review,task_management
+list all tasks with labels,task_management
+create a task to migrate to the new framework,task_management
+show blocked tasks and their blockers,task_management
+create a task for API rate limiting implementation,task_management
+move task back to pending,task_management
+show tasks filtered by assignee,task_management
+create a task for writing integration tests,task_management
+update task labels,task_management
+show the critical path for release,task_management
+create a task for cache invalidation fix,task_management
+add story points to the task,task_management
+show sprint burndown,task_management
+create a task for implementing webhooks,task_management
+prioritize the security fix task,task_management
+show me tasks that need my review,task_management
+create a task for updating the README,task_management
+how long has this task been in progress,task_management
+create a task to clean up technical debt,task_management
+show tasks across all projects,task_management
+create a task for implementing logging,task_management
+bulk update tasks status,task_management
+show me the task workflow,task_management
+create a task for error handling improvements,task_management
+delegate this task to the frontend team,task_management
+show completed tasks this week,task_management
+create a task for container orchestration setup,task_management
+flag this task as at-risk,task_management
+show tasks by sprint velocity,task_management
+create a task for implementing retry logic,task_management
+add time tracking to this task,task_management
+show overdue tasks by team,task_management
+create a task for the hotfix deployment,task_management
+move tasks between sprints,task_management
+show me task analytics,task_management
+create a task for implementing SSO,task_management
+estimate completion date for remaining tasks,task_management
+download the file from this URL,file_operation
+read the contents of config.yaml,file_operation
+save this output to results.json,file_operation
+open the log file and show me the last 100 lines,file_operation
+fetch the CSV file from the remote server,file_operation
+write the configuration to a new file,file_operation
+copy the template file to the project directory,file_operation
+read the environment variables from .env,file_operation
+download the latest release binary,file_operation
+save the API response to a file,file_operation
+read the package.json and show dependencies,file_operation
+write the generated code to output.go,file_operation
+fetch the image from the CDN,file_operation
+open and parse the XML configuration,file_operation
+download the database dump file,file_operation
+read all files in the templates directory,file_operation
+save the test results to a report file,file_operation
+fetch the SSL certificate from the server,file_operation
+write the migration SQL to a file,file_operation
+download the model weights file,file_operation
+read the Dockerfile and explain each step,file_operation
+save the logs to an archive,file_operation
+fetch the schema definition from the registry,file_operation
+open the binary file and check the header,file_operation
+download all assets from the repository,file_operation
+read the tsconfig.json settings,file_operation
+write the backup to the external drive,file_operation
+fetch the remote configuration file,file_operation
+open the SQLite database file,file_operation
+download the dependency from the mirror,file_operation
+read the README and summarize it,file_operation
+save the generated report as PDF,file_operation
+fetch the font files from Google Fonts,file_operation
+write the output to stdout,file_operation
+download the container image,file_operation
+read the Makefile targets,file_operation
+save the profiling data to a file,file_operation
+fetch the documentation from the wiki,file_operation
+open the core dump file for analysis,file_operation
+download the patch file,file_operation
+read the nginx configuration,file_operation
+save the metrics snapshot,file_operation
+fetch the translation file,file_operation
+write the secrets to a vault,file_operation
+download the firmware update,file_operation
+read the systemd service file,file_operation
+save the diagram as SVG,file_operation
+fetch the OpenAPI spec from the endpoint,file_operation
+open and display the image file,file_operation
+download the video from the given link,file_operation
+read the go.mod file,file_operation
+save the diff output to a patch file,file_operation
+fetch the RSS feed,file_operation
+write the configuration template,file_operation
+download the dataset for training,file_operation
+read all YAML files in the configs directory,file_operation
+save this conversation to a file,file_operation
+fetch the public key from the keyserver,file_operation
+open the compressed archive,file_operation
+download the SDK package,file_operation
+read the crontab file,file_operation
+save the benchmark results,file_operation
+fetch the changelog from releases,file_operation
+write the deployment manifest,file_operation
+download the debug symbols,file_operation
+read the hosts file,file_operation
+save the coverage report,file_operation
+fetch the license file from the repository,file_operation
+open and parse the protobuf file,file_operation
+download the exported data,file_operation
+read the process configuration,file_operation
+save the query results to CSV,file_operation
+fetch the style sheet,file_operation
+write the error log to a file,file_operation
+download the backup from cloud storage,file_operation
+read the terraform state file,file_operation
+save the generated keys to a file,file_operation
+fetch the health check response,file_operation
+open the crash report,file_operation
+download the localization files,file_operation
+read all markdown files in the docs folder,file_operation
+save the API specification,file_operation
+fetch the artifact from the build server,file_operation
+write the output buffer to disk,file_operation
+download the sample data file,file_operation
+read the supervisor configuration,file_operation
+save the session state,file_operation
+fetch the manifests from the cluster,file_operation
+open the key store file,file_operation
+download the extension package,file_operation
+read the routing table configuration,file_operation
+save the compiled output,file_operation
+fetch the metrics endpoint response,file_operation
+write the index to a file,file_operation
+download the theme files,file_operation
+read the access log,file_operation
+save the snapshot to storage,file_operation
+fetch the schema migration files,file_operation
+open the certificate chain file,file_operation
+download the wasm module,file_operation
+do you remember what we discussed about the auth approach,knowledge_qa
+recall the database schema we designed last time,knowledge_qa
+what was the decision about the API versioning strategy,knowledge_qa
+remember the config settings we used for production,knowledge_qa
+what did we agree on for error handling,knowledge_qa
+recall the architecture we planned for the notification service,knowledge_qa
+what was the reason we chose PostgreSQL over MongoDB,knowledge_qa
+do you remember the deployment process we set up,knowledge_qa
+what were the performance requirements we discussed,knowledge_qa
+recall the caching strategy we decided on,knowledge_qa
+what was the agreed naming convention for APIs,knowledge_qa
+remember the security concerns we identified,knowledge_qa
+what was our decision about the testing framework,knowledge_qa
+recall the migration plan for the legacy system,knowledge_qa
+what did we conclude about the microservices boundaries,knowledge_qa
+do you remember how we solved the race condition,knowledge_qa
+what was the rationale for using event sourcing,knowledge_qa
+recall the SLA requirements for the service,knowledge_qa
+what were the constraints we identified for scaling,knowledge_qa
+remember the trade-offs we discussed for the cache layer,knowledge_qa
+what was the consensus on code review guidelines,knowledge_qa
+recall the monitoring setup we planned,knowledge_qa
+what did we decide about the retry policy,knowledge_qa
+do you remember the timeout values we configured,knowledge_qa
+what was the agreed approach for feature flags,knowledge_qa
+recall what version of the SDK we should use,knowledge_qa
+what was the database connection pool size we settled on,knowledge_qa
+remember the branching strategy we chose,knowledge_qa
+what were the acceptance criteria for the feature,knowledge_qa
+recall the incident from last week and the fix,knowledge_qa
+what was our approach to handling backwards compatibility,knowledge_qa
+do you remember the rate limiting values,knowledge_qa
+what was the agreed format for log messages,knowledge_qa
+recall the dependency upgrade plan,knowledge_qa
+what did we decide about the CI pipeline stages,knowledge_qa
+remember how we handled the certificate rotation,knowledge_qa
+what was the decision on the container base image,knowledge_qa
+recall the load balancing configuration,knowledge_qa
+what were the steps in the rollback procedure,knowledge_qa
+do you remember the environment variable naming scheme,knowledge_qa
+what was our approach to secrets management,knowledge_qa
+recall the data retention policy,knowledge_qa
+what did we decide about request validation,knowledge_qa
+remember the webhook payload format,knowledge_qa
+what was the agreed pagination approach,knowledge_qa
+recall the authentication flow we designed,knowledge_qa
+what were the key metrics we identified for monitoring,knowledge_qa
+do you remember the indexing strategy for the search,knowledge_qa
+what was the queue configuration we used,knowledge_qa
+recall the backup schedule we set up,knowledge_qa
+what did we conclude about the file storage solution,knowledge_qa
+remember the cron schedule for the batch jobs,knowledge_qa
+what was the agreed API response format,knowledge_qa
+recall the permission model we designed,knowledge_qa
+what were the failure scenarios we planned for,knowledge_qa
+do you remember which port the service runs on,knowledge_qa
+what was the decision about graceful shutdown timeout,knowledge_qa
+recall the load testing results from the benchmark,knowledge_qa
+what did we decide about the message format,knowledge_qa
+remember the DNS configuration for the service,knowledge_qa
+what was our approach to database migrations,knowledge_qa
+recall the capacity planning numbers,knowledge_qa
+what were the SLOs we defined,knowledge_qa
+do you remember the proxy configuration,knowledge_qa
+what was the agreed on-call rotation,knowledge_qa
+recall the resource limits for the containers,knowledge_qa
+what did we decide about cross-region replication,knowledge_qa
+remember the alerting thresholds,knowledge_qa
+what was the consensus on the logging level,knowledge_qa
+recall the deployment window schedule,knowledge_qa
+what were the integration test requirements,knowledge_qa
+do you remember the circuit breaker configuration,knowledge_qa
+what was the decision about session management,knowledge_qa
+recall the compression algorithm we chose,knowledge_qa
+what did we agree on for the health check interval,knowledge_qa
+remember the TLS configuration requirements,knowledge_qa
+what was the maximum payload size we set,knowledge_qa
+recall the retry backoff values,knowledge_qa
+what were the thread pool settings,knowledge_qa
+do you remember the API endpoint naming we agreed on,knowledge_qa
+what was the decision about long-polling vs websockets,knowledge_qa
+recall the tenant isolation approach,knowledge_qa
+what did we decide about the cache TTL,knowledge_qa
+remember the service mesh configuration,knowledge_qa
+what was the agreed connection timeout,knowledge_qa
+recall our decision about eventual vs strong consistency,knowledge_qa
+what were the memory limits we configured,knowledge_qa
+do you remember which message broker we selected,knowledge_qa
+what was the partition strategy for the database,knowledge_qa
+recall the deployment checklist we created,knowledge_qa
+what did we decide about API authentication methods,knowledge_qa
+remember the network policy rules,knowledge_qa
+what was our approach to handling partial failures,knowledge_qa
+recall the storage class configuration,knowledge_qa
+what were the build optimization flags,knowledge_qa
+do you remember the request size limits,knowledge_qa
+what was the decision about the serialization format,knowledge_qa
+recall the horizontal pod autoscaler settings,knowledge_qa
+what did we conclude about the testing strategy,knowledge_qa
+remember the garbage collection tuning parameters,knowledge_qa
+what was the agreed approach for API deprecation,knowledge_qa
+recall the service account permissions,knowledge_qa
+schedule this script to run every morning at 9am,workflow_automation
+set up a cron job to clean up temp files daily,workflow_automation
+automate the deployment process,workflow_automation
+create a scheduled task to backup the database every night,workflow_automation
+set up an automated pipeline for testing and deploying,workflow_automation
+schedule a health check every 5 minutes,workflow_automation
+automate the log rotation process,workflow_automation
+create a workflow to notify on build failures,workflow_automation
+set up recurring database maintenance,workflow_automation
+schedule the report generation for every Monday,workflow_automation
+automate the certificate renewal process,workflow_automation
+create an automated code quality check pipeline,workflow_automation
+set up a trigger for when files change,workflow_automation
+schedule the cache purge for midnight,workflow_automation
+automate the user provisioning workflow,workflow_automation
+create a pipeline that runs on every push,workflow_automation
+set up automated dependency updates,workflow_automation
+schedule periodic performance benchmarks,workflow_automation
+automate the incident response process,workflow_automation
+create a workflow for pull request reviews,workflow_automation
+set up a cron to sync data every hour,workflow_automation
+schedule automated security scans,workflow_automation
+automate the release process,workflow_automation
+create a trigger for low disk space alerts,workflow_automation
+set up automated test runs on schedule,workflow_automation
+schedule the metrics aggregation job,workflow_automation
+automate the environment provisioning,workflow_automation
+create a workflow for onboarding new services,workflow_automation
+set up a recurring job to check SSL expiry,workflow_automation
+schedule automated backups every 6 hours,workflow_automation
+automate the data migration pipeline,workflow_automation
+create a scheduled cleanup for old containers,workflow_automation
+set up a trigger for high memory usage,workflow_automation
+schedule the API endpoint monitoring,workflow_automation
+automate the scaling policy adjustments,workflow_automation
+create a workflow for database failover,workflow_automation
+set up a cron job to archive old logs,workflow_automation
+schedule the cost optimization report weekly,workflow_automation
+automate the configuration drift detection,workflow_automation
+create a pipeline for continuous integration,workflow_automation
+set up automated rollback on failure,workflow_automation
+schedule the vulnerability scan for nightly,workflow_automation
+automate the secrets rotation,workflow_automation
+create a workflow for canary releases,workflow_automation
+set up recurring DNS health checks,workflow_automation
+schedule the data export job,workflow_automation
+automate the cluster node drain process,workflow_automation
+create a triggered workflow for new deployments,workflow_automation
+set up a cron to update the status page,workflow_automation
+schedule automated compliance checks,workflow_automation
+automate the feature flag cleanup,workflow_automation
+create a workflow for service degradation response,workflow_automation
+set up periodic cache warming,workflow_automation
+schedule the dead letter queue processing,workflow_automation
+automate the API version deprecation notices,workflow_automation
+create a triggered alert for error rate spikes,workflow_automation
+set up scheduled infrastructure cost reports,workflow_automation
+schedule a job to rotate access keys monthly,workflow_automation
+automate the container image builds,workflow_automation
+create a workflow for blue-green deployment,workflow_automation
+set up a cron for health endpoint polling,workflow_automation
+schedule the index rebuild for off-peak hours,workflow_automation
+automate the pod scaling based on queue depth,workflow_automation
+create a trigger for deployment completion notifications,workflow_automation
+set up recurring capacity planning reviews,workflow_automation
+schedule the tombstone cleanup job,workflow_automation
+automate the DNS failover process,workflow_automation
+create a workflow for gradual traffic shifting,workflow_automation
+set up automated SLA compliance reporting,workflow_automation
+schedule the resource utilization check,workflow_automation
+automate the service mesh configuration updates,workflow_automation
+create a triggered workflow for incident escalation,workflow_automation
+set up a cron to purge expired sessions,workflow_automation
+schedule automated chaos engineering tests,workflow_automation
+automate the CDN cache invalidation,workflow_automation
+create a workflow for progressive rollouts,workflow_automation
+set up periodic stale branch cleanup,workflow_automation
+schedule the connection pool recycle,workflow_automation
+automate the audit log export,workflow_automation
+create a triggered notification for threshold breaches,workflow_automation
+set up scheduled database vacuum operations,workflow_automation
+schedule the token refresh job,workflow_automation
+automate the config map synchronization,workflow_automation
+create a workflow for automated hotfix deployment,workflow_automation
+set up a cron for checking endpoint latency,workflow_automation
+schedule the metric retention cleanup,workflow_automation
+automate the TLS certificate provisioning,workflow_automation
+create a pipeline for automated testing stages,workflow_automation
+set up recurring service dependency checks,workflow_automation
+schedule the data warehouse ETL job,workflow_automation
+automate the load balancer configuration updates,workflow_automation
+create a triggered workflow for scaling events,workflow_automation
+set up a cron to verify backup integrity,workflow_automation
+schedule automated penetration tests quarterly,workflow_automation
+automate the artifact cleanup in the registry,workflow_automation
+create a workflow for rolling updates,workflow_automation
+set up periodic network connectivity tests,workflow_automation
+schedule the garbage collection for unused resources,workflow_automation
+automate the alert rule updates,workflow_automation
+analyze the server access logs for error patterns,data_analysis
+count the number of requests per endpoint,data_analysis
+calculate the average response time from the logs,data_analysis
+find the top 10 most frequent errors,data_analysis
+compute the 95th percentile latency,data_analysis
+aggregate the daily active users from the database,data_analysis
+analyze the memory usage trend over the last week,data_analysis
+find outliers in the response time data,data_analysis
+calculate the error rate by service,data_analysis
+generate statistics from the test results,data_analysis
+analyze the CPU utilization patterns,data_analysis
+count how many users signed up each day,data_analysis
+compute the conversion rate from the event data,data_analysis
+find correlations between error rate and deployment time,data_analysis
+analyze the network traffic patterns,data_analysis
+calculate the retention rate from user activity,data_analysis
+aggregate metrics by region and time bucket,data_analysis
+find the peak traffic hours from access logs,data_analysis
+analyze the distribution of request sizes,data_analysis
+compute the throughput by message queue,data_analysis
+summarize the build times across all pipelines,data_analysis
+analyze the failure rate by test category,data_analysis
+calculate the time between deployments,data_analysis
+find trends in resource consumption,data_analysis
+aggregate the billing data by customer,data_analysis
+analyze the cache hit ratio over time,data_analysis
+count the number of timeouts per service,data_analysis
+compute the availability percentage,data_analysis
+find the slowest database queries,data_analysis
+analyze the disk I/O patterns,data_analysis
+calculate the mean time between failures,data_analysis
+aggregate error counts by status code,data_analysis
+find seasonal patterns in the traffic data,data_analysis
+analyze the connection pool utilization,data_analysis
+compute the queue depth over time,data_analysis
+summarize the code coverage by module,data_analysis
+analyze the dependency vulnerability report,data_analysis
+calculate the deployment frequency,data_analysis
+find anomalies in the system metrics,data_analysis
+aggregate the API usage by client,data_analysis
+analyze the garbage collection pauses,data_analysis
+count events grouped by type and source,data_analysis
+compute the cost per request,data_analysis
+find the most resource-intensive processes,data_analysis
+analyze the login failure patterns,data_analysis
+calculate the data growth rate,data_analysis
+aggregate the alert frequency by severity,data_analysis
+find bottlenecks in the request pipeline,data_analysis
+analyze the distribution of task completion times,data_analysis
+compute the bandwidth usage per service,data_analysis
+summarize the incident response times,data_analysis
+analyze the container restart frequency,data_analysis
+calculate the percentage of successful deployments,data_analysis
+find spikes in the error logs,data_analysis
+aggregate the storage usage by team,data_analysis
+analyze the pod scheduling latency,data_analysis
+compute the message processing rate,data_analysis
+find patterns in user behavior data,data_analysis
+analyze the DNS resolution times,data_analysis
+calculate the ratio of reads to writes,data_analysis
+aggregate the audit events by action type,data_analysis
+find the most common exception types,data_analysis
+analyze the SSL handshake durations,data_analysis
+compute the p50 p90 p99 latencies,data_analysis
+summarize the resource allocation efficiency,data_analysis
+analyze the rate of connection errors,data_analysis
+calculate the uptime percentage by service,data_analysis
+find the root cause from the correlation data,data_analysis
+aggregate the feature usage metrics,data_analysis
+analyze the thread utilization across services,data_analysis
+compute the data transfer rates,data_analysis
+find performance regressions between versions,data_analysis
+analyze the query plan execution stats,data_analysis
+calculate the cost savings from optimization,data_analysis
+aggregate the build failure reasons,data_analysis
+find the most active tenants by request count,data_analysis
+analyze the replication lag data,data_analysis
+compute the average batch processing time,data_analysis
+summarize the security scan findings,data_analysis
+analyze the file system usage trends,data_analysis
+calculate the SLA compliance percentage,data_analysis
+find the heaviest API consumers,data_analysis
+aggregate the error budget consumption,data_analysis
+analyze the auto-scaling trigger patterns,data_analysis
+compute the average queue wait time,data_analysis
+find capacity utilization imbalances,data_analysis
+analyze the webhook delivery success rate,data_analysis
+calculate the mean time to recovery,data_analysis
+aggregate the test execution metrics,data_analysis
+find the top resource consumers by namespace,data_analysis
+analyze the traffic distribution across replicas,data_analysis
+compute the index fragmentation levels,data_analysis
+summarize the deployment rollback frequency,data_analysis
+analyze the certificate expiry timeline,data_analysis
+calculate the cache eviction rate,data_analysis
+find the most impacted services during incidents,data_analysis
+aggregate the API version usage statistics,data_analysis
+analyze the rate limiting trigger patterns,data_analysis
+write an API documentation for the user service,document_creation
+create a README file for this project,document_creation
+write a technical design document for the new feature,document_creation
+generate the API reference documentation,document_creation
+create a deployment guide for the operations team,document_creation
+write a troubleshooting guide for common issues,document_creation
+create an architecture decision record,document_creation
+write the onboarding documentation for new developers,document_creation
+generate a changelog from the recent commits,document_creation
+create a runbook for the database maintenance,document_creation
+write a configuration reference guide,document_creation
+create a user manual for the CLI tool,document_creation
+write a migration guide for the version upgrade,document_creation
+generate the OpenAPI specification document,document_creation
+create a performance tuning guide,document_creation
+write a security policy document,document_creation
+create an incident response playbook,document_creation
+write the contribution guidelines,document_creation
+generate a code style guide,document_creation
+create a disaster recovery plan document,document_creation
+write a release notes document,document_creation
+create a quick start guide for the library,document_creation
+write a comparison document for the proposed solutions,document_creation
+generate the database schema documentation,document_creation
+create a testing strategy document,document_creation
+write an integration guide for third-party APIs,document_creation
+create a capacity planning document,document_creation
+write the SLA document for the service,document_creation
+generate a system requirements specification,document_creation
+create a monitoring and alerting guide,document_creation
+write a data model documentation,document_creation
+create a coding standards document,document_creation
+write a service level objectives document,document_creation
+generate a project status report,document_creation
+create a risk assessment document,document_creation
+write a rollback procedure document,document_creation
+create an operational readiness checklist,document_creation
+write the API versioning strategy document,document_creation
+generate a dependency audit report,document_creation
+create a network architecture document,document_creation
+write a best practices guide for the team,document_creation
+create a feature specification document,document_creation
+write a post-mortem template,document_creation
+generate the infrastructure as code documentation,document_creation
+create a data flow diagram document,document_creation
+write a compliance requirements document,document_creation
+create an error code reference,document_creation
+write a service catalog entry,document_creation
+generate a load testing plan,document_creation
+create a backup and recovery procedures document,document_creation
+write a technology evaluation document,document_creation
+create a system integration document,document_creation
+write a platform engineering guide,document_creation
+generate a cost analysis document,document_creation
+create a developer experience guide,document_creation
+write a production readiness review template,document_creation
+generate the environment setup documentation,document_creation
+create a webhook integration guide,document_creation
+write a message format specification,document_creation
+create a scaling strategy document,document_creation
+write a caching strategy documentation,document_creation
+generate a code review checklist,document_creation
+create a secrets management guide,document_creation
+write a CI/CD pipeline documentation,document_creation
+create a feature flag usage guide,document_creation
+write a queue processing documentation,document_creation
+generate a health check endpoint specification,document_creation
+create a logging standards document,document_creation
+write a team process documentation,document_creation
+create an API deprecation notice,document_creation
+write a database connection guide,document_creation
+generate a system topology document,document_creation
+create a incident escalation procedure,document_creation
+write a configuration management guide,document_creation
+create a service dependency map document,document_creation
+write a rate limiting documentation,document_creation
+generate a deployment pipeline guide,document_creation
+create a access control documentation,document_creation
+write a batch processing guide,document_creation
+create a event schema documentation,document_creation
+write a plugin development guide,document_creation
+generate a metrics collection guide,document_creation
+create a tenant isolation documentation,document_creation
+write a data retention policy document,document_creation
+create a circuit breaker configuration guide,document_creation
+write a network security documentation,document_creation
+generate a resource quota guide,document_creation
+create a maintenance window procedure,document_creation
+write a API gateway configuration guide,document_creation
+create a observability stack documentation,document_creation
+write a container orchestration guide,document_creation
+generate a cross-service communication guide,document_creation
+create a performance baseline document,document_creation
+write a failover procedure documentation,document_creation
+translate this error message to English,translation
+put this into Chinese please,translation
+translate the README to Japanese,translation
+convert this technical document to French,translation
+translate the API docs to Spanish,translation
+help me translate this comment to Korean,translation
+translate this function documentation to German,translation
+put this error log message into English,translation
+translate the user interface strings to Portuguese,translation
+convert this changelog to Chinese,translation
+translate this commit message to English,translation
+help me write this in Japanese,translation
+translate the configuration comments to French,translation
+put this description in Spanish,translation
+translate this code comment to Chinese,translation
+convert the error messages to Korean,translation
+translate this documentation section to German,translation
+help me translate the variable names to English,translation
+translate this to Simplified Chinese,translation
+put this paragraph in French,translation
+translate the log messages to English,translation
+convert this specification to Japanese,translation
+translate the inline comments to Chinese,translation
+help me translate this to Traditional Chinese,translation
+translate the alert messages to Spanish,translation
+put this technical explanation in Korean,translation
+translate the help text to Portuguese,translation
+convert the README from Chinese to English,translation
+translate this status message to German,translation
+help me translate the labels to French,translation
+translate these button texts to Japanese,translation
+put the documentation in Chinese for our team,translation
+translate the release notes to Korean,translation
+convert this tutorial to Spanish,translation
+translate the warning messages to Chinese,translation
+help me write these comments in English,translation
+translate this API description to French,translation
+put this error description in German,translation
+translate the notification texts to Portuguese,translation
+convert this guide from English to Japanese,translation
+translate these field descriptions to Chinese,translation
+help me translate the tooltip text to Korean,translation
+translate the onboarding text to Spanish,translation
+put this changelog entry in French,translation
+translate the placeholder text to Chinese,translation
+convert these labels from Chinese to English,translation
+translate this configuration guide to German,translation
+help me translate the FAQ to Japanese,translation
+translate the terms of service to Portuguese,translation
+put this debug message in English,translation
+translate the menu items to Chinese,translation
+convert this document from Japanese to English,translation
+translate the error codes description to French,translation
+help me translate this paragraph to Spanish,translation
+translate the system messages to Korean,translation
+put these instructions in Chinese,translation
+translate the deployment guide to Japanese,translation
+convert this email template to German,translation
+translate the notification template to Chinese,translation
+help me translate this table header to English,translation
+translate the modal content to French,translation
+put this explanation in Portuguese,translation
+translate the breadcrumb labels to Chinese,translation
+convert these headings from English to Korean,translation
+translate this validation message to Spanish,translation
+help me translate the sidebar text to Japanese,translation
+translate the footer content to Chinese,translation
+put this section in German,translation
+translate these form labels to French,translation
+convert this page title to Portuguese,translation
+translate the privacy policy to Chinese,translation
+help me translate these commands to English,translation
+translate the progress messages to Korean,translation
+put this report in Spanish,translation
+translate the search placeholder to Chinese,translation
+convert this description from Korean to English,translation
+translate these status indicators to Japanese,translation
+help me translate the category names to French,translation
+translate the banner text to German,translation
+put these prompts in Chinese,translation
+translate this walkthrough to Portuguese,translation
+convert the section headers to Spanish,translation
+translate the empty state message to Chinese,translation
+help me put this in English clearly,translation
+translate the loading messages to Korean,translation
+put this summary in Japanese,translation
+translate these column headers to French,translation
+convert this paragraph from Spanish to English,translation
+translate the success message to Chinese,translation
+help me translate the dialog text to German,translation
+translate these action labels to Portuguese,translation
+put this notification in Korean,translation
+translate the description field to Chinese,translation
+convert this from Russian to English,translation
+translate the subtitle to Japanese,translation
+help me translate this sentence to French,translation
+translate the caption to Spanish,translation
+put this annotation in Chinese,translation
+translate these tags to English,translation
+convert this abstract to German,translation
+help me translate the instructions to Korean,translation
+translate the hint text to Portuguese,translation
+summarize this long log output,summarization
+give me a summary of the recent changes,summarization
+summarize the pull request discussion,summarization
+condense this error report into key points,summarization
+give me a TLDR of this document,summarization
+summarize what happened during the incident,summarization
+provide a brief overview of the code changes,summarization
+condense the meeting notes into action items,summarization
+summarize the test results,summarization
+give me the key takeaways from this analysis,summarization
+summarize this technical specification,summarization
+provide a short summary of the architecture,summarization
+condense the deployment log,summarization
+summarize the performance report,summarization
+give me bullet points of the main issues,summarization
+summarize what this module does,summarization
+provide a high-level overview of the codebase,summarization
+condense the changelog into highlights,summarization
+summarize the security audit findings,summarization
+give me the main points from the RFC,summarization
+summarize the database migration plan,summarization
+provide a brief of the infrastructure changes,summarization
+condense the user feedback into themes,summarization
+summarize the monitoring dashboard data,summarization
+give me an executive summary of the project status,summarization
+summarize the API breaking changes,summarization
+provide a quick overview of the dependencies,summarization
+condense the review comments,summarization
+summarize what went wrong in the outage,summarization
+give me key metrics from the report,summarization
+summarize the feature request discussion,summarization
+provide a recap of the sprint retrospective,summarization
+condense the system design into core concepts,summarization
+summarize the debugging session findings,summarization
+give me the highlights of the release,summarization
+summarize the configuration differences,summarization
+provide a digest of the alerts from today,summarization
+condense the benchmark results,summarization
+summarize the capacity planning analysis,summarization
+give me a brief of the dependency updates,summarization
+summarize the service health over the past week,summarization
+provide key findings from the load test,summarization
+condense the code review feedback,summarization
+summarize the migration strategy,summarization
+give me the gist of this thread,summarization
+summarize the compliance report,summarization
+provide a snapshot of the current system state,summarization
+condense the troubleshooting steps taken,summarization
+summarize the network topology changes,summarization
+give me the essential points from the postmortem,summarization
+summarize what the team accomplished this week,summarization
+provide a brief of the risk assessment,summarization
+condense the stakeholder feedback,summarization
+summarize the cost analysis results,summarization
+give me a quick rundown of the pipeline stages,summarization
+summarize the error patterns we are seeing,summarization
+provide a digest of the security vulnerabilities,summarization
+condense the operational runbook,summarization
+summarize the on-call handoff notes,summarization
+give me key observations from the profiling data,summarization
+summarize the cluster health report,summarization
+provide a brief of the scaling events,summarization
+condense the incident timeline,summarization
+summarize the regression test results,summarization
+give me the main conclusions from the analysis,summarization
+summarize the deployment verification results,summarization
+provide a recap of the design discussion,summarization
+condense the environment differences,summarization
+summarize the data quality report,summarization
+give me key insights from the user metrics,summarization
+summarize the access audit log,summarization
+provide a brief of the network changes,summarization
+condense the service integration details,summarization
+summarize the cross-team dependencies,summarization
+give me highlights from the monthly report,summarization
+summarize the failover test results,summarization
+provide a quick summary of the DNS changes,summarization
+condense the container resource usage,summarization
+summarize the queue processing metrics,summarization
+give me the bottom line of this investigation,summarization
+summarize the certificate audit,summarization
+provide a recap of the upgrade process,summarization
+condense the performance comparison,summarization
+summarize the storage utilization report,summarization
+give me the key differences between these configs,summarization
+summarize the automated test coverage,summarization
+provide a brief of the cache performance,summarization
+condense the API usage patterns,summarization
+summarize the thread dump analysis,summarization
+give me highlights from the vulnerability scan,summarization
+summarize the backup verification results,summarization
+provide a snapshot of the build health,summarization
+condense the rate limiting impact analysis,summarization
+summarize the latency distribution data,summarization
+give me a brief of the rollback decision,summarization
+summarize the resource allocation changes,summarization
+provide key learnings from the experiment,summarization
+condense the service discovery status,summarization
+summarize the traffic routing changes,summarization

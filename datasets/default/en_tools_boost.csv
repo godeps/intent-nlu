@@ -1,0 +1,247 @@
+text,intent
+search for this online,web_search
+look this up for me,web_search
+find this on the web,web_search
+google this,web_search
+search the internet,web_search
+look it up online,web_search
+find out about this,web_search
+search for documentation,web_search
+look up the docs,web_search
+find the reference,web_search
+search how to do this,web_search
+look up this error,web_search
+find an article about this,web_search
+search for a solution,web_search
+look up the answer,web_search
+find examples online,web_search
+search for tutorials,web_search
+look up best practices,web_search
+find the specification,web_search
+search for alternatives,web_search
+look up the API reference,web_search
+find recent news about this,web_search
+search for benchmarks,web_search
+look up compatibility info,web_search
+find a guide for this,web_search
+search for release notes,web_search
+look up pricing information,web_search
+find the changelog,web_search
+search for known issues,web_search
+look up supported versions,web_search
+find the migration guide,web_search
+search for performance tips,web_search
+look up configuration options,web_search
+find security advisories,web_search
+search for community discussions,web_search
+look up troubleshooting steps,web_search
+find related libraries,web_search
+search for code examples,web_search
+look up the license,web_search
+find system requirements,web_search
+search for plugins,web_search
+look up platform support,web_search
+find upgrade instructions,web_search
+search for workarounds,web_search
+look up deprecation notices,web_search
+find comparison charts,web_search
+search for integration guides,web_search
+look up error codes,web_search
+find deployment docs,web_search
+search for architecture patterns,web_search
+what does this error mean,web_search
+where can I find docs for this,web_search
+is there a guide for this,web_search
+what is the latest version of,web_search
+how do other people solve this,web_search
+what are the options for,web_search
+where is the official documentation,web_search
+can you find info about,web_search
+what does the spec say about,web_search
+any articles on this topic,web_search
+code this function,coding_assist
+fix this bug,coding_assist
+debug this error,coding_assist
+write this code,coding_assist
+implement this feature,coding_assist
+refactor this,coding_assist
+optimize this function,coding_assist
+add error handling here,coding_assist
+create this class,coding_assist
+build this module,coding_assist
+fix the test,coding_assist
+run the tests,coding_assist
+compile this,coding_assist
+execute this script,coding_assist
+write a test for this,coding_assist
+add logging here,coding_assist
+fix the type error,coding_assist
+resolve this import error,coding_assist
+make this function async,coding_assist
+add validation logic,coding_assist
+fix the null check,coding_assist
+handle this edge case,coding_assist
+extract this into a function,coding_assist
+simplify this code,coding_assist
+add retry logic,coding_assist
+fix the race condition,coding_assist
+implement the interface,coding_assist
+write the migration,coding_assist
+create the endpoint,coding_assist
+add the middleware,coding_assist
+fix the memory leak,coding_assist
+write a helper function,coding_assist
+add input validation,coding_assist
+fix the infinite loop,coding_assist
+implement caching here,coding_assist
+add timeout handling,coding_assist
+fix the encoding issue,coding_assist
+write the parser,coding_assist
+create the schema,coding_assist
+add pagination support,coding_assist
+fix the deadlock,coding_assist
+implement the queue,coding_assist
+write the serializer,coding_assist
+fix the segfault,coding_assist
+add authentication,coding_assist
+implement rate limiting,coding_assist
+fix this crash,coding_assist
+write the config loader,coding_assist
+add connection pooling,coding_assist
+fix the timeout,coding_assist
+implement the scheduler,coding_assist
+write a benchmark,coding_assist
+fix the performance issue,coding_assist
+add batch processing,coding_assist
+implement the cache,coding_assist
+write the validator,coding_assist
+fix the flaky test,coding_assist
+add health check,coding_assist
+implement graceful shutdown,coding_assist
+write the converter,coding_assist
+fix the data corruption,coding_assist
+add metrics collection,coding_assist
+analyze this data,data_analysis
+show me the statistics,data_analysis
+what are the metrics,data_analysis
+count the occurrences,data_analysis
+calculate the average,data_analysis
+find the outliers,data_analysis
+compute the percentile,data_analysis
+aggregate the results,data_analysis
+show trends over time,data_analysis
+find the distribution,data_analysis
+calculate the rate,data_analysis
+what is the error rate,data_analysis
+show usage patterns,data_analysis
+count failures by type,data_analysis
+compute throughput,data_analysis
+find peak times,data_analysis
+show the breakdown,data_analysis
+calculate uptime,data_analysis
+find correlations,data_analysis
+analyze performance,data_analysis
+show resource usage,data_analysis
+count requests per second,data_analysis
+find the bottleneck,data_analysis
+compute latency stats,data_analysis
+show error distribution,data_analysis
+analyze traffic patterns,data_analysis
+count active users,data_analysis
+find top consumers,data_analysis
+calculate growth rate,data_analysis
+show the comparison,data_analysis
+analyze response times,data_analysis
+count by category,data_analysis
+find the anomalies,data_analysis
+compute the ratio,data_analysis
+show daily stats,data_analysis
+analyze the logs,data_analysis
+count events per hour,data_analysis
+find trends in errors,data_analysis
+calculate cost per unit,data_analysis
+show capacity usage,data_analysis
+analyze the timeline,data_analysis
+count unique values,data_analysis
+find slow queries,data_analysis
+compute success rate,data_analysis
+show weekly comparison,data_analysis
+analyze memory patterns,data_analysis
+count retries by service,data_analysis
+find resource hogs,data_analysis
+calculate bandwidth usage,data_analysis
+show the histogram,data_analysis
+analyze failure modes,data_analysis
+count by status code,data_analysis
+find the median,data_analysis
+compute variance,data_analysis
+show cluster stats,data_analysis
+analyze build times,data_analysis
+count deployments,data_analysis
+find regression points,data_analysis
+calculate efficiency,data_analysis
+show queue depth,data_analysis
+analyze disk usage,data_analysis
+count timeouts,data_analysis
+find utilization gaps,data_analysis
+summarize this,summarization
+give me a summary,summarization
+what is the gist,summarization
+TLDR please,summarization
+brief me on this,summarization
+summarize the changes,summarization
+give me the highlights,summarization
+what happened in short,summarization
+condense this for me,summarization
+give me key points,summarization
+summarize the output,summarization
+what are the main takeaways,summarization
+brief overview please,summarization
+sum it up,summarization
+give me the bottom line,summarization
+summarize the discussion,summarization
+what is the conclusion,summarization
+recap this for me,summarization
+give me the essentials,summarization
+what is important here,summarization
+summarize the findings,summarization
+give me a quick rundown,summarization
+what changed,summarization
+condensed version please,summarization
+give me bullet points,summarization
+summarize the report,summarization
+what are the key facts,summarization
+brief summary please,summarization
+give me the short version,summarization
+what is the outcome,summarization
+summarize the results,summarization
+give me the digest,summarization
+what is the verdict,summarization
+recap the main points,summarization
+give me the executive summary,summarization
+summarize the conversation,summarization
+what are the action items,summarization
+brief me on the status,summarization
+give me the overview,summarization
+what is the upshot,summarization
+summarize this thread,summarization
+give me key findings,summarization
+what is the summary,summarization
+condense the discussion,summarization
+give me the punch line,summarization
+summarize the incident,summarization
+what is the core message,summarization
+brief recap please,summarization
+give me a snapshot,summarization
+what are the learnings,summarization
+summarize the analysis,summarization
+give me main conclusions,summarization
+what is the TL;DR,summarization
+recap the events,summarization
+give me the skinny,summarization
+summarize the metrics,summarization
+what stood out,summarization
+brief the team on this,summarization
+give me the abstract,summarization
+what is the net result,summarization
+summarize the review,summarization
