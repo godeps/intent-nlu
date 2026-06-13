@@ -63,12 +63,15 @@ Fine-grained chitchat classification from chatterbot corpus:
 
 1. Optional deterministic rule matching (keywords, regex).
 2. NLU prediction (`Engine` or `Router`).
-3. If matched with confidence above threshold, return deterministic route/skill intent.
-4. If unknown/low confidence, go fallback path (typically call LLM).
+3. In direct-routing mode, accept only intents above threshold.
+4. In candidate mode, return TopK ranked intents/tools and keep LLM/tool-planner final selection.
+5. If no direct route is accepted, go fallback path with candidates attached.
 
 ### 2) Fallback/LLM phase
 
 `intent-nlu` does not replace LLM generation; it decides when to skip/route/escalate.
+For tool planning, NLU is usually a high-recall candidate generator rather than
+the final authority.
 
 ### 3) Feedback phase
 
@@ -89,6 +92,7 @@ Prediction logs + human labels are fed into `cmd/intent-nlu-feedback`:
    - accuracy
    - macro/micro F1
    - per-intent precision/recall/F1
+   - per-intent Top1/Top3/Top5 candidate recall
    - confusion matrix
 8. Save model and metadata.
 
@@ -142,8 +146,8 @@ The training script (`scripts/train_chatterbot_models.sh`) automatically discove
 2. Bayesian model is easy to train/deploy, but needs quality labels for domain intents.
 3. Cross-language routing fallback improves robustness for short/mixed input, with small extra compute.
 4. Taxonomy normalization can reduce intent drift, but default is disabled during training to preserve fine-grained classes. Aliases are applied at inference time.
-5. Skill/tool routing precision is prioritized over recall — false negatives fall to keyword rules or LLM fallback, while false positives would trigger expensive operations.
-6. Tool routing intents have near-perfect precision (0.9-1.0) but moderate recall (0.4-0.7 for some classes). This is by design: the NLU works alongside keyword matchers in the skill activation system (`NLUMatcher` score formula: `0.50 + 0.35 * confidence`), so missed NLU predictions are caught by keyword matching.
+5. Skill/tool routing has two operating modes: direct execution prioritizes precision, while LLM/tool-planner handoff prioritizes TopK candidate recall.
+6. Candidate mode intentionally tolerates lower precision because the downstream LLM or policy layer makes the final choice. Missing a plausible tool candidate is usually worse than offering one extra candidate.
 
 ## Integration Pattern
 
@@ -152,5 +156,5 @@ Recommended production chain:
 1. `HybridPolicy` orchestrates all layers
 2. Layer 1: NLU inference (`Router`) — primary, handles paraphrased/colloquial input
 3. Layer 2: Deterministic rules — safety net for keyword matches
-4. Layer 3: Fallback — call LLM/tool planner
+4. Layer 3: Candidate handoff — call LLM/tool planner with ranked `Prediction.Candidates`
 5. Capture feedback and retrain periodically

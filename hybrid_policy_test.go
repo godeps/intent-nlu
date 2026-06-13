@@ -133,4 +133,19 @@ func TestHybridPolicyRuleNLUAndFallback(t *testing.T) {
 	if dec.Route != HybridRouteFallback || dec.Intent != DefaultUnknownIntent || !dec.ShouldCallLLM {
 		t.Fatalf("unexpected fallback decision: %+v", dec)
 	}
+
+	dec, err = policy.Decide(context.Background(), "明天是星期几", PredictOptions{
+		TopK:          2,
+		MinConfidence: 0.999,
+		CandidateMode: true,
+	})
+	if err != nil {
+		t.Fatalf("Decide(candidate mode) failed: %v", err)
+	}
+	if dec.Route != HybridRouteCandidate || !dec.ShouldCallLLM {
+		t.Fatalf("expected candidate route for LLM handoff, got %+v", dec)
+	}
+	if dec.Prediction.Intent == DefaultUnknownIntent || len(dec.Prediction.Candidates) == 0 {
+		t.Fatalf("expected ranked candidates for LLM handoff, got %+v", dec.Prediction)
+	}
 }

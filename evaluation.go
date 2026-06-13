@@ -330,8 +330,10 @@ func evaluateClassifier(
 
 	correct := 0
 	unknownCount := 0
+	candidateHits := make(map[string]candidateStats, len(classes))
 	for _, sample := range samples {
 		bestClass, probs, _ := classifier.ClassifyProb(sample.Tokens)
+		updateCandidateStats(candidateHits, classifier, sample.Intent, probs)
 		predictedIntent := string(bestClass)
 		bestScore := 0.0
 		for i, cls := range classifier.Classes {
@@ -385,13 +387,19 @@ func evaluateClassifier(
 		st := allStats[intent]
 		precision, recall, f1 := precisionRecallF1(st.tp, st.fp, st.fn)
 		report.PerIntent[intent] = ClassMetrics{
-			Precision: precision,
-			Recall:    recall,
-			F1:        f1,
-			Support:   st.support,
-			TP:        st.tp,
-			FP:        st.fp,
-			FN:        st.fn,
+			Precision:       precision,
+			Recall:          recall,
+			F1:              f1,
+			Top1Recall:      candidateHits[intent].recallAt(1),
+			Top3Recall:      candidateHits[intent].recallAt(3),
+			Top5Recall:      candidateHits[intent].recallAt(5),
+			Support:         st.support,
+			TP:              st.tp,
+			FP:              st.fp,
+			FN:              st.fn,
+			Top1CandidateTP: candidateHits[intent].top1,
+			Top3CandidateTP: candidateHits[intent].top3,
+			Top5CandidateTP: candidateHits[intent].top5,
 		}
 		totalTP += st.tp
 		totalFP += st.fp
@@ -410,6 +418,26 @@ func evaluateClassifier(
 
 type intentStats struct {
 	tp, fp, fn, support int
+}
+
+type candidateStats struct {
+	top1, top3, top5, support int
+}
+
+func (s candidateStats) recallAt(k int) float64 {
+	if s.support == 0 {
+		return 0
+	}
+	switch k {
+	case 1:
+		return float64(s.top1) / float64(s.support)
+	case 3:
+		return float64(s.top3) / float64(s.support)
+	case 5:
+		return float64(s.top5) / float64(s.support)
+	default:
+		return 0
+	}
 }
 
 func computeAllConfusionStats(confusion map[string]map[string]int) map[string]intentStats {
@@ -435,6 +463,48 @@ func computeAllConfusionStats(confusion map[string]map[string]int) map[string]in
 		}
 	}
 	return result
+}
+
+func updateCandidateStats(stats map[string]candidateStats, classifier *bayesian.Classifier, actualIntent string, probs []float64) {
+	if classifier == nil || len(probs) != len(classifier.Classes) {
+		return
+	}
+	actualScore := 0.0
+	found := false
+	for i, cls := range classifier.Classes {
+		if string(cls) == actualIntent {
+			actualScore = probs[i]
+			found = true
+			break
+		}
+	}
+	if !found {
+		return
+	}
+
+	rank := 1
+	for i, score := range probs {
+		intent := string(classifier.Classes[i])
+		if intent == actualIntent {
+			continue
+		}
+		if score > actualScore || (score == actualScore && intent < actualIntent) {
+			rank++
+		}
+	}
+
+	st := stats[actualIntent]
+	st.support++
+	if rank <= 1 {
+		st.top1++
+	}
+	if rank <= 3 {
+		st.top3++
+	}
+	if rank <= 5 {
+		st.top5++
+	}
+	stats[actualIntent] = st
 }
 
 func precisionRecallF1(tp, fp, fn int) (precision, recall, f1 float64) {

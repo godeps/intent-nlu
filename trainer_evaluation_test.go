@@ -93,6 +93,9 @@ func TestTrainWithSplitCalibrationAndTaxonomy(t *testing.T) {
 	if report := meta.Evaluation["val"]; report.Samples == 0 {
 		t.Fatalf("val report samples should be > 0")
 	}
+	if report := meta.Evaluation["train"]; report.PerIntent["calendar_info"].Top3Recall <= 0 {
+		t.Fatalf("expected candidate recall metrics in train report: %+v", report.PerIntent["calendar_info"])
+	}
 
 	if _, ok := meta.Thresholds["calendar_info"]; !ok {
 		t.Fatalf("missing canonical threshold calendar_info: %+v", meta.Thresholds)

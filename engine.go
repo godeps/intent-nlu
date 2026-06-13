@@ -82,7 +82,11 @@ func (e *Engine) Predict(_ context.Context, text string, opts PredictOptions) (P
 	}
 
 	if opts.TopK <= 0 {
-		opts.TopK = 3
+		if opts.CandidateMode {
+			opts.TopK = 5
+		} else {
+			opts.TopK = 3
+		}
 	}
 	tokens := state.tokenizer.Tokenize(text)
 	if len(tokens) == 0 {
@@ -133,7 +137,7 @@ func (e *Engine) Predict(_ context.Context, text string, opts PredictOptions) (P
 	if opts.MinConfidence > 0 {
 		threshold = opts.MinConfidence
 	}
-	if opts.IgnoreThreshold {
+	if opts.IgnoreThreshold || opts.CandidateMode {
 		threshold = 0
 	}
 

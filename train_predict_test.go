@@ -69,6 +69,20 @@ func TestTrainSaveLoadPredict_ZH(t *testing.T) {
 	if pred3.Matched || pred3.Intent != DefaultUnknownIntent {
 		t.Fatalf("expected unknown intent with high threshold, got %+v", pred3)
 	}
+	if len(pred3.Candidates) == 0 {
+		t.Fatalf("expected candidates to remain available below threshold")
+	}
+
+	pred4, err := engine.Predict(context.Background(), "随便聊聊天", PredictOptions{TopK: 2, MinConfidence: 0.999, CandidateMode: true})
+	if err != nil {
+		t.Fatalf("Predict candidate mode failed: %v", err)
+	}
+	if !pred4.Matched || pred4.Intent == DefaultUnknownIntent {
+		t.Fatalf("candidate mode should keep the best candidate accepted, got %+v", pred4)
+	}
+	if len(pred4.Candidates) == 0 {
+		t.Fatalf("candidate mode should return ranked candidates")
+	}
 }
 
 func TestTrainPredictSkillRouting_ZH(t *testing.T) {

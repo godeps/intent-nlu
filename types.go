@@ -23,7 +23,9 @@ type Candidate struct {
 	Score  float64 `json:"score"`
 }
 
-// Prediction is one inference result.
+// Prediction is one inference result. Candidates are always the raw ranked
+// intent hypotheses before threshold rejection, so callers can pass them to an
+// LLM/tool planner even when Intent is unknown.
 type Prediction struct {
 	Intent      string      `json:"intent"`
 	Language    string      `json:"language,omitempty"`
@@ -137,19 +139,29 @@ func DefaultTrainConfig() TrainConfig {
 type PredictOptions struct {
 	TopK            int
 	LanguageHint    string
-	MinConfidence   float64 // if > 0, override model threshold
+	MinConfidence   float64 // if > 0, override model threshold for direct routing
 	IgnoreThreshold bool
+	// CandidateMode favors recall for LLM/tool-planner handoff. It keeps the
+	// best intent accepted regardless of threshold while still returning TopK
+	// candidates for downstream final selection.
+	CandidateMode bool
 }
 
 // ClassMetrics describes one intent evaluation result.
 type ClassMetrics struct {
-	Precision float64 `json:"precision"`
-	Recall    float64 `json:"recall"`
-	F1        float64 `json:"f1"`
-	Support   int     `json:"support"`
-	TP        int     `json:"tp"`
-	FP        int     `json:"fp"`
-	FN        int     `json:"fn"`
+	Precision       float64 `json:"precision"`
+	Recall          float64 `json:"recall"`
+	F1              float64 `json:"f1"`
+	Top1Recall      float64 `json:"top1Recall,omitempty"`
+	Top3Recall      float64 `json:"top3Recall,omitempty"`
+	Top5Recall      float64 `json:"top5Recall,omitempty"`
+	Support         int     `json:"support"`
+	TP              int     `json:"tp"`
+	FP              int     `json:"fp"`
+	FN              int     `json:"fn"`
+	Top1CandidateTP int     `json:"top1CandidateTp,omitempty"`
+	Top3CandidateTP int     `json:"top3CandidateTp,omitempty"`
+	Top5CandidateTP int     `json:"top5CandidateTp,omitempty"`
 }
 
 // EvalReport describes evaluation metrics for one split.

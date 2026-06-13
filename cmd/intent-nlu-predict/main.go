@@ -22,6 +22,7 @@ func main() {
 		langHint      string
 		topK          int
 		minConfidence float64
+		candidateMode bool
 	)
 
 	flag.StringVar(&modelDir, "model", "", "single model directory containing model.gob and meta.json")
@@ -31,6 +32,7 @@ func main() {
 	flag.StringVar(&langHint, "lang", "auto", "language hint for routing (auto/zh/en/ja/ko)")
 	flag.IntVar(&topK, "topk", 3, "number of candidates to output")
 	flag.Float64Var(&minConfidence, "min-confidence", 0, "optional threshold override")
+	flag.BoolVar(&candidateMode, "candidate-mode", false, "favor candidate recall for downstream LLM/tool-planner selection")
 	flag.Parse()
 
 	if strings.TrimSpace(text) == "" {
@@ -49,6 +51,7 @@ func main() {
 		TopK:          topK,
 		MinConfidence: minConfidence,
 		LanguageHint:  langHint,
+		CandidateMode: candidateMode,
 	}
 
 	var (

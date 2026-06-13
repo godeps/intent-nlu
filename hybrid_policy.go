@@ -8,9 +8,10 @@ import (
 )
 
 const (
-	HybridRouteRule     = "rule"
-	HybridRouteNLU      = "nlu"
-	HybridRouteFallback = "fallback"
+	HybridRouteRule      = "rule"
+	HybridRouteNLU       = "nlu"
+	HybridRouteCandidate = "candidate"
+	HybridRouteFallback  = "fallback"
 )
 
 // DeterministicRule defines one pre-NLU deterministic route rule.
@@ -34,7 +35,9 @@ type HybridDecision struct {
 	ShouldCallLLM bool       `json:"shouldCallLLM"`
 }
 
-// HybridPolicy combines deterministic rules + NLU + fallback.
+// HybridPolicy combines deterministic rules + NLU + fallback. With
+// PredictOptions.CandidateMode, NLU is used as a high-recall candidate
+// generator and the final decision is left to the downstream LLM/tool planner.
 type HybridPolicy struct {
 	Rules         []DeterministicRule
 	Router        *Router
@@ -117,6 +120,14 @@ func (p *HybridPolicy) Decide(ctx context.Context, text string, opts PredictOpti
 	}
 	if err != nil {
 		return HybridDecision{}, err
+	}
+	if opts.CandidateMode {
+		return HybridDecision{
+			Route:         HybridRouteCandidate,
+			Intent:        pred.Intent,
+			Prediction:    pred,
+			ShouldCallLLM: true,
+		}, nil
 	}
 	if pred.Matched && pred.Intent != p.UnknownIntent {
 		return HybridDecision{

@@ -244,15 +244,15 @@ Applied at inference time via `NormalizeIntent()`:
 | Japanese | `ja` | No (train yourself) | Yes | language detection supported |
 | Korean | `ko` | No (train yourself) | Yes | language detection supported |
 
-### Recommended Confidence Thresholds
+### Routing Modes and Thresholds
 
-| Use Case | Suggested Threshold | Behavior |
+| Mode | Suggested Settings | Behavior |
 | --- | --- | --- |
-| Strict skill routing (high precision) | `0.75 - 0.85` | Only high-confidence intents accepted; fallback increases |
-| Business routing (balanced) | `0.60 - 0.70` | Good default for production intent dispatch |
-| Default baseline | `0.55` | Current training default if no per-intent override |
-| Recall-first exploration | `0.40 - 0.55` | More matched intents, but more false positives |
-| Uncertain intent | `< threshold` => `unknown` | Route to fallback or LLM |
+| Candidate handoff to LLM/tool planner | `CandidateMode: true`, `TopK: 3-5` | Prioritizes recall; possible tools remain visible for final LLM selection |
+| Direct tool execution | `0.75 - 0.85` threshold | Prioritizes precision; only high-confidence intents execute without LLM review |
+| Business routing (balanced) | `0.60 - 0.70` threshold | Good default for deterministic intent dispatch |
+| Default baseline | `0.55` threshold | Current training default if no per-intent override |
+| Uncertain direct route | `< threshold` => `unknown` | Keep `Candidates`; route to fallback or LLM |
 
 ### Operational Notes
 
@@ -262,6 +262,7 @@ Applied at inference time via `NormalizeIntent()`:
 | Corpus bias | chatterbot data is mostly chitchat | Always mix business/skill routing CSV for production tasks |
 | Multilingual routing | Short/mixed text can route wrong language | Use language hint for critical paths |
 | Threshold drift | Retraining changes confidence distribution | Re-calibrate thresholds and compare `eval/*.json` every release |
+| Tool candidate loss | High thresholds can hide plausible tools from LLM planners | Use `CandidateMode` and monitor TopK candidate recall |
 | Embedded bundle updates | New models require dependency rebuild | Pin model version and release notes with each update |
 
 ## Training Workflows
@@ -342,6 +343,17 @@ GOWORK=off go run ./cmd/intent-nlu-predict \
   -text "帮我做个产品视频" \
   -lang auto \
   -topk 3
+```
+
+Recall-first candidate output for LLM/tool-planner selection:
+
+```bash
+GOWORK=off go run ./cmd/intent-nlu-predict \
+  -bundle ./models/multilingual \
+  -text "maybe look this up and summarize it" \
+  -lang auto \
+  -topk 5 \
+  -candidate-mode
 ```
 
 ### Multi-model map
@@ -450,7 +462,19 @@ pred, err := router.Predict(context.Background(), "create a 3D model", intentnlu
 // pred.Intent == "creative_3d"
 ```
 
-### Hybrid Policy (rules -> NLU -> fallback)
+For LLM/tool-planner handoff, prefer recall-first candidates:
+
+```go
+pred, err := router.Predict(context.Background(), userText, intentnlu.PredictOptions{
+    TopK:          5,
+    LanguageHint:  "auto",
+    CandidateMode: true,
+})
+// pred.Candidates contains the ranked possible tools/intents even when a
+// direct-routing threshold would have rejected the top intent.
+```
+
+### Hybrid Policy (rules -> NLU -> candidate/fallback)
 
 ```go
 policy := &intentnlu.HybridPolicy{
@@ -461,8 +485,11 @@ policy := &intentnlu.HybridPolicy{
 }
 _ = policy.Prepare() // taxonomy normalizes: "video_production" -> "creative_video"
 
-decision, err := policy.Decide(context.Background(), userText, intentnlu.PredictOptions{TopK: 3})
-// decision.Route: rule | nlu | fallback
+decision, err := policy.Decide(context.Background(), userText, intentnlu.PredictOptions{
+    TopK:          5,
+    CandidateMode: true,
+})
+// decision.Route: rule | nlu | candidate | fallback
 // decision.ShouldCallLLM tells whether to continue into LLM
 ```
 
@@ -470,7 +497,7 @@ decision, err := policy.Decide(context.Background(), userText, intentnlu.Predict
 
 1. `chatterbot-corpus` is mostly chitchat; business and skill routing intents need curated data.
 2. Multilingual bundle is a packaging format, not one fused multilingual classifier.
-3. Keep thresholds and split seed stable for comparable offline evaluation.
+3. For LLM final selection, optimize TopK candidate recall before single-label precision.
 4. Generated artifacts can grow quickly; plan storage strategy by environment.
 
 ## Commands Summary

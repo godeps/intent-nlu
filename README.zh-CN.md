@@ -244,15 +244,15 @@ make train
 | 日文 | `ja` | 否（需自行训练） | 是 | 支持语言识别 |
 | 韩文 | `ko` | 否（需自行训练） | 是 | 支持语言识别 |
 
-### 推荐置信度阈值
+### 路由模式与阈值
 
-| 使用场景 | 推荐阈值 | 说明 |
+| 模式 | 推荐设置 | 说明 |
 | --- | --- | --- |
-| 严格技能路由（高精度） | `0.75 - 0.85` | 只接受高置信度意图，兜底增加 |
-| 业务路由（精度/召回平衡） | `0.60 - 0.70` | 生产环境常用区间 |
-| 默认基线 | `0.55` | 当前训练默认阈值 |
-| 召回优先 | `0.40 - 0.55` | 召回更高，误判上升 |
-| 不确定输入 | `< 阈值 -> unknown` | 进入 fallback 或 LLM |
+| 候选交给 LLM/工具规划器 | `CandidateMode: true`、`TopK: 3-5` | 召回优先，可能相关的工具都保留给 LLM 最终选择 |
+| 直接执行工具 | `0.75 - 0.85` 阈值 | 精确率优先，只让高置信度意图跳过 LLM 直接执行 |
+| 业务路由（精度/召回平衡） | `0.60 - 0.70` 阈值 | 生产环境常用区间 |
+| 默认基线 | `0.55` 阈值 | 当前训练默认阈值 |
+| 不确定直接路由 | `< 阈值 -> unknown` | 保留 `Candidates`，进入 fallback 或 LLM |
 
 ### 运行注意事项
 
@@ -262,6 +262,7 @@ make train
 | 语料偏置 | chatterbot 以闲聊为主 | 生产必须叠加业务/技能路由标注数据 |
 | 多语言路由 | 超短文本/混合文本易误路由 | 关键链路建议传入 language hint |
 | 阈值漂移 | 重训后置信度分布变化 | 每次发布对比 `eval/*.json` 并重校准 |
+| 工具候选丢失 | 高阈值会让 LLM 看不到可能相关工具 | 使用 `CandidateMode`，并关注 TopK candidate recall |
 | 内嵌模型更新 | 更新模型需升级依赖重编译 | 固定版本并在发布说明中标注模型版本 |
 
 ## 训练方式
@@ -342,6 +343,17 @@ GOWORK=off go run ./cmd/intent-nlu-predict \
   -text "帮我做个产品视频" \
   -lang auto \
   -topk 3
+```
+
+给 LLM/工具规划器使用的召回优先候选输出：
+
+```bash
+GOWORK=off go run ./cmd/intent-nlu-predict \
+  -bundle ./models/multilingual \
+  -text "可能需要查一下并总结" \
+  -lang auto \
+  -topk 5 \
+  -candidate-mode
 ```
 
 ### 多模型映射
@@ -447,7 +459,18 @@ pred, err := router.Predict(context.Background(), "create a 3D model", intentnlu
 // pred.Intent == "creative_3d"
 ```
 
-### Hybrid Policy（规则 -> NLU -> 兜底）
+如果下游由 LLM/工具规划器做最终选择，优先使用召回候选模式：
+
+```go
+pred, err := router.Predict(context.Background(), userText, intentnlu.PredictOptions{
+    TopK:          5,
+    LanguageHint:  "auto",
+    CandidateMode: true,
+})
+// pred.Candidates 会保留排序后的可能工具/意图，即使直接路由阈值本来会拒绝 top intent。
+```
+
+### Hybrid Policy（规则 -> NLU -> 候选/兜底）
 
 ```go
 policy := &intentnlu.HybridPolicy{
@@ -458,8 +481,11 @@ policy := &intentnlu.HybridPolicy{
 }
 _ = policy.Prepare() // taxonomy 归一: "video_production" -> "creative_video"
 
-decision, err := policy.Decide(context.Background(), userText, intentnlu.PredictOptions{TopK: 3})
-// decision.Route: rule | nlu | fallback
+decision, err := policy.Decide(context.Background(), userText, intentnlu.PredictOptions{
+    TopK:          5,
+    CandidateMode: true,
+})
+// decision.Route: rule | nlu | candidate | fallback
 // decision.ShouldCallLLM 表示是否进入 LLM
 ```
 
@@ -467,7 +493,7 @@ decision, err := policy.Decide(context.Background(), userText, intentnlu.Predict
 
 1. `chatterbot-corpus` 主要是闲聊语料，业务和技能路由意图需要补充自有标注数据。
 2. 多语言 bundle 是"多模型打包"，不是"单模型融合"。
-3. 固定阈值、分割比例和 seed，才能做可比离线评估。
+3. 如果由 LLM 最终选择工具，优先优化 TopK 候选召回，而不是单标签精确率。
 4. 训练与模型产物会增长较快，建议按环境规划存储策略。
 
 ## 常用命令
